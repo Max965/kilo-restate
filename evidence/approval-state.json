@@ -1,0 +1,1 @@
+{"rows":[{"service_name":"Approval","service_key":"approval-1","key":"approved-effect","value_utf8":"{\"effect\":\"set durable approved-effect state\",\"approvedAt\":\"2026-10-03T15:47:20.204Z\",\"exactlyOnceKey\":\"approval-1\"}"}]}

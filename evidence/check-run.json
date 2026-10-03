@@ -1,0 +1,44 @@
+{
+  "read": {
+    "text": "initial content\n",
+    "target": "/home/miles/repos/agent-harnesses/kilo-restate/workspace/sample.txt"
+  },
+  "edit": {
+    "target": "/home/miles/repos/agent-harnesses/kilo-restate/workspace/sample.txt",
+    "changed": true
+  },
+  "bash": {
+    "stdout": "bash-result",
+    "stderr": "",
+    "code": 0,
+    "cwd": "/home/miles/repos/agent-harnesses/kilo-restate/workspace"
+  },
+  "tree": {
+    "nodeA": "A",
+    "parentInvocationId": "inv_14Lx7vJwbVjv68xV8GPFxAAAheHpck0Bl1",
+    "nodeB": "B",
+    "childInvocationId": "inv_168BQPq20T9h3hL1tIPO6xHrO88aVmFIVb",
+    "child": {
+      "nodeId": "B",
+      "parentNodeId": "A",
+      "actorId": null,
+      "sessionId": null,
+      "actorAttempt": null,
+      "toolCallId": null,
+      "invocationId": "inv_168BQPq20T9h3hL1tIPO6xHrO88aVmFIVb",
+      "operation": "read",
+      "args": {
+        "path": "sample.txt"
+      },
+      "admission": "probe-allow",
+      "result": {
+        "text": "edited by Restate\n\n",
+        "target": "/home/miles/repos/agent-harnesses/kilo-restate/workspace/sample.txt"
+      },
+      "failure": null,
+      "startedAt": "2026-10-03T16:00:56.217Z",
+      "settledAt": "2026-10-03T16:00:56.298Z"
+    },
+    "settlement": "completed"
+  }
+}

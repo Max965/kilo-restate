@@ -1,0 +1,3 @@
+- Read `sample.txt`: it contained `updated via Pi exact core names`.
+- Replaced that text with `final Pi result` successfully.
+- Ran `printf final-bash-check`; it exited with code 0 and printed `final-bash-check`.

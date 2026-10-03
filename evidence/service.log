@@ -1,0 +1,147 @@
+
+> service
+> tsx probe/service.ts
+
+[restate][2026-10-03T15:40:26.128Z] INFO: Restate SDK started listening on 9080...
+[restate][2026-10-03T15:40:26.129Z] WARN: Accepting requests without validating request signatures; handler access must be restricted
+[restate][2026-10-03T15:41:37.634Z][KiloNode/pi-read/run][inv_10Izf3E1y7bw7EpntnRSiLXkm8VRNlEt0l] INFO: Starting invocation.
+[restate][2026-10-03T15:41:37.735Z][KiloNode/pi-read/run][inv_10Izf3E1y7bw7EpntnRSiLXkm8VRNlEt0l] INFO: Invocation completed successfully.
+[restate][2026-10-03T15:41:37.799Z][KiloNode/pi-edit/run][inv_11nxAeMcFEOB5IuOx7bJ71FUwZF5P00ehE] INFO: Starting invocation.
+[restate][2026-10-03T15:41:37.891Z][KiloNode/pi-edit/run][inv_11nxAeMcFEOB5IuOx7bJ71FUwZF5P00ehE] INFO: Invocation completed successfully.
+[restate][2026-10-03T15:41:37.951Z][KiloNode/pi-bash/run][inv_14FtqkWZ2ADR3MjkryhqUrSMUJsqxodcLb] INFO: Starting invocation.
+[restate][2026-10-03T15:41:38.045Z][KiloNode/pi-bash/run][inv_14FtqkWZ2ADR3MjkryhqUrSMUJsqxodcLb] INFO: Invocation completed successfully.
+[restate][2026-10-03T15:41:38.100Z][KiloNode/parent-A/parentChild][inv_11QLvBHviPmz6wjf759bvLsceaSNc7cMXJ] INFO: Starting invocation.
+[restate][2026-10-03T15:41:38.138Z][KiloNode/B/run][inv_168BQPq20T9h3f6ZwLJVgNVvMOHNuQCdA5] INFO: Starting invocation.
+[restate][2026-10-03T15:41:38.238Z][KiloNode/B/run][inv_168BQPq20T9h3f6ZwLJVgNVvMOHNuQCdA5] INFO: Invocation completed successfully.
+[restate][2026-10-03T15:41:38.288Z][KiloNode/parent-A/parentChild][inv_11QLvBHviPmz6wjf759bvLsceaSNc7cMXJ] INFO: Invocation completed successfully.
+[restate][2026-10-03T15:41:55.300Z][Approval/approval-1/request][inv_1ltTK702oA501MwR4a0xZc3shG4lgSJJqE] INFO: Starting invocation.
+[restate][2026-10-03T15:42:55.342Z][Approval/approval-1/request][inv_1ltTK702oA501MwR4a0xZc3shG4lgSJJqE] INFO: Invocation suspended
+[restate][2026-10-03T15:43:45.706Z][KiloNode/actor-pi/run][inv_10WX73ESsQ6X2b77sxZDfB0Pt0NGoW6irG] INFO: Starting invocation.
+[restate][2026-10-03T15:43:45.780Z][KiloNode/actor-pi/run][inv_10WX73ESsQ6X2b77sxZDfB0Pt0NGoW6irG] INFO: Invocation completed successfully.
+[restate][2026-10-03T15:45:15.871Z][Approval/approval-1/request][inv_1ltTK702oA501MwR4a0xZc3shG4lgSJJqE] INFO: Replaying invocation.
+[restate][2026-10-03T15:45:15.912Z][Approval/approval-1/request][inv_1ltTK702oA501MwR4a0xZc3shG4lgSJJqE] INFO: Invocation completed successfully.
+[restate][2026-10-03T15:46:13.934Z][Approval/approval-1/request][inv_1ltTK702oA506vFqTCZe7PapBK1xtKuYqc] INFO: Starting invocation.
+
+> service
+> tsx probe/service.ts
+
+[restate][2026-10-03T15:47:03.239Z] INFO: Restate SDK started listening on 9080...
+[restate][2026-10-03T15:47:03.240Z] WARN: Accepting requests without validating request signatures; handler access must be restricted
+[restate][2026-10-03T15:47:04.279Z][Approval/approval-1/request][inv_1ltTK702oA506vFqTCZe7PapBK1xtKuYqc] INFO: Replaying invocation.
+[restate][2026-10-03T15:47:20.240Z][Approval/approval-1/request][inv_1ltTK702oA506vFqTCZe7PapBK1xtKuYqc] INFO: Invocation completed successfully.
+[restate][2026-10-03T15:47:47.423Z][KiloNode/actor-pi/run][inv_10WX73ESsQ6X7k9erwylolhS6uGYlU6FWI] INFO: Starting invocation.
+[restate][2026-10-03T15:47:47.528Z][KiloNode/actor-pi/run][inv_10WX73ESsQ6X7k9erwylolhS6uGYlU6FWI] INFO: Invocation completed successfully.
+[restate][2026-10-03T15:47:49.268Z][KiloNode/actor-pi/run][inv_10WX73ESsQ6X21dumTPnRPx7Q7wISIXJjj] INFO: Starting invocation.
+[restate][2026-10-03T15:47:49.377Z][KiloNode/actor-pi/run][inv_10WX73ESsQ6X21dumTPnRPx7Q7wISIXJjj] INFO: Invocation completed successfully.
+[restate][2026-10-03T15:47:51.170Z][KiloNode/actor-pi/run][inv_10WX73ESsQ6X3NQasUxCYsbhbPlEifol88] INFO: Starting invocation.
+[restate][2026-10-03T15:47:51.268Z][KiloNode/actor-pi/run][inv_10WX73ESsQ6X3NQasUxCYsbhbPlEifol88] INFO: Invocation completed successfully.
+[restate][2026-10-03T15:53:23.460Z][KiloNode/actor-pi/run][inv_10WX73ESsQ6X50DJ3CarjvjfSru9YQqnTB] INFO: Starting invocation.
+[restate][2026-10-03T15:53:23.547Z][KiloNode/actor-pi/run][inv_10WX73ESsQ6X50DJ3CarjvjfSru9YQqnTB] INFO: Invocation completed successfully.
+[restate][2026-10-03T15:53:43.638Z][KiloNode/actor-actor-01/run][inv_1bbg1VRGO2EF07EpIcgNxSQzrKDMbXhcZd] INFO: Starting invocation.
+[restate][2026-10-03T15:53:43.794Z][KiloNode/actor-actor-01/run][inv_1bbg1VRGO2EF07EpIcgNxSQzrKDMbXhcZd] INFO: Invocation completed successfully.
+[restate][2026-10-03T15:53:45.724Z][KiloNode/actor-actor-01/run][inv_1bbg1VRGO2EF1SGzVSIXL8yQB2imaQmsNn] INFO: Starting invocation.
+[restate][2026-10-03T15:53:45.824Z][KiloNode/actor-actor-01/run][inv_1bbg1VRGO2EF1SGzVSIXL8yQB2imaQmsNn] INFO: Invocation completed successfully.
+[restate][2026-10-03T15:53:47.409Z][KiloNode/actor-actor-01/run][inv_1bbg1VRGO2EF2n5pYf4R0PJixzAAJFvCh2] INFO: Starting invocation.
+[restate][2026-10-03T15:53:47.573Z][KiloNode/actor-actor-01/run][inv_1bbg1VRGO2EF2n5pYf4R0PJixzAAJFvCh2] INFO: Invocation completed successfully.
+
+> service
+> tsx probe/service.ts
+
+[restate][2026-10-03T15:54:48.400Z] INFO: Restate SDK started listening on 9080...
+[restate][2026-10-03T15:54:48.401Z] WARN: Accepting requests without validating request signatures; handler access must be restricted
+[restate][2026-10-03T15:54:59.039Z][KiloNode/actor-actor-01/run][inv_1bbg1VRGO2EF21Mlv1oczizxMHiDQvKwcH] INFO: Starting invocation.
+[restate][2026-10-03T15:54:59.231Z][KiloNode/actor-actor-01/run][inv_1bbg1VRGO2EF21Mlv1oczizxMHiDQvKwcH] INFO: Invocation completed successfully.
+[restate][2026-10-03T15:55:00.965Z][KiloNode/actor-actor-01/run][inv_1bbg1VRGO2EF52t96xMx1bgUPzdlKASgve] INFO: Starting invocation.
+[restate][2026-10-03T15:55:01.185Z][KiloNode/actor-actor-01/run][inv_1bbg1VRGO2EF52t96xMx1bgUPzdlKASgve] INFO: Invocation completed successfully.
+[restate][2026-10-03T15:55:02.871Z][KiloNode/actor-actor-01/run][inv_1bbg1VRGO2EF4EVvOI5RfFhtOQYauc4lpn] INFO: Starting invocation.
+[restate][2026-10-03T15:55:03.054Z][KiloNode/actor-actor-01/run][inv_1bbg1VRGO2EF4EVvOI5RfFhtOQYauc4lpn] INFO: Invocation completed successfully.
+[restate][2026-10-03T15:56:42.347Z][Approval/approval-deny/request][inv_1l0VSg0J8dUD0XfscD2BBS9R5LwQL70YwC] INFO: Starting invocation.
+[restate][2026-10-03T15:56:42.414Z][Approval/approval-deny/request][inv_1l0VSg0J8dUD0XfscD2BBS9R5LwQL70YwC] WARN: Error when processing a Restate context operation.
+ TerminalError: operator denied
+    at Failure: Completer (/home/miles/repos/agent-harnesses/kilo-restate/node_modules/@restatedev/restate-sdk/src/context_impl.ts:1237:7)
+    at RestateSinglePromise.completer (/home/miles/repos/agent-harnesses/kilo-restate/node_modules/@restatedev/restate-sdk/src/context_impl.ts:1174:17)
+    at async RestateSinglePromise.tryComplete (/home/miles/repos/agent-harnesses/kilo-restate/node_modules/@restatedev/restate-sdk/src/promises.ts:223:5)
+    at async PromisesExecutor.doProgressInner (/home/miles/repos/agent-harnesses/kilo-restate/node_modules/@restatedev/restate-sdk/src/promises.ts:524:7)
+    at async <anonymous> (/home/miles/repos/agent-harnesses/kilo-restate/node_modules/@restatedev/restate-sdk/src/promises.ts:577:9)
+    at async PromisesExecutor.doProgress (/home/miles/repos/agent-harnesses/kilo-restate/node_modules/@restatedev/restate-sdk/src/promises.ts:516:5) {
+  code: 500,
+  metadata: {},
+  [cause]: undefined
+}
+[restate][2026-10-03T16:00:29.999Z][KiloNode/pi-read/run][inv_10Izf3E1y7bw1rpKCYRc9fzHPoo86iR2dZ] INFO: Starting invocation.
+[restate][2026-10-03T16:00:30.156Z][KiloNode/pi-read/run][inv_10Izf3E1y7bw1rpKCYRc9fzHPoo86iR2dZ] INFO: Invocation completed successfully.
+[restate][2026-10-03T16:00:30.245Z][KiloNode/pi-edit/run][inv_11nxAeMcFEOB3L2MFkaJwY16aacpEw4inQ] INFO: Starting invocation.
+[restate][2026-10-03T16:00:30.357Z][KiloNode/pi-edit/run][inv_11nxAeMcFEOB3L2MFkaJwY16aacpEw4inQ] INFO: Invocation completed successfully.
+[restate][2026-10-03T16:00:30.413Z][KiloNode/pi-bash/run][inv_14FtqkWZ2ADR5nfIkaMZE0xvjQPxhQ7Ynl] INFO: Starting invocation.
+[restate][2026-10-03T16:00:30.510Z][KiloNode/pi-bash/run][inv_14FtqkWZ2ADR5nfIkaMZE0xvjQPxhQ7Ynl] INFO: Invocation completed successfully.
+[restate][2026-10-03T16:00:30.563Z][KiloNode/A/parentChild][inv_14Lx7vJwbVjv4F4s47BtuGn2MWCC2QU2a7] INFO: Starting invocation.
+[restate][2026-10-03T16:00:30.607Z][KiloNode/B/run][inv_168BQPq20T9h7kgpbj4fqNgcKLNdvPJAUV] INFO: Starting invocation.
+[restate][2026-10-03T16:00:30.709Z][KiloNode/B/run][inv_168BQPq20T9h7kgpbj4fqNgcKLNdvPJAUV] INFO: Invocation completed successfully.
+[restate][2026-10-03T16:00:30.754Z][KiloNode/A/parentChild][inv_14Lx7vJwbVjv4F4s47BtuGn2MWCC2QU2a7] INFO: Invocation completed successfully.
+[restate][2026-10-03T16:00:55.687Z][KiloNode/pi-read/run][inv_10Izf3E1y7bw4jTwxbaaChTRzsYeo1KspM] INFO: Starting invocation.
+[restate][2026-10-03T16:00:55.786Z][KiloNode/pi-read/run][inv_10Izf3E1y7bw4jTwxbaaChTRzsYeo1KspM] INFO: Invocation completed successfully.
+[restate][2026-10-03T16:00:55.846Z][KiloNode/pi-edit/run][inv_11nxAeMcFEOB2mMsQ6V3Os0KWtp7aTfAOy] INFO: Starting invocation.
+[restate][2026-10-03T16:00:55.953Z][KiloNode/pi-edit/run][inv_11nxAeMcFEOB2mMsQ6V3Os0KWtp7aTfAOy] INFO: Invocation completed successfully.
+[restate][2026-10-03T16:00:56.015Z][KiloNode/pi-bash/run][inv_14FtqkWZ2ADR3cAnIhJtNfA11zmepKJlx0] INFO: Starting invocation.
+[restate][2026-10-03T16:00:56.119Z][KiloNode/pi-bash/run][inv_14FtqkWZ2ADR3cAnIhJtNfA11zmepKJlx0] INFO: Invocation completed successfully.
+[restate][2026-10-03T16:00:56.179Z][KiloNode/A/parentChild][inv_14Lx7vJwbVjv68xV8GPFxAAAheHpck0Bl1] INFO: Starting invocation.
+[restate][2026-10-03T16:00:56.216Z][KiloNode/B/run][inv_168BQPq20T9h3hL1tIPO6xHrO88aVmFIVb] INFO: Starting invocation.
+[restate][2026-10-03T16:00:56.331Z][KiloNode/B/run][inv_168BQPq20T9h3hL1tIPO6xHrO88aVmFIVb] INFO: Invocation completed successfully.
+[restate][2026-10-03T16:00:56.401Z][KiloNode/A/parentChild][inv_14Lx7vJwbVjv68xV8GPFxAAAheHpck0Bl1] INFO: Invocation completed successfully.
+[restate][2026-10-03T16:04:52.700Z][Approval/approval-1/request][inv_1ltTK702oA500KrEy221iMO6E0RMtTrHGi] INFO: Starting invocation.
+[restate][2026-10-03T16:05:01.768Z][KiloNode/pi-read/run][inv_10Izf3E1y7bw1pmQNgRizoJ7FIAqX6CMpj] INFO: Starting invocation.
+[restate][2026-10-03T16:05:01.866Z][KiloNode/pi-read/run][inv_10Izf3E1y7bw1pmQNgRizoJ7FIAqX6CMpj] INFO: Invocation completed successfully.
+[restate][2026-10-03T16:05:01.937Z][KiloNode/pi-edit/run][inv_11nxAeMcFEOB7KDSqyzoCD68we9Xc0svJr] INFO: Starting invocation.
+[restate][2026-10-03T16:05:02.039Z][KiloNode/pi-edit/run][inv_11nxAeMcFEOB7KDSqyzoCD68we9Xc0svJr] INFO: Invocation completed successfully.
+[restate][2026-10-03T16:05:02.095Z][KiloNode/pi-bash/run][inv_14FtqkWZ2ADR3qbNE94OCN91xd2EUpTNW4] INFO: Starting invocation.
+[restate][2026-10-03T16:05:02.248Z][KiloNode/pi-bash/run][inv_14FtqkWZ2ADR3qbNE94OCN91xd2EUpTNW4] INFO: Invocation completed successfully.
+[restate][2026-10-03T16:05:02.325Z][KiloNode/A/parentChild][inv_14Lx7vJwbVjv4a5t4WDwsApEYEsZTkKPfv] INFO: Starting invocation.
+[restate][2026-10-03T16:05:02.357Z][KiloNode/B/run][inv_168BQPq20T9h57Zsmt7W4DDST5od47h4OJ] INFO: Starting invocation.
+[restate][2026-10-03T16:05:02.564Z][KiloNode/B/run][inv_168BQPq20T9h57Zsmt7W4DDST5od47h4OJ] INFO: Invocation completed successfully.
+[restate][2026-10-03T16:05:02.651Z][KiloNode/A/parentChild][inv_14Lx7vJwbVjv4a5t4WDwsApEYEsZTkKPfv] INFO: Invocation completed successfully.
+[restate][2026-10-03T16:05:52.746Z][Approval/approval-1/request][inv_1ltTK702oA500KrEy221iMO6E0RMtTrHGi] INFO: Invocation suspended
+[restate][2026-10-03T16:07:07.126Z][Approval/approval-1/request][inv_1ltTK702oA500KrEy221iMO6E0RMtTrHGi] INFO: Replaying invocation.
+[restate][2026-10-03T16:07:07.162Z][Approval/approval-1/request][inv_1ltTK702oA500KrEy221iMO6E0RMtTrHGi] INFO: Invocation completed successfully.
+[restate][2026-10-03T16:07:42.663Z][KiloNode/pi-read/run][inv_10Izf3E1y7bw2EHlWXPKiZK7LfAswT7L91] INFO: Starting invocation.
+[restate][2026-10-03T16:07:42.801Z][KiloNode/pi-read/run][inv_10Izf3E1y7bw2EHlWXPKiZK7LfAswT7L91] INFO: Invocation completed successfully.
+[restate][2026-10-03T16:07:42.892Z][KiloNode/pi-edit/run][inv_11nxAeMcFEOB6g4CI2Yy1MrGTEz114hCiZ] INFO: Starting invocation.
+[restate][2026-10-03T16:07:43.091Z][KiloNode/pi-edit/run][inv_11nxAeMcFEOB6g4CI2Yy1MrGTEz114hCiZ] INFO: Invocation completed successfully.
+[restate][2026-10-03T16:07:43.183Z][KiloNode/pi-bash/run][inv_14FtqkWZ2ADR4niSyttlVjTnBKHPKBCrwY] INFO: Starting invocation.
+[restate][2026-10-03T16:07:43.333Z][KiloNode/pi-bash/run][inv_14FtqkWZ2ADR4niSyttlVjTnBKHPKBCrwY] INFO: Invocation completed successfully.
+[restate][2026-10-03T16:07:43.415Z][KiloNode/A/parentChild][inv_14Lx7vJwbVjv5jE3KGNH9oYjqwo3wvOSJX] INFO: Starting invocation.
+[restate][2026-10-03T16:07:43.480Z][KiloNode/B/run][inv_168BQPq20T9h6TiZeqrXLKiBWWd2Agkd7X] INFO: Starting invocation.
+[restate][2026-10-03T16:07:43.697Z][KiloNode/B/run][inv_168BQPq20T9h6TiZeqrXLKiBWWd2Agkd7X] INFO: Invocation completed successfully.
+[restate][2026-10-03T16:07:43.768Z][KiloNode/A/parentChild][inv_14Lx7vJwbVjv5jE3KGNH9oYjqwo3wvOSJX] INFO: Invocation completed successfully.
+[restate][2026-10-03T16:10:25.532Z][KiloNode/pi-read/run][inv_10Izf3E1y7bw2lMtLK5aIptfsi5L1QqAt1] INFO: Starting invocation.
+[restate][2026-10-03T16:10:25.696Z][KiloNode/pi-read/run][inv_10Izf3E1y7bw2lMtLK5aIptfsi5L1QqAt1] INFO: Invocation completed successfully.
+[restate][2026-10-03T16:10:25.795Z][KiloNode/pi-edit/run][inv_11nxAeMcFEOB4pwdI7tkrFY8X1BpIAAOPR] INFO: Starting invocation.
+[restate][2026-10-03T16:10:25.969Z][KiloNode/pi-edit/run][inv_11nxAeMcFEOB4pwdI7tkrFY8X1BpIAAOPR] INFO: Invocation completed successfully.
+[restate][2026-10-03T16:10:26.071Z][KiloNode/pi-bash/run][inv_14FtqkWZ2ADR4RxWjVkDHWs5FiXkMG0p29] INFO: Starting invocation.
+[restate][2026-10-03T16:10:26.264Z][KiloNode/pi-bash/run][inv_14FtqkWZ2ADR4RxWjVkDHWs5FiXkMG0p29] INFO: Invocation completed successfully.
+[restate][2026-10-03T16:10:26.374Z][KiloNode/A/parentChild][inv_14Lx7vJwbVjv1o1OPNmUa09hBvF5igU963] INFO: Starting invocation.
+[restate][2026-10-03T16:10:26.440Z][KiloNode/B/run][inv_168BQPq20T9h6fNK9hRq2vYNoDAE0iSyVX] INFO: Starting invocation.
+[restate][2026-10-03T16:10:26.617Z][KiloNode/B/run][inv_168BQPq20T9h6fNK9hRq2vYNoDAE0iSyVX] INFO: Invocation completed successfully.
+[restate][2026-10-03T16:10:26.703Z][KiloNode/A/parentChild][inv_14Lx7vJwbVjv1o1OPNmUa09hBvF5igU963] INFO: Invocation completed successfully.
+[restate][2026-10-03T16:19:26.966Z][Approval/approval-deny/request][inv_1l0VSg0J8dUD2lrST1zIhdGe7A76012IHp] INFO: Starting invocation.
+[restate][2026-10-03T16:19:27.002Z][Approval/approval-deny/request][inv_1l0VSg0J8dUD2lrST1zIhdGe7A76012IHp] WARN: Error when processing a Restate context operation.
+ TerminalError: operator denied
+    at Failure: Completer (/home/miles/repos/agent-harnesses/kilo-restate/node_modules/@restatedev/restate-sdk/src/context_impl.ts:1237:7)
+    at RestateSinglePromise.completer (/home/miles/repos/agent-harnesses/kilo-restate/node_modules/@restatedev/restate-sdk/src/context_impl.ts:1174:17)
+    at async RestateSinglePromise.tryComplete (/home/miles/repos/agent-harnesses/kilo-restate/node_modules/@restatedev/restate-sdk/src/promises.ts:223:5)
+    at async PromisesExecutor.doProgressInner (/home/miles/repos/agent-harnesses/kilo-restate/node_modules/@restatedev/restate-sdk/src/promises.ts:524:7)
+    at async <anonymous> (/home/miles/repos/agent-harnesses/kilo-restate/node_modules/@restatedev/restate-sdk/src/promises.ts:577:9)
+    at async PromisesExecutor.doProgress (/home/miles/repos/agent-harnesses/kilo-restate/node_modules/@restatedev/restate-sdk/src/promises.ts:516:5) {
+  code: 500,
+  metadata: {},
+  [cause]: undefined
+}
+[restate][2026-10-03T16:20:37.480Z][KiloNode/pi-read/run][inv_10Izf3E1y7bw5Ytlne0D3zyzRiSpiClZ8R] INFO: Starting invocation.
+[restate][2026-10-03T16:20:37.739Z][KiloNode/pi-read/run][inv_10Izf3E1y7bw5Ytlne0D3zyzRiSpiClZ8R] INFO: Invocation completed successfully.
+[restate][2026-10-03T16:20:37.841Z][KiloNode/pi-edit/run][inv_11nxAeMcFEOB4gtw3jDWfKuuhZPAB69BU2] INFO: Starting invocation.
+[restate][2026-10-03T16:20:37.989Z][KiloNode/pi-edit/run][inv_11nxAeMcFEOB4gtw3jDWfKuuhZPAB69BU2] INFO: Invocation completed successfully.
+[restate][2026-10-03T16:20:38.071Z][KiloNode/pi-bash/run][inv_14FtqkWZ2ADR6hd8ZRBmEaKkJQmqm3W3d4] INFO: Starting invocation.
+[restate][2026-10-03T16:20:38.230Z][KiloNode/pi-bash/run][inv_14FtqkWZ2ADR6hd8ZRBmEaKkJQmqm3W3d4] INFO: Invocation completed successfully.
+[restate][2026-10-03T16:20:38.305Z][KiloNode/A/parentChild][inv_14Lx7vJwbVjv0xH3444w5eHtBNIHVZRfnj] INFO: Starting invocation.
+[restate][2026-10-03T16:20:38.360Z][KiloNode/B/run][inv_168BQPq20T9h7fXAnZyr018ZxNrZ42T4SR] INFO: Starting invocation.
+[restate][2026-10-03T16:20:38.516Z][KiloNode/B/run][inv_168BQPq20T9h7fXAnZyr018ZxNrZ42T4SR] INFO: Invocation completed successfully.
+[restate][2026-10-03T16:20:38.564Z][KiloNode/A/parentChild][inv_14Lx7vJwbVjv0xH3444w5eHtBNIHVZRfnj] INFO: Invocation completed successfully.

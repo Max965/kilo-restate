@@ -1,0 +1,20 @@
+{
+  "name": "kilo-restate-probe",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "service": "tsx probe/service.ts",
+    "test": "tsx probe/check.ts",
+    "typecheck": "tsc --noEmit --target ES2022 --module NodeNext --moduleResolution NodeNext --types node probe/service.ts probe/client.ts probe/pi-extension.ts probe/check.ts probe/approve.ts probe/deny.ts probe/start-approval.ts"
+  },
+  "dependencies": {
+    "@restatedev/restate-sdk": "1.17.2",
+    "@restatedev/restate-sdk-clients": "1.17.2",
+    "@sinclair/typebox": "^0.34.0"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.4",
+    "tsx": "^4.20.0",
+    "typescript": "^5.8.0"
+  }
+}

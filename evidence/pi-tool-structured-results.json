@@ -1,0 +1,161 @@
+{
+  "inv_1bbg1VRGO2EF21Mlv1oczizxMHiDQvKwcH": {
+    "journal": [
+      {
+        "index": 1,
+        "type": "Command: Run",
+        "name": ""
+      },
+      {
+        "index": 3,
+        "type": "Command: Run",
+        "name": "tool:read"
+      },
+      {
+        "index": 5,
+        "type": "Command: Run",
+        "name": ""
+      }
+    ],
+    "request": {
+      "nodeId": "pi-physical:call_tAfJH0cl2CJVgG5u7pemNh72|fc_0edfd164041ad9c9016ac12552c90887d2b421baa20b656e29",
+      "actorId": "actor-01",
+      "sessionId": "pi-probe-session-01",
+      "actorAttempt": "1",
+      "toolCallId": "call_tAfJH0cl2CJVgG5u7pemNh72|fc_0edfd164041ad9c9016ac12552c90887d2b421baa20b656e29",
+      "operation": "read",
+      "args": {
+        "path": "sample.txt"
+      }
+    },
+    "response": {
+      "nodeId": "pi-physical:call_tAfJH0cl2CJVgG5u7pemNh72|fc_0edfd164041ad9c9016ac12552c90887d2b421baa20b656e29",
+      "parentNodeId": null,
+      "actorId": "actor-01",
+      "sessionId": "pi-probe-session-01",
+      "actorAttempt": "1",
+      "toolCallId": "call_tAfJH0cl2CJVgG5u7pemNh72|fc_0edfd164041ad9c9016ac12552c90887d2b421baa20b656e29",
+      "invocationId": "inv_1bbg1VRGO2EF21Mlv1oczizxMHiDQvKwcH",
+      "operation": "read",
+      "args": {
+        "path": "sample.txt"
+      },
+      "admission": "probe-allow",
+      "result": {
+        "text": "updated via Pi exact core names\n\n",
+        "target": "/home/miles/repos/agent-harnesses/kilo-restate/workspace/sample.txt"
+      },
+      "failure": null,
+      "startedAt": "2026-10-03T15:54:59.051Z",
+      "settledAt": "2026-10-03T15:54:59.179Z"
+    }
+  },
+  "inv_1bbg1VRGO2EF4EVvOI5RfFhtOQYauc4lpn": {
+    "journal": [
+      {
+        "index": 1,
+        "type": "Command: Run",
+        "name": ""
+      },
+      {
+        "index": 3,
+        "type": "Command: Run",
+        "name": "tool:bash"
+      },
+      {
+        "index": 5,
+        "type": "Command: Run",
+        "name": ""
+      }
+    ],
+    "request": {
+      "nodeId": "pi-physical:call_2iYH2OBKQwtRUEfbMMjVoTvY|fc_0edfd164041ad9c9016ac12556624c87d2af77d59289802873",
+      "actorId": "actor-01",
+      "sessionId": "pi-probe-session-01",
+      "actorAttempt": "1",
+      "toolCallId": "call_2iYH2OBKQwtRUEfbMMjVoTvY|fc_0edfd164041ad9c9016ac12556624c87d2af77d59289802873",
+      "operation": "bash",
+      "args": {
+        "command": "printf final-bash-check"
+      }
+    },
+    "response": {
+      "nodeId": "pi-physical:call_2iYH2OBKQwtRUEfbMMjVoTvY|fc_0edfd164041ad9c9016ac12556624c87d2af77d59289802873",
+      "parentNodeId": null,
+      "actorId": "actor-01",
+      "sessionId": "pi-probe-session-01",
+      "actorAttempt": "1",
+      "toolCallId": "call_2iYH2OBKQwtRUEfbMMjVoTvY|fc_0edfd164041ad9c9016ac12556624c87d2af77d59289802873",
+      "invocationId": "inv_1bbg1VRGO2EF4EVvOI5RfFhtOQYauc4lpn",
+      "operation": "bash",
+      "args": {
+        "command": "printf final-bash-check"
+      },
+      "admission": "probe-allow",
+      "result": {
+        "stdout": "final-bash-check",
+        "stderr": "",
+        "code": 0,
+        "cwd": "/home/miles/repos/agent-harnesses/kilo-restate/workspace"
+      },
+      "failure": null,
+      "startedAt": "2026-10-03T15:55:02.872Z",
+      "settledAt": "2026-10-03T15:55:02.973Z"
+    }
+  },
+  "inv_1bbg1VRGO2EF52t96xMx1bgUPzdlKASgve": {
+    "journal": [
+      {
+        "index": 1,
+        "type": "Command: Run",
+        "name": ""
+      },
+      {
+        "index": 3,
+        "type": "Command: Run",
+        "name": "tool:edit"
+      },
+      {
+        "index": 5,
+        "type": "Command: Run",
+        "name": ""
+      }
+    ],
+    "request": {
+      "nodeId": "pi-physical:call_pQh9QRy3nPr3d4IrsYHxNKT5|fc_0edfd164041ad9c9016ac12554736887d2b5e7e119b4d62032",
+      "actorId": "actor-01",
+      "sessionId": "pi-probe-session-01",
+      "actorAttempt": "1",
+      "toolCallId": "call_pQh9QRy3nPr3d4IrsYHxNKT5|fc_0edfd164041ad9c9016ac12554736887d2b5e7e119b4d62032",
+      "operation": "edit",
+      "args": {
+        "path": "sample.txt",
+        "oldText": "updated via Pi exact core names",
+        "newText": "final Pi result"
+      }
+    },
+    "response": {
+      "nodeId": "pi-physical:call_pQh9QRy3nPr3d4IrsYHxNKT5|fc_0edfd164041ad9c9016ac12554736887d2b5e7e119b4d62032",
+      "parentNodeId": null,
+      "actorId": "actor-01",
+      "sessionId": "pi-probe-session-01",
+      "actorAttempt": "1",
+      "toolCallId": "call_pQh9QRy3nPr3d4IrsYHxNKT5|fc_0edfd164041ad9c9016ac12554736887d2b5e7e119b4d62032",
+      "invocationId": "inv_1bbg1VRGO2EF52t96xMx1bgUPzdlKASgve",
+      "operation": "edit",
+      "args": {
+        "path": "sample.txt",
+        "oldText": "updated via Pi exact core names",
+        "newText": "final Pi result"
+      },
+      "admission": "probe-allow",
+      "result": {
+        "target": "/home/miles/repos/agent-harnesses/kilo-restate/workspace/sample.txt",
+        "changed": true
+      },
+      "failure": null,
+      "startedAt": "2026-10-03T15:55:00.966Z",
+      "settledAt": "2026-10-03T15:55:01.120Z"
+    }
+  }
+}

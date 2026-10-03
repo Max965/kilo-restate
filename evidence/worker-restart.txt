@@ -1,0 +1,10 @@
+Worker interruption specimen (Restate server/container was not stopped):
+
+- Approval invocation: `inv_1ltTK702oA506vFqTCZe7PapBK1xtKuYqc`.
+- Awakeable: `sign_15qAtMsCLN_pYR47LJVb0HbBv8bDteOzVAAAAEQ`.
+- Worker Node process PID 2470402 was sent SIGKILL while its handler had recorded the approval request and was awaiting the awakeable.
+- Worker was restarted with `WORKSPACE=$PWD/workspace npm run service` on the same endpoint.
+- `evidence/service.log` records `Replaying invocation` with the same invocation ID.
+- The same awakeable was externally resolved; SQL later showed status completed and state `approved-effect`.
+
+This is Restate invocation/journal recovery, not Pi process/session recovery. The Restate server remained alive throughout.

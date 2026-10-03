@@ -1,0 +1,3 @@
+# Assignment — Restate / Kilo operational-node substrate falsification
+
+Determine with runnable, time-bounded evidence whether Restate plus a thin Pi adapter can provide Kilo-Smithers operational-node control physics. Probe dynamic parent/child execution, Pi read/edit/bash routing, durable approval, recovery, human introspection, authority boundary, OTEL route, novelty and hidden Smithers costs. One normal upstream checkout at `../restate-fork`; probe files here. No worktrees, remote Kilo fork, migration, or production build. Return evidence and an honest partial frontier where physical setup constrains the attempt.
