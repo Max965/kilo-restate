@@ -1,0 +1,7 @@
+ACTOR_ID: orchestrator-01
+ROLE: ORCHESTRATOR
+PARENT_ACTOR: FACTORY
+ACTOR_BOX: .agent/goals/2026-10-05-003-restate-codex-control-tax/iterations/01/actors/orchestrator-01
+EXECUTION_MODE: PI_LEGACY
+PI_REVIEW_PROFILE: DIRECT
+DELEGATION: FORBIDDEN

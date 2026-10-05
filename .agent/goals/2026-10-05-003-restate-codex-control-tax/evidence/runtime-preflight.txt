@@ -1,0 +1,6 @@
+CODEX_HOME_ENV=
+DEFAULT_CODEX_HOME=/home/miles/.codex
+auth.json=READABLE
+config.toml=READABLE
+RESTATED_CONTAINER=kilo-restate-pi-lifecycle:Exited (0) 2 hours ago
+RESTATED_PORTS=

@@ -1,0 +1,50 @@
+{
+  "outcome": "RESIDUAL_FRONTIER",
+  "codex": {
+    "version": "0.154.0",
+    "appServerOverallStability": "EXPERIMENTAL",
+    "sourceRevision": null,
+    "configuredResponsesWebsocketError": {
+      "status": 426,
+      "url": "ws://127.0.0.1:17841/v1/responses"
+    }
+  },
+  "controlAttempt": {
+    "turnStartRequested": true,
+    "turnCompletedNotificationReachedDriver": true,
+    "supportedApprovalCallbackCaptured": false,
+    "unknownServerRequestMethodCaptured": false,
+    "restateGateTicketCreated": false,
+    "outerInvocationSettled": false,
+    "workspaceEffectMarkerExists": false,
+    "turnStatusPersisted": false,
+    "restatedOuterInvocationId": "inv_1hW6JH2fDpRR1yFHnU3YKhxRjW0FXV2jo6",
+    "deploymentId": "dp_11exB1DoOIKC7vetqTAaxyN",
+    "deploymentRegistrationHttp": 201,
+    "deploymentDeleteAcceptedHttp": 202
+  },
+  "threadIdentityAttempt": {
+    "modelTurnRequested": false,
+    "threadStartSucceeded": true,
+    "ephemeral": false,
+    "threadId": "01a10c79-aca0-7053-9554-812d685be5d8",
+    "sessionId": "01a10c79-aca0-7053-9554-812d685be5d8",
+    "threadResumePhase": "thread-resume",
+    "threadResumeSucceeded": false,
+    "resumeErrorCodeAndMessagePersisted": false,
+    "temporaryCodexHomeRemoved": true
+  },
+  "cleanup": {
+    "workerStopped": true,
+    "containerRestoredStopped": true,
+    "temporaryCodexHomeRemoved": true,
+    "codexProcessRemains": false
+  },
+  "limits": [
+    "No pre-effect command approval/effect boundary was physically established.",
+    "The turn status/result was not persisted by the driver.",
+    "The approval request method is unknown because unsupported server requests were not logged.",
+    "The no-turn thread resume failure code/message was not recorded.",
+    "No claim of exactly-once effects, cross-host recovery, cancellation propagation, or child lineage."
+  ]
+}

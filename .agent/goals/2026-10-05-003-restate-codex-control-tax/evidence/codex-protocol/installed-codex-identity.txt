@@ -1,0 +1,8 @@
+CLI_VERSION=codex-cli 0.154.0
+PACKAGE_NAME_VERSION=@openai/codex@0.154.0
+PACKAGE_REPOSITORY=git+https://github.com/openai/codex.git
+SOURCE_REVISION=NO_GIT_CHECKOUT_OR_GITHEAD_IN_INSTALLED_NPM_METADATA
+CODEX_LAUNCHER_SHA256=61b0194f3bb6534439c8d26a3ed57d0805f84b884588b761795323eeb92fcf70
+NATIVE_CODEX_BINARIES:
+/home/miles/repos/runtime/vendors/lib/node_modules/@openai/codex/node_modules/@openai/codex-linux-x64/vendor/x86_64-unknown-linux-musl/bin/codex 3188814c35471432d4123203e0eb38e5bddc60226e3d7ddf0e59e649ea140022
+APP_SERVER_HELP_SURFACE: [experimental] Run the app server or related tooling; `--stdio` supported; default transport `stdio://`

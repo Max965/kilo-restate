@@ -1,0 +1,8 @@
+codex_cli_version=0.154.0
+source_revision=not_present_in_installed_npm_metadata_or_checkout
+default_generation=codex app-server generate-ts (without --experimental)
+experimental_generation=codex app-server generate-ts --experimental
+full_generated_declaration_counts=default 711; experimental 847
+selected_exact_declaration_snapshots=36
+stability=codex app-server --help labels App Server experimental
+diff_interesting_field=thread/start dynamicTools appears only in experimental ThreadStartParams

@@ -1,0 +1,8 @@
+seq	timestamp	actor	event	artifact	observation
+1	2026-10-05T14:25:24+01:00	orchestrator-01	GOAL_ADMITTED	SEMANTIC_ADMISSION.md	PI_LEGACY/DIRECT; no delegation; use installed Codex and preserve prior Pi path
+2	2026-10-05T14:36:13+01:00	orchestrator-01	PROTOCOL_PINNED	evidence/codex-protocol/	Installed Codex 0.154.0; App Server experimental; default and experimental declarations hash-verified
+3	2026-10-05T14:42:49+01:00	orchestrator-01	BASELINE_CAPTURED	BASELINE.env	HEAD c6779f182c7502aa65916767445b1f55c625fee3; pre-existing goal-002 evidence preserved
+4	2026-10-05T15:07:24+01:00	orchestrator-01	PHYSICAL_TURN_BLOCKED	evidence/physical-probe/codex-probe-1791209239-713327/	Configured Responses websocket returned HTTP 426; no Restate gate/effect or terminal outer result
+5	2026-10-05T15:26:08+01:00	orchestrator-01	NO_TURN_RESUME_ATTEMPT	evidence/physical-probe/thread-identity-1791210366159-70da50d7/	Generic error without phase; private CODEX_HOME removed
+6	2026-10-05T15:31:03+01:00	orchestrator-01	NO_TURN_RESUME_UNVERIFIED	evidence/physical-probe/thread-identity-1791210661647-c0f0aba6/	Thread start succeeded; resume phase yielded no persisted result; cleanup verified
+7	2026-10-05T15:51:31+01:00	orchestrator-01	RETURN_RECORDED	REPORT.md	RESIDUAL FRONTIER; source-only direct adapter classification; no production source changes

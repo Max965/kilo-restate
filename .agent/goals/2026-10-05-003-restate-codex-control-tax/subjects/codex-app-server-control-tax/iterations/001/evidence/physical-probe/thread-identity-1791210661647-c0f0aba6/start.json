@@ -1,0 +1,10 @@
+{
+  "processId": 769341,
+  "codexHome": "/home/miles/repos/agent-harnesses/kilo-restate/.agent/goals/2026-10-05-003-restate-codex-control-tax/evidence/physical-probe/thread-identity-1791210661647-c0f0aba6/codex-home",
+  "threadId": "01a10c79-aca0-7053-9554-812d685be5d8",
+  "sessionId": "01a10c79-aca0-7053-9554-812d685be5d8",
+  "ephemeral": false,
+  "status": {
+    "type": "idle"
+  }
+}

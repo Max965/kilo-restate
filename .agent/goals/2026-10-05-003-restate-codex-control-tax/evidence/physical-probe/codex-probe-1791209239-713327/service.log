@@ -1,0 +1,22 @@
+[restate][2026-10-05T14:07:20.154Z] INFO: Restate SDK started listening on 19083...
+[restate][2026-10-05T14:07:20.155Z] WARN: Accepting requests without validating request signatures; handler access must be restricted
+[restate][2026-10-05T14:07:21.251Z][KiloCodexTaxProbeRun20261005/codex-probe-1791209239-713327/run][inv_1hW6JH2fDpRR1yFHnU3YKhxRjW0FXV2jo6] INFO: Starting invocation.
+[restate][2026-10-05T14:08:30.900Z][KiloCodexTaxProbeRun20261005/codex-probe-1791209239-713327/run][inv_1hW6JH2fDpRR1yFHnU3YKhxRjW0FXV2jo6] WARN: Error when processing ctx.run 'codex-app-server-turn'.
+ Error: Codex completed without a client-facing command approval request
+    at runCodexTurn (/home/miles/repos/agent-harnesses/kilo-restate/.agent/goals/2026-10-05-003-restate-codex-control-tax/evidence/physical-probe/appserver-driver.ts:273:26)
+    at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+    at async <anonymous> (/home/miles/repos/agent-harnesses/kilo-restate/node_modules/@restatedev/restate-sdk/src/context_impl.ts:586:19)
+    at async doRun (/home/miles/repos/agent-harnesses/kilo-restate/node_modules/@restatedev/restate-sdk/src/context_impl.ts:585:11)
+[restate][2026-10-05T14:08:30.911Z][KiloCodexTaxProbeRun20261005/codex-probe-1791209239-713327/run][inv_1hW6JH2fDpRR1yFHnU3YKhxRjW0FXV2jo6] INFO: Invocation suspended
+[restate][2026-10-05T14:08:30.938Z][KiloCodexTaxProbeRun20261005/codex-probe-1791209239-713327/run][inv_1hW6JH2fDpRR1yFHnU3YKhxRjW0FXV2jo6] INFO: Replaying invocation.
+[restate][2026-10-05T14:08:30.940Z][KiloCodexTaxProbeRun20261005/codex-probe-1791209239-713327/run][inv_1hW6JH2fDpRR1yFHnU3YKhxRjW0FXV2jo6] WARN: Error when processing a Restate context operation.
+ TerminalError: Codex completed without a client-facing command approval request
+    at Failure: Completer (/home/miles/repos/agent-harnesses/kilo-restate/node_modules/@restatedev/restate-sdk/src/context_impl.ts:1237:7)
+    at RestateSinglePromise.completer (/home/miles/repos/agent-harnesses/kilo-restate/node_modules/@restatedev/restate-sdk/src/context_impl.ts:1153:19)
+    at async RestateSinglePromise.tryComplete (/home/miles/repos/agent-harnesses/kilo-restate/node_modules/@restatedev/restate-sdk/src/promises.ts:223:5)
+    at async PromisesExecutor.doProgressInner (/home/miles/repos/agent-harnesses/kilo-restate/node_modules/@restatedev/restate-sdk/src/promises.ts:524:7)
+    at async <anonymous> (/home/miles/repos/agent-harnesses/kilo-restate/node_modules/@restatedev/restate-sdk/src/promises.ts:577:9) {
+  code: 500,
+  metadata: {},
+  [cause]: undefined
+}

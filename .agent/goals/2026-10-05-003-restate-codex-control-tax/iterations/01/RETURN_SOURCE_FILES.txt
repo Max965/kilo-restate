@@ -1,0 +1,1 @@
+# No subject source files changed; the HYPOTHESIS_CHALLENGE retained only goal-local probe, protocol, report, and physical-evidence artifacts.
