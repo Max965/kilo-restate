@@ -1,0 +1,3 @@
+worker_pid=92768
+invocation_id=inv_1iuUpbYwMzzR6NbXfl9Fwy7qX7fgfAIGEZ
+SIGKILL requested at 2026-10-05T09:04:56,142723278+01:00

@@ -1,0 +1,26 @@
+{
+  "verdict": "PASS",
+  "assertions": {
+    "same_idempotency_key_reuses_invocation_id": true,
+    "same_key_runs_once_and_unkeyed_submissions_are_distinct": true,
+    "send_is_accepted_while_worker_is_down_then_completes_after_restart": true,
+    "suspended_invocation_survives_server_SIGKILL_and_container_restart_on_same_volume": true,
+    "awakeable_resolution_completes_and_returns_saved_result": true,
+    "ctx_run_external_effect_can_repeat_when_worker_dies_before_result_is_journaled": true,
+    "journal_exposes_outer_run_boundary_not_opaque_external_effect_detail": true
+  },
+  "effect_counts": {
+    "same-key": 1,
+    "unkeyed": 2,
+    "gap": 2
+  },
+  "gap_worker_pids": [
+    92768,
+    95143
+  ],
+  "limitations": [
+    "single Restate node and same persistent Podman volume; no host-loss, volume-loss, or multi-node failover test",
+    "disposable handler only; no coding-agent runtime inspected",
+    "the forced ctx.run gap is a controlled boundary probe, not a frequency estimate"
+  ]
+}

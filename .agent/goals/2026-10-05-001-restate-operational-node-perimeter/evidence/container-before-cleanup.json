@@ -1,0 +1,23 @@
+{
+  "state": {
+    "status": "running",
+    "running": true,
+    "exitCode": 0,
+    "containerPid": 89734,
+    "startedAt": "2026-10-05T09:02:28.827630141+01:00"
+  },
+  "mounts": [
+    {
+      "type": "volume",
+      "name": "kilo-restate-perimeter-20261005",
+      "destination": "/restate-data",
+      "driver": "local",
+      "readWrite": true
+    }
+  ],
+  "publishedPorts": {
+    "8080/tcp": "19180",
+    "9070/tcp": "19170"
+  },
+  "capturedBeforeCleanup": true
+}

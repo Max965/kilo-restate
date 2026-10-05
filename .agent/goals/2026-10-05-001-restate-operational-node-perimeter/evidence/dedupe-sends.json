@@ -1,0 +1,22 @@
+{
+  "first": {
+    "invocationId": "inv_18hfPRtWMUvW4fjXkZZPwIVvkqEoUnykA1",
+    "status": "Accepted",
+    "attachable": true
+  },
+  "duplicate": {
+    "invocationId": "inv_18hfPRtWMUvW4fjXkZZPwIVvkqEoUnykA1",
+    "status": "PreviouslyAccepted",
+    "attachable": true
+  },
+  "unkeyedA": {
+    "invocationId": "inv_16FdUaQPcNHp7lKSzCs48bTpo4AuOatsm6",
+    "status": "Accepted",
+    "attachable": false
+  },
+  "unkeyedB": {
+    "invocationId": "inv_1irTq86nKXHW6kcearOus1aB1tULyrV28n",
+    "status": "Accepted",
+    "attachable": false
+  }
+}

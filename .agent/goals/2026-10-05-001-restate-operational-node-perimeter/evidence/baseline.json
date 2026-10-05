@@ -1,0 +1,48 @@
+{
+  "goal": ".agent/goals/2026-10-05-001-restate-operational-node-perimeter/GOAL.md",
+  "scope": "Restate durable operational-node perimeter only; no coding-agent runtime inspection, comparison, adapter implementation, Restate source edits, or migration recommendation.",
+  "probe_repository": {
+    "path": "/home/miles/repos/agent-harnesses/kilo-restate",
+    "head": "5ca57ee22cddf45a9ed347d8baee552aba944b93",
+    "remotes": [],
+    "status_check": "after goal creation, only this new goal directory was untracked; no other status entries were present"
+  },
+  "restate_source": {
+    "path": "/home/miles/repos/agent-harnesses/restate-fork",
+    "head": "8a383eba008b325340ded34045321673b6373fb0",
+    "head_version": "1.8.0-rc.1-6-g8a383",
+    "remote": "https://github.com/restatedev/restate.git",
+    "status": "clean",
+    "fork_assessment": "No Kilo-specific remote or source patch was found in this inspected upstream Restate checkout; the probe repository itself has no Git remote.",
+    "runtime_source_tag": "v1.7.13",
+    "runtime_source_commit": "5ab87a6b5eabb70d5ba09738e281edc69b6ae10e",
+    "runtime_image_label_revision": "5ab87a6b5eabb70d5ba09738e281edc69b6ae10e",
+    "note": "The image's source revision matches the v1.7.13 tag. Several reviewed lifecycle files differ between that tag and the checkout's newer 1.8 RC head, so runtime-source claims below use the matching v1.7.13 tree."
+  },
+  "runtime": {
+    "server_image": "docker.restate.dev/restatedev/restate:1.7",
+    "server_version": "1.7.13",
+    "server_image_id": "b6b72fe9b21e2c2609424c2a99c77c90f8fd8e9cb8171b4a9bae73df46b060f1",
+    "server_repo_digests": [
+      "docker.restate.dev/restatedev/restate@sha256:d22f8ea8ce8a9438d5523f846d8cc2761e5e4d843825554d5be0f6737e027f18",
+      "docker.restate.dev/restatedev/restate@sha256:ebe1c025b225b01ea5340e5dfb3bf9a8bfd7a75d27fe142f2d6545a38b59747f"
+    ],
+    "typescript_sdk": "@restatedev/restate-sdk@1.17.2",
+    "typescript_client": "@restatedev/restate-sdk-clients@1.17.2",
+    "node": "v22.22.2"
+  },
+  "isolated_restate_only_probe": {
+    "container": "kilo-restate-perimeter-20261005",
+    "node_name": "perimeter-node",
+    "data_volume": "kilo-restate-perimeter-20261005 mounted at /restate-data",
+    "ports": {
+      "server_ingress": "host 19180 -> container 8080",
+      "admin_api": "host 19170 -> container 9070",
+      "user_service_endpoint": "host 19080"
+    },
+    "deployment_id": "dp_1647gXuvrKNYG4KFlzGTLcl",
+    "probe_service": "PerimeterProbe",
+    "purpose": "Test only Restate acceptance/replay, stable idempotency identity, process restart recovery, and the ctx.run external-effect/result gap with a disposable non-agent handler."
+  },
+  "boundary": "The probe ran no coding-agent runtime. It did not modify Restate or the existing probe implementation."
+}

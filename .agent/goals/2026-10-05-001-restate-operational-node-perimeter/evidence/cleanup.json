@@ -1,0 +1,15 @@
+{
+  "cleanup_started_at": "2026-10-05T09:09:19,651125975+01:00",
+  "cleanup_completed_at": "2026-10-05T09:09:48,449710296+01:00",
+  "created_container": "kilo-restate-perimeter-20261005",
+  "created_volume": "kilo-restate-perimeter-20261005",
+  "created_node_worker_processes": [83508, 92768, 95143],
+  "result": {
+    "container_removed": true,
+    "volume_removed": true,
+    "worker_processes_stopped": true,
+    "host_ports_19080_19170_19180_unbound": true,
+    "preexisting_containers_or_volumes_touched": false,
+    "restate_source_checkout_clean": true
+  }
+}

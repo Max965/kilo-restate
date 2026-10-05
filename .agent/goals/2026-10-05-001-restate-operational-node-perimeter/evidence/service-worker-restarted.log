@@ -1,0 +1,10 @@
+[restate][2026-10-05T08:03:30.676Z] INFO: Restate SDK started listening on 19080...
+[restate][2026-10-05T08:03:30.677Z] WARN: Accepting requests without validating request signatures; handler access must be restricted
+PERIMETER_SERVICE_LISTENING port=19080 pid=92768
+[restate][2026-10-05T08:03:42.103Z][PerimeterProbe/effect][inv_18hfPRtWMUvW4fjXkZZPwIVvkqEoUnykA1] INFO: Starting invocation.
+[restate][2026-10-05T08:03:42.140Z][PerimeterProbe/effect][inv_18hfPRtWMUvW4fjXkZZPwIVvkqEoUnykA1] INFO: Invocation completed successfully.
+[restate][2026-10-05T08:03:43.374Z][PerimeterProbe/effect][inv_1irTq86nKXHW6kcearOus1aB1tULyrV28n] INFO: Starting invocation.
+[restate][2026-10-05T08:03:43.400Z][PerimeterProbe/effect][inv_1irTq86nKXHW6kcearOus1aB1tULyrV28n] INFO: Invocation completed successfully.
+[restate][2026-10-05T08:03:44.080Z][PerimeterProbe/effect][inv_16FdUaQPcNHp7lKSzCs48bTpo4AuOatsm6] INFO: Starting invocation.
+[restate][2026-10-05T08:03:44.107Z][PerimeterProbe/effect][inv_16FdUaQPcNHp7lKSzCs48bTpo4AuOatsm6] INFO: Invocation completed successfully.
+[restate][2026-10-05T08:04:00.645Z][PerimeterProbe/effect][inv_1iuUpbYwMzzR6NbXfl9Fwy7qX7fgfAIGEZ] INFO: Starting invocation.
