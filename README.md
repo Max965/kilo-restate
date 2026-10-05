@@ -1,8 +1,37 @@
-# Restate / Kilo operational-node substrate probe
+# Restate / Kilo operational node and substrate probe
 
-This is a throwaway, reproducible probe; it is not a Kilo migration. It has its own Git repository at `kilo-restate/`. Restate source is a separate ordinary upstream checkout at `../restate-fork`.
+This repository retains earlier Restate substrate probes and now contains the Kilo-owned `operational-node/` vertical slice. It is production-shaped acceptance work, not a production deployment or security boundary. Restate source is a separate upstream checkout at `../restate-fork`; maintained Pi is a separate checkout at `../kilo-pi-durable`. Neither is modified here.
 
-## Run locally
+## Retained operational node
+
+Prereqs: Podman, Node 22+, npm, and the maintained Pi checkout. The deterministic verifier uses Pi Faux; it needs no model credentials. Restate ingress/admin use host ports 8180/9170.
+
+The one-command acceptance run starts a stopped existing `kilo-restate-pi-lifecycle` container, registers the Kilo service, runs all 32 A01–G04 checks in disposable workspaces, writes per-run evidence, removes its deployment, and restores the container's original started/stopped state. It does not create the container. Create it once if absent:
+
+```sh
+podman run -d --name kilo-restate-pi-lifecycle \
+  -p 8180:8080 -p 9170:9070 \
+  docker.restate.dev/restatedev/restate:1.7
+```
+
+Then run:
+
+```sh
+npm run verify:operational-node
+```
+
+For interactive service development, ensure Restate is running (`podman start kilo-restate-pi-lifecycle` if stopped), create a bounded workspace root, then start the service:
+
+```sh
+mkdir -p workspaces
+KILO_WORKSPACE_ROOT="$PWD/workspaces" \
+KILO_PI_SOURCE="/home/miles/repos/agent-harnesses/kilo-pi-durable" \
+npm run operational-node
+```
+
+The Kilo service listens on port 19083 by default; Pi RPC children are spawned per operation. Keep workspace paths under `KILO_WORKSPACE_ROOT`. `npm run test:operational-node` runs the contract self-check; `npm run typecheck:operational-node` checks the retained module.
+
+## Historical substrate probe
 
 Prereqs: Podman, Node 22+, npm, Pi + an authenticated model (the recorded run used `openai-codex/gpt-6-luna`). Host port 8080 is occupied by Bifrost here, so the commands map Restate ingress/admin to 8180/9170.
 

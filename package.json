@@ -5,7 +5,11 @@
   "scripts": {
     "service": "tsx probe/service.ts",
     "test": "tsx probe/check.ts",
-    "typecheck": "tsc --noEmit --target ES2022 --module NodeNext --moduleResolution NodeNext --types node probe/service.ts probe/client.ts probe/pi-extension.ts probe/check.ts probe/approve.ts probe/deny.ts probe/start-approval.ts"
+    "typecheck": "tsc --noEmit --target ES2022 --module NodeNext --moduleResolution NodeNext --types node probe/service.ts probe/client.ts probe/pi-extension.ts probe/check.ts probe/approve.ts probe/deny.ts probe/start-approval.ts",
+    "operational-node": "tsx operational-node/restate/service.ts",
+    "test:operational-node": "tsx operational-node/test/contract.test.ts",
+    "typecheck:operational-node": "tsc --noEmit --target ES2022 --module NodeNext --moduleResolution NodeNext --types node --allowImportingTsExtensions operational-node/contract.ts operational-node/restate/events.ts operational-node/restate/service.ts operational-node/drivers/pi/driver.ts operational-node/drivers/pi/extension.ts operational-node/test/contract.test.ts operational-node/test/faux-extension.ts operational-node/verify.ts",
+    "verify:operational-node": "tsx operational-node/verify.ts"
   },
   "dependencies": {
     "@restatedev/restate-sdk": "1.17.2",
