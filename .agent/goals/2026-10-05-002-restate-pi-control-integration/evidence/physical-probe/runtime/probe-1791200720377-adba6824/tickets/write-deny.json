@@ -1,0 +1,14 @@
+{
+  "runId": "probe-1791200720377-adba6824",
+  "parentInvocationId": "inv_1alxJmTNkuHO6QKn4S99Fe3lqT0TvHsR5I",
+  "sessionId": "cc117c01-763c-49de-b321-14d0825e0491",
+  "toolCallId": "write-deny",
+  "parentToolCallId": null,
+  "toolName": "write",
+  "input": {
+    "path": "denied.txt",
+    "content": "must not exist\n"
+  },
+  "invocationId": "inv_1alxJmTNkuHO60pHWiZJu79bBJaxUHdRq6",
+  "awakeableId": "sign_1pKZHvsQHhniullQDlsPhB-Zz0F6xYlzFAAAAEQ"
+}

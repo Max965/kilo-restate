@@ -1,0 +1,24 @@
+{
+  "container": "kilo-restate-pi-lifecycle",
+  "containerInitiallyStopped": true,
+  "containerFinalState": "exited",
+  "runs": [
+    {
+      "runId": "probe-1791200720377-adba6824",
+      "deploymentId": "dp_14Jn04xNoYYkAewicgix2g1",
+      "initialDeleteHttp": 501,
+      "forceDeleteHttp": 202,
+      "getAfterDeleteHttp": 404
+    },
+    {
+      "runId": "probe-1791201303431-f1f53dfa",
+      "deploymentId": "dp_17An2gkyJ3ubw0J4XBDLtqF",
+      "forceDeleteHttp": 202,
+      "getAfterDeleteHttp": 404
+    }
+  ],
+  "deploymentsAfterRun": [
+    {"id": "dp_16QZTEX6fyawrCnrAe5vqTL", "services": ["Approval", "KiloNode"]}
+  ],
+  "historicalDeploymentIdCheck": {"id": "dp_14c6qg35llJL0oUl9WB9ilr", "http": 404, "note": "historical ID was already absent; no deletion request targeted it"}
+}

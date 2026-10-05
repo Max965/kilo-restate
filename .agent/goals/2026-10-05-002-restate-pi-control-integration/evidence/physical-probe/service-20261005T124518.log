@@ -1,0 +1,65 @@
+[restate][2026-10-05T11:45:19.391Z] INFO: Restate SDK started listening on 19082...
+[restate][2026-10-05T11:45:19.392Z] WARN: Accepting requests without validating request signatures; handler access must be restricted
+[restate][2026-10-05T11:45:20.453Z][KiloPiControlProbeRun20261005/probe-1791200720377-adba6824/run][inv_1alxJmTNkuHO6QKn4S99Fe3lqT0TvHsR5I] INFO: Starting invocation.
+Warning: No project session found with id 'cc117c01-763c-49de-b321-14d0825e0491'; creating a new session with that id.
+[restate][2026-10-05T11:45:24.324Z][KiloPiControlProbeGate20261005/probe-1791200720377-adba6824/request][inv_1alxJmTNkuHO4EMSr8XQcn0TiQhDdPzSt4] INFO: Starting invocation.
+[restate][2026-10-05T11:45:24.364Z][KiloPiControlProbeGate20261005/probe-1791200720377-adba6824/request][inv_1alxJmTNkuHO4EMSr8XQcn0TiQhDdPzSt4] INFO: Invocation completed successfully.
+[restate][2026-10-05T11:45:31.270Z][KiloPiControlProbeRun20261005/probe-1791200720377-adba6824/run][inv_1alxJmTNkuHO6QKn4S99Fe3lqT0TvHsR5I] WARN: Error when processing ctx.run 'ordinary-pi-rpc-turn'.
+ Error: Timeout collecting events. Stderr: Warning: No project session found with id 'cc117c01-763c-49de-b321-14d0825e0491'; creating a new session with that id.
+
+    at Timeout._onTimeout (/home/miles/repos/agent-harnesses/kilo-pi-durable/packages/coding-agent/src/modes/rpc/rpc-client.ts:496:12)
+    at listOnTimeout (node:internal/timers:585:17)
+    at process.processTimers (node:internal/timers:521:7)
+[restate][2026-10-05T11:45:31.276Z][KiloPiControlProbeRun20261005/probe-1791200720377-adba6824/run][inv_1alxJmTNkuHO6QKn4S99Fe3lqT0TvHsR5I] WARN: Error when processing a Restate context operation.
+ RestateError: (500) Timeout collecting events. Stderr: Warning: No project session found with id 'cc117c01-763c-49de-b321-14d0825e0491'; creating a new session with that id.
+
+Stacktrace: Error: Timeout collecting events. Stderr: Warning: No project session found with id 'cc117c01-763c-49de-b321-14d0825e0491'; creating a new session with that id.
+
+    at Timeout._onTimeout (/home/miles/repos/agent-harnesses/kilo-pi-durable/packages/coding-agent/src/modes/rpc/rpc-client.ts:496:12)
+    at listOnTimeout (node:internal/timers:585:17)
+    at process.processTimers (node:internal/timers:521:7)
+Related command: run [ordinary-pi-rpc-turn]
+    at ensureError (/home/miles/repos/agent-harnesses/kilo-restate/node_modules/@restatedev/restate-sdk/src/types/errors.ts:43:12)
+    at ContextImpl.abortAttempt (/home/miles/repos/agent-harnesses/kilo-restate/node_modules/@restatedev/restate-sdk/src/context_impl.ts:909:11)
+    at doRun (/home/miles/repos/agent-harnesses/kilo-restate/node_modules/@restatedev/restate-sdk/src/context_impl.ts:672:16) {
+  code: 500,
+  [cause]: undefined
+}
+[restate][2026-10-05T11:45:31.898Z][KiloPiControlProbeRun20261005/probe-1791200720377-adba6824/run][inv_1alxJmTNkuHO6QKn4S99Fe3lqT0TvHsR5I] INFO: Replaying invocation.
+[restate][2026-10-05T11:45:34.088Z][KiloPiControlProbeTool20261005/probe-1791200720377-adba6824/execute][inv_1alxJmTNkuHO73jUpNFTaq8tXLit3wj2iH] INFO: Starting invocation.
+[restate][2026-10-05T11:45:34.120Z][KiloPiControlProbeTool20261005/probe-1791200720377-adba6824/execute][inv_1alxJmTNkuHO73jUpNFTaq8tXLit3wj2iH] INFO: Invocation completed successfully.
+[restate][2026-10-05T11:45:34.169Z][KiloPiControlProbeTool20261005/probe-1791200720377-adba6824/execute][inv_1alxJmTNkuHO4W7qfqcR8FbGPOfs0J5lVO] INFO: Starting invocation.
+[restate][2026-10-05T11:45:34.200Z][KiloPiControlProbeTool20261005/probe-1791200720377-adba6824/execute][inv_1alxJmTNkuHO4W7qfqcR8FbGPOfs0J5lVO] INFO: Invocation completed successfully.
+[restate][2026-10-05T11:45:34.258Z][KiloPiControlProbeGate20261005/probe-1791200720377-adba6824/request][inv_1alxJmTNkuHO7DI4voQOUPyW3jevSQdF2s] INFO: Starting invocation.
+[restate][2026-10-05T11:45:34.289Z][KiloPiControlProbeGate20261005/probe-1791200720377-adba6824/request][inv_1alxJmTNkuHO7DI4voQOUPyW3jevSQdF2s] INFO: Invocation completed successfully.
+[restate][2026-10-05T11:45:34.340Z][KiloPiControlProbeTool20261005/probe-1791200720377-adba6824/execute][inv_1alxJmTNkuHO7pSobQPd64LKNeQ2hZ6eKZ] INFO: Starting invocation.
+[restate][2026-10-05T11:45:34.370Z][KiloPiControlProbeTool20261005/probe-1791200720377-adba6824/execute][inv_1alxJmTNkuHO7pSobQPd64LKNeQ2hZ6eKZ] INFO: Invocation completed successfully.
+[restate][2026-10-05T11:45:34.422Z][KiloPiControlProbeTool20261005/probe-1791200720377-adba6824/execute][inv_1alxJmTNkuHO400diKv8AbqPtHERwx8Ztv] INFO: Starting invocation.
+[restate][2026-10-05T11:45:34.453Z][KiloPiControlProbeTool20261005/probe-1791200720377-adba6824/execute][inv_1alxJmTNkuHO400diKv8AbqPtHERwx8Ztv] INFO: Invocation completed successfully.
+[restate][2026-10-05T11:45:34.523Z][KiloPiControlProbeGate20261005/probe-1791200720377-adba6824/request][inv_1alxJmTNkuHO76iAitltiJT26GMTtdlTZ8] INFO: Starting invocation.
+[restate][2026-10-05T11:45:34.554Z][KiloPiControlProbeGate20261005/probe-1791200720377-adba6824/request][inv_1alxJmTNkuHO76iAitltiJT26GMTtdlTZ8] INFO: Invocation completed successfully.
+[restate][2026-10-05T11:45:34.609Z][KiloPiControlProbeTool20261005/probe-1791200720377-adba6824/execute][inv_1alxJmTNkuHO5V5yCOiQ5w9MPl2hlEYxjE] INFO: Starting invocation.
+[restate][2026-10-05T11:45:34.639Z][KiloPiControlProbeTool20261005/probe-1791200720377-adba6824/execute][inv_1alxJmTNkuHO5V5yCOiQ5w9MPl2hlEYxjE] INFO: Invocation completed successfully.
+[restate][2026-10-05T11:45:34.693Z][KiloPiControlProbeTool20261005/probe-1791200720377-adba6824/execute][inv_1alxJmTNkuHO1i4hoM7qPnASICWdNvee5l] INFO: Starting invocation.
+[restate][2026-10-05T11:45:34.725Z][KiloPiControlProbeTool20261005/probe-1791200720377-adba6824/execute][inv_1alxJmTNkuHO1i4hoM7qPnASICWdNvee5l] INFO: Invocation completed successfully.
+[restate][2026-10-05T11:45:34.777Z][KiloPiControlProbeTool20261005/probe-1791200720377-adba6824/execute][inv_1alxJmTNkuHO6r2CqOnqujZFcWyhlu2YKV] INFO: Starting invocation.
+[restate][2026-10-05T11:45:34.808Z][KiloPiControlProbeTool20261005/probe-1791200720377-adba6824/execute][inv_1alxJmTNkuHO6r2CqOnqujZFcWyhlu2YKV] INFO: Invocation completed successfully.
+[restate][2026-10-05T11:45:34.870Z][KiloPiControlProbeGate20261005/probe-1791200720377-adba6824/request][inv_1alxJmTNkuHO3y0dzTYNgKu9YJdkeDw9Hr] INFO: Starting invocation.
+[restate][2026-10-05T11:45:34.898Z][KiloPiControlProbeGate20261005/probe-1791200720377-adba6824/request][inv_1alxJmTNkuHO3y0dzTYNgKu9YJdkeDw9Hr] INFO: Invocation completed successfully.
+[restate][2026-10-05T11:45:34.956Z][KiloPiControlProbeTool20261005/probe-1791200720377-adba6824/execute][inv_1alxJmTNkuHO6t4DPnziO9uLi9gLHQSFaQ] INFO: Starting invocation.
+[restate][2026-10-05T11:45:35.003Z][KiloPiControlProbeTool20261005/probe-1791200720377-adba6824/execute][inv_1alxJmTNkuHO6t4DPnziO9uLi9gLHQSFaQ] INFO: Invocation completed successfully.
+[restate][2026-10-05T11:45:35.063Z][KiloPiControlProbeGate20261005/probe-1791200720377-adba6824/request][inv_1alxJmTNkuHO60pHWiZJu79bBJaxUHdRq6] INFO: Starting invocation.
+[restate][2026-10-05T11:45:35.092Z][KiloPiControlProbeGate20261005/probe-1791200720377-adba6824/request][inv_1alxJmTNkuHO60pHWiZJu79bBJaxUHdRq6] INFO: Invocation completed successfully.
+[restate][2026-10-05T11:45:35.148Z][KiloPiControlProbeGate20261005/probe-1791200720377-adba6824/request][inv_1alxJmTNkuHO4dPSGWh2RbCiv6qG5mqOqt] INFO: Starting invocation.
+[restate][2026-10-05T11:45:35.175Z][KiloPiControlProbeGate20261005/probe-1791200720377-adba6824/request][inv_1alxJmTNkuHO4dPSGWh2RbCiv6qG5mqOqt] WARN: Error when processing a Restate context operation.
+ TerminalError: intentional gate failure for fail-closed probe
+    at Object.request (/home/miles/repos/agent-harnesses/kilo-restate/.agent/goals/2026-10-05-002-restate-pi-control-integration/evidence/physical-probe/service.ts:94:15)
+    at async HandlerWrapper.invoke (/home/miles/repos/agent-harnesses/kilo-restate/node_modules/@restatedev/restate-sdk/src/types/rpc.ts:711:26)
+    at async <anonymous> (/home/miles/repos/agent-harnesses/kilo-restate/node_modules/@restatedev/restate-sdk/src/endpoint/handlers/generic.ts:595:20)
+    at async startUserHandler (/home/miles/repos/agent-harnesses/kilo-restate/node_modules/@restatedev/restate-sdk/src/endpoint/handlers/generic.ts:574:3)
+    at async RestateInvokeResponse.process (/home/miles/repos/agent-harnesses/kilo-restate/node_modules/@restatedev/restate-sdk/src/endpoint/handlers/generic.ts:501:7) {
+  code: 500,
+  metadata: {},
+  [cause]: undefined
+}
+[restate][2026-10-05T11:45:35.289Z][KiloPiControlProbeRun20261005/probe-1791200720377-adba6824/run][inv_1alxJmTNkuHO6QKn4S99Fe3lqT0TvHsR5I] INFO: Invocation completed successfully.

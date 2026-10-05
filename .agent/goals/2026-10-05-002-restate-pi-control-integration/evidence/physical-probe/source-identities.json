@@ -1,0 +1,6 @@
+{
+  "kiloRestate": {"repository": "/home/miles/repos/agent-harnesses/kilo-restate", "branch": "main", "revision": "c6779f182c7502aa65916767445b1f55c625fee3", "status": "only this goal-local directory untracked"},
+  "pi": {"repository": "/home/miles/repos/agent-harnesses/kilo-pi-durable", "branch": "main", "revision": "b2b5c42f6138b73ec4b2f49ec0ca468800f88586", "version": "v1.0.2-18-gb2b5c42f6", "status": "pre-existing untracked .agent/, .pi/loops/, latest.zip, ruvector.db only; unchanged"},
+  "restate": {"repository": "/home/miles/repos/agent-harnesses/restate-fork", "branch": "main", "revision": "8a383eba008b325340ded34045321673b6373fb0", "status": "clean"},
+  "runtime": {"node": "v22.22.2", "tsx": "Kilo's already-installed loader", "restateSdk": "1.17.2", "restateServer": "1.7.13", "container": "kilo-restate-pi-lifecycle", "containerFinalState": "exited (was initially stopped)"}
+}

@@ -1,0 +1,6 @@
+timestamp\tevent\tstate\tevidence
+2026-10-05T10:35:08+01:00\tBASELINE_CAPTURED\tWORKING\tBASELINE.env records clean main HEAD c6779f182c7502aa65916767445b1f55c625fee3
+2026-10-05T13:31:01+01:00\tDIRECT_CHALLENGE_RETURN_READY\tTERMINAL_READY\tWORKER_RESULT AGREES; physical probe, report and validator evidence recorded
+2026-10-05T13:31:01+01:00\tREPORT_CONTRACT_LINT_PASS\tTERMINAL_READY\tsemantic-operator/scripts/lint-root-report.sh REPORT_CONTRACT_LINT PASS
+2026-10-05T13:41:38+01:00\tACTOR_TURN_CLOSEOUT_AUDIT_COMPLETE\tTERMINAL_READY\tturns 001/002 assignment/report/trace guard and identity reconciled
+2026-10-05T13:47:00+01:00\tTRANSPORT_INPUTS_READY\tTERMINAL_READY\titeration report mirrors goal report; RETURN_SOURCE_FILES explicitly has no subject-source changes

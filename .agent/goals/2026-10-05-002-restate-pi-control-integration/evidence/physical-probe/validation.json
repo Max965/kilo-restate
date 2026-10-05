@@ -1,0 +1,31 @@
+{
+  "result": "PASS for bounded capability/physics probe only",
+  "validatorOutput": "PASS: durable outer submit/attach, deferred gate, Pi session reopen, four routed tools, deny/fail-closed, structured events, and Restate journal are evidenced",
+  "runId": "probe-1791201303431-f1f53dfa",
+  "outerInvocationId": "inv_1cQL8pRLjNm63srUcnei9MCabEhtRDAdxf",
+  "firstSubmit": "Accepted",
+  "duplicateSubmit": "PreviouslyAccepted",
+  "settlement": "completed",
+  "piSessionId": "b79f6e00-a065-475a-af98-0aa7a2ec5332",
+  "piProcessStarts": 2,
+  "rpcEventCount": 98,
+  "restatedInvocationRows": 15,
+  "journalRows": 65,
+  "resultSha256": "7ebbcf9a0c227da5e3e3970fad96e3572f25e132f5613cc61b536480e3d55e74",
+  "shellSyntax": "PASS",
+  "pythonCompile": "PASS",
+  "reportRequiredSurfaces": "PASS",
+  "reportLocalLinks": "PASS",
+  "probeFileTypeScriptDiagnostics": 0,
+  "unrelatedPiTypeScriptDiagnostics": 24,
+  "probeDeploymentsGetAfterDelete": [
+    404,
+    404
+  ],
+  "containerFinalState": "exited",
+  "remainingServiceDeployment": [
+    "Approval",
+    "KiloNode"
+  ],
+  "sourceRevisionsVerified": true
+}

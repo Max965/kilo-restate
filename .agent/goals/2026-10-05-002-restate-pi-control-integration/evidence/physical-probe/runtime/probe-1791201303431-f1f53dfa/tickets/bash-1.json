@@ -1,0 +1,14 @@
+{
+  "runId": "probe-1791201303431-f1f53dfa",
+  "parentInvocationId": "inv_1cQL8pRLjNm63srUcnei9MCabEhtRDAdxf",
+  "sessionId": "b79f6e00-a065-475a-af98-0aa7a2ec5332",
+  "toolCallId": "bash-1",
+  "parentToolCallId": null,
+  "toolName": "bash",
+  "input": {
+    "command": "printf 'bash-ok\\n'",
+    "timeout": 5
+  },
+  "invocationId": "inv_1cQL8pRLjNm60CjWdy4BwfvC8UsCmTWOI2",
+  "awakeableId": "sign_1Fu9H41bnrpXSeRbkw0fIcVPymFYL-k4UAAAAEQ"
+}

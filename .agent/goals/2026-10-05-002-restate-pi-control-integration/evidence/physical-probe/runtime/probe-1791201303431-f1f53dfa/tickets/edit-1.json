@@ -1,0 +1,19 @@
+{
+  "runId": "probe-1791201303431-f1f53dfa",
+  "parentInvocationId": "inv_1cQL8pRLjNm63srUcnei9MCabEhtRDAdxf",
+  "sessionId": "b79f6e00-a065-475a-af98-0aa7a2ec5332",
+  "toolCallId": "edit-1",
+  "parentToolCallId": null,
+  "toolName": "edit",
+  "input": {
+    "path": "seed.txt",
+    "edits": [
+      {
+        "oldText": "original\n",
+        "newText": "edited by Pi\n"
+      }
+    ]
+  },
+  "invocationId": "inv_1cQL8pRLjNm667ITB1lbxanpCEeQIyU2cJ",
+  "awakeableId": "sign_1Fu9H41bnrpX9Ufr-TAL0gokyGTGaCjzJAAAAEQ"
+}

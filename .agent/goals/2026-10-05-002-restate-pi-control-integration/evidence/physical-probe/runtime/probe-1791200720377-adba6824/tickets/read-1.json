@@ -1,0 +1,13 @@
+{
+  "runId": "probe-1791200720377-adba6824",
+  "parentInvocationId": "inv_1alxJmTNkuHO6QKn4S99Fe3lqT0TvHsR5I",
+  "sessionId": "cc117c01-763c-49de-b321-14d0825e0491",
+  "toolCallId": "read-1",
+  "parentToolCallId": null,
+  "toolName": "read",
+  "input": {
+    "path": "seed.txt"
+  },
+  "invocationId": "inv_1alxJmTNkuHO4EMSr8XQcn0TiQhDdPzSt4",
+  "awakeableId": "sign_1pKZHvsQHhniaZFCy3iTn3xgRnyT_DQuZAAAAEQ"
+}

@@ -1,0 +1,13 @@
+{
+  "runId": "probe-1791200720377-adba6824",
+  "outerInvocationId": "inv_1alxJmTNkuHO6QKn4S99Fe3lqT0TvHsR5I",
+  "piSessionId": "cc117c01-763c-49de-b321-14d0825e0491",
+  "workerCompleted": true,
+  "replayedAfterPiChildTimeout": true,
+  "samePiSessionReopened": true,
+  "nativeToolCalls": ["read", "write", "edit", "bash"],
+  "gateDenialAndFailure": "Both returned Pi tool errors; denied write had no effect and gate outage blocked edit fail-closed.",
+  "workspaceEffects": {"written.txt": "written by Pi", "seed.txt": "edited by Pi", "denied.txt": "absent"},
+  "resultCapture": "Failed after workflow completion: serializing the expected not-ready workflowOutput value invoked Restate SDK's throwing result getter. Driver now normalizes ready/pending output before serialization.",
+  "deploymentCleanup": {"initialDeleteHttp": 501, "forceDeleteHttp": 202, "getAfterDeleteHttp": 404, "containerRestoredStopped": true}
+}

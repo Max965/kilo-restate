@@ -1,0 +1,14 @@
+{
+  "runId": "probe-1791200720377-adba6824",
+  "parentInvocationId": "inv_1alxJmTNkuHO6QKn4S99Fe3lqT0TvHsR5I",
+  "sessionId": "cc117c01-763c-49de-b321-14d0825e0491",
+  "toolCallId": "write-1",
+  "parentToolCallId": null,
+  "toolName": "write",
+  "input": {
+    "path": "written.txt",
+    "content": "written by Pi\n"
+  },
+  "invocationId": "inv_1alxJmTNkuHO7DI4voQOUPyW3jevSQdF2s",
+  "awakeableId": "sign_1pKZHvsQHhngU6ZEq9fFBAZ-vYuoW8Ar7AAAAEQ"
+}
