@@ -1,0 +1,1 @@
+{"deployments":[{"id":"dp_16QZTEX6fyawrCnrAe5vqTL","uri":"http://host.containers.internal:9080/","protocol_type":"BidiStream","http_version":"HTTP/2.0","created_at":"2026-10-03T17:20:53.705000000Z","min_protocol_version":5,"max_protocol_version":7,"sdk_version":"restate-sdk-typescript/1.17.2","services":[{"name":"KiloNode","revision":1},{"name":"Approval","revision":1}]}]}

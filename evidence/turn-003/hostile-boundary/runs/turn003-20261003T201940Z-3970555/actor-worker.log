@@ -1,0 +1,9 @@
+[restate][2026-10-03T20:19:40.878Z] INFO: Restate SDK started listening on 9081...
+[restate][2026-10-03T20:19:40.880Z] WARN: Accepting requests without validating request signatures; handler access must be restricted
+[restate][2026-10-03T20:20:54.793Z][DurableAgent/turn003-20261003T201940Z-3970555/run][inv_1dKKeKvXmxOb7soguoJK3qj1D07yTyWFEW] INFO: Starting invocation.
+Warning: No project session found with id '12fad0be-4f70-46e9-9cbe-8b1a21c8361c'; creating a new session with that id.
+[restate][2026-10-03T20:21:07.029Z][DurableAgent/turn003-20261003T201940Z-3970555/run][inv_1dKKeKvXmxOb7soguoJK3qj1D07yTyWFEW] INFO: Invocation completed successfully.
+[restate][2026-10-03T20:21:07.109Z][DurableAgent/turn003-20261003T201940Z-3970555/status][inv_1dKKeKvXmxOb4vglcnG7z5A74T7ajBtpMw] INFO: Starting invocation.
+[restate][2026-10-03T20:21:07.112Z][DurableAgent/turn003-20261003T201940Z-3970555/status][inv_1dKKeKvXmxOb4vglcnG7z5A74T7ajBtpMw] INFO: Invocation completed successfully.
+[restate][2026-10-03T20:21:08.434Z][DurableAgent/turn003-20261003T201940Z-3970555/status][inv_1dKKeKvXmxOb6dXzXeK9fz4L8nZ7LGBwCI] INFO: Starting invocation.
+[restate][2026-10-03T20:21:08.435Z][DurableAgent/turn003-20261003T201940Z-3970555/status][inv_1dKKeKvXmxOb6dXzXeK9fz4L8nZ7LGBwCI] INFO: Invocation completed successfully.

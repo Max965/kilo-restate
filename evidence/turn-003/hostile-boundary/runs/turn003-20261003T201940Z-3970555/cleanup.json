@@ -1,0 +1,12 @@
+{
+  "capturedAt": "2026-10-03T21:27:08+01:00",
+  "testWorkerPids": [3970582, 3970583],
+  "testWorkers": "SIGTERM sent; both PIDs absent afterward",
+  "temporaryDeployment": "dp_14PqsFrcNJa0ySKeDgRKnBf",
+  "temporaryDeploymentRemoval": "DELETE /deployments/dp_14PqsFrcNJa0ySKeDgRKnBf?force=true returned HTTP 202 after a SQL query showed zero non-completed invocations for the run key",
+  "preexistingKiloNodeDeploymentPreserved": "dp_16QZTEX6fyawrCnrAe5vqTL",
+  "restateContainer": "kilo-restate-pi-lifecycle",
+  "restateContainerAfter": "exited (0), matching the pre-run status",
+  "portsAfter": { "8180": "unbound", "9170": "unbound", "9080": "unbound", "9081": "unbound" },
+  "invocationAndJournalEvidence": "preserved under this run directory in summary.json"
+}

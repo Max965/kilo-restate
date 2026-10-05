@@ -1,0 +1,21 @@
+{
+  "validatedAt": "2026-10-03T21:22:00+01:00",
+  "verdict": "PASS",
+  "checkedAssertions": 10,
+  "restateInvocationId": "inv_1dKKeKvXmxOb7soguoJK3qj1D07yTyWFEW",
+  "killToolInvocationId": "inv_18w9UfEEUiXp6xP6QZaoNopSjfsvbGB2hq",
+  "toolInvocations": 2,
+  "firstPiSignal": "SIGKILL",
+  "actorAttempts": 2,
+  "effectLines": 1,
+  "sessionLossMessages": 0,
+  "check": "node --input-type=module re-read summary.json and asserted pass status, all 10 predicates, completed Restate actor and kill-tool invocations, and session-loss zero-message outcome.",
+  "postCleanupChecks": {
+    "npmRunTypecheck": "PASS",
+    "addedEvidenceTypecheckWithSkipLibCheck": "PASS",
+    "sessionFileRestored": true,
+    "sessionFileSha256": "d75e34edb7bb74db217e8965ed1bde48a505b0a44180883426a5732f86906743",
+    "restateContainer": "exited (0)",
+    "ports8180_9170_9080_9081": "unbound"
+  }
+}

@@ -1,0 +1,417 @@
+[
+  {
+    "type": "session",
+    "id": "42c9cab2-2e71-4bd8-ae1f-c3f5d56a3da6",
+    "timestamp": "2026-10-03T18:23:46.809Z",
+    "cwd": "/home/miles/repos/agent-harnesses/kilo-restate/evidence/turn-002/workspace-direct"
+  },
+  {
+    "type": "session_info",
+    "id": "83ee658b",
+    "timestamp": "2026-10-03T18:23:46.810Z",
+    "name": "Direct Pi lifecycle baseline"
+  },
+  {
+    "type": "model_change",
+    "id": "7ab6cf0e",
+    "timestamp": "2026-10-03T18:23:47.053Z",
+    "provider": "openai-codex",
+    "modelId": "gpt-6-luna"
+  },
+  {
+    "type": "thinking_level_change",
+    "id": "26d8a530",
+    "timestamp": "2026-10-03T18:23:47.053Z",
+    "thinkingLevel": "max"
+  },
+  {
+    "type": "message",
+    "timestamp": "2026-10-03T18:24:06.098Z",
+    "role": "user",
+    "text": "Read TASK.md with the read tool. Return the exact mapping for amber and all other strings and state whether the comparison is case-sensitive. Do not edit route.js yet."
+  },
+  {
+    "type": "message",
+    "timestamp": "2026-10-03T18:24:10.453Z",
+    "role": "assistant",
+    "text": "",
+    "toolCalls": [
+      {
+        "id": "call_C0w8SAb6efU4w5foMTN9mG3u|fc_0f517c95f4638b38016ac1484a440c87d2a23af82cc5892866",
+        "name": "read",
+        "arguments": {
+          "path": "TASK.md",
+          "offset": null,
+          "limit": null
+        }
+      }
+    ]
+  },
+  {
+    "type": "message",
+    "timestamp": "2026-10-03T18:24:10.467Z",
+    "role": "toolResult",
+    "toolName": "read",
+    "toolCallId": "call_C0w8SAb6efU4w5foMTN9mG3u|fc_0f517c95f4638b38016ac1484a440c87d2a23af82cc5892866",
+    "isError": false,
+    "text": "Implement `classifyIncident(code)` in `route.js`.\n\nRules:\n- Exact input `amber` maps to `queue-amber-r7`.\n- Every other string maps to `queue-default`.\n- Matching is case-sensitive.\n\nThis is stage one: learn and report the exact mapping and case rule. Do not edit the source yet.\n"
+  },
+  {
+    "type": "message",
+    "timestamp": "2026-10-03T18:24:12.340Z",
+    "role": "assistant",
+    "text": "Exact `amber` maps to `queue-amber-r7`. Every other string maps to `queue-default`. The comparison is case-sensitive.",
+    "toolCalls": []
+  },
+  {
+    "type": "message",
+    "timestamp": "2026-10-03T18:25:25.813Z",
+    "role": "user",
+    "text": "Continue the task from stage one in this same session. Implement the routing rule from TASK.md in route.js using the exact amber destination and default destination you reported in your previous answer; preserve the case-sensitive match. TASK.md has been removed from the workspace, so do not try to read or recover it. Use the edit tool to replace the exact marker `// implementation goes here` with the implementation. Then use bash to run a Node assertion for `classifyIncident(\"amber\")` against the exact destination from your prior answer and `classifyIncident(\"AMBER\")` against the prior fallback. Report the code and verification result."
+  },
+  {
+    "type": "message",
+    "timestamp": "2026-10-03T18:25:36.583Z",
+    "role": "assistant",
+    "text": "",
+    "toolCalls": [
+      {
+        "id": "call_VE83c1E7IH87u7JcBvFKnlz5|fc_0f517c95f4638b38016ac148a0749087d29549948cbc38961d",
+        "name": "read",
+        "arguments": {
+          "path": "/home/miles/repos/runtime/.pi/agent/skills/superpowers/using-superpowers/SKILL.md",
+          "offset": null,
+          "limit": null
+        }
+      },
+      {
+        "id": "call_eiiTo9nBA7SvGfgaVX9vdH8s|fc_0f517c95f4638b38016ac148a074a487d2b4eadab6ca9cbf74",
+        "name": "read",
+        "arguments": {
+          "path": "/home/miles/repos/runtime/.pi/agent/git/github.com/DietrichGebert/ponytail/skills/ponytail/SKILL.md",
+          "offset": null,
+          "limit": null
+        }
+      },
+      {
+        "id": "call_LPDc55uqiSReWw2RHohzCMhi|fc_0f517c95f4638b38016ac148a074ac87d28817b1eaa392ca2a",
+        "name": "read",
+        "arguments": {
+          "path": "/home/miles/repos/runtime/.pi/agent/skills/superpowers/superpowers/SKILL.md",
+          "offset": null,
+          "limit": null
+        }
+      },
+      {
+        "id": "call_8PMneFMddETXuLHTcUBv9NqJ|fc_0f517c95f4638b38016ac148a074b487d2b809ad9513088e00",
+        "name": "read",
+        "arguments": {
+          "path": "/home/miles/repos/runtime/.pi/agent/skills/superpowers/test-driven-development/SKILL.md",
+          "offset": null,
+          "limit": null
+        }
+      },
+      {
+        "id": "call_ya6hM8HCrlaVNzslz7q25m4u|fc_0f517c95f4638b38016ac148a074c087d2b6c84374330657b8",
+        "name": "read",
+        "arguments": {
+          "path": "/home/miles/repos/runtime/.pi/agent/skills/coding/SKILL.md",
+          "offset": null,
+          "limit": null
+        }
+      }
+    ]
+  },
+  {
+    "type": "message",
+    "timestamp": "2026-10-03T18:25:36.613Z",
+    "role": "toolResult",
+    "toolName": "read",
+    "toolCallId": "call_VE83c1E7IH87u7JcBvFKnlz5|fc_0f517c95f4638b38016ac148a0749087d29549948cbc38961d",
+    "isError": false,
+    "text": "---\nname: using-superpowers\ndescription: Use when starting any conversation - establishes how to find and use skills, requiring Skill tool invocation before ANY response including clarifying questions\n---\n\n<SUBAGENT-STOP>\nIf you were dispatched as a subagent to execute a specific task, skip this skill.\n</SUBAGENT-STOP>\n\n<EXTREMELY-IMPORTANT>\nIf you think there is even a 1% chance a skill might apply to what you are doing, you ABSOLUTELY MUST invoke the skill.\n\nIF A SKILL APPLIES TO YOUR TASK, YOU DO NOT HAVE A CHOICE. YOU MUST USE IT.\n\nThis is not negotiable. This is not optional. You cannot rationalize your way out of this.\n</EXTREMELY-IMPORTANT>\n\n## Instruction Priority\n\nSuperpowers skills override default system prompt behavior, but **user instructions always take precedence**:\n\n1. **User's explicit instructions** (CLAUDE.md, GEMINI.md, AGENTS.md, direct requests) — highest priority\n2. **Superpowers skills** — override default system behavior where they conflict\n3. **Default system prompt** — lowest priority\n\nIf CLAUDE.md, GEMINI.md, or AGENTS.md says \"don't use TDD\" and a skill says \"always use TDD,\" follow the user's instructions. The user is in control.\n\n## How to Access Skills\n\n**In Claude Code:** Use the `Skill` tool. When you invoke a skill, its content is loaded and presented to you—follow it directly. Never use the Read tool on skill files.\n\n**In Gemini CLI:** Skills activate via the `activate_skill` tool. Gemini loads skill metadata at session start and activates the full content on demand.\n\n**In other environments:** Check your platform's documentation for how skills are loaded.\n\n## Platform Adaptation\n\nSkills use Claude Code tool names. Non-CC platforms: see `references/codex-tools.md` (Codex) for tool equivalents. Gemini CLI users get the tool mapping loaded automatically via GEMINI.md.\n\n# Using Skills\n\n## The Rule\n\n**Invoke relevant or requested skills BEFORE any response or action.** Even a 1% chance a skill might apply means that you should invoke the skill to check. If an invoked skill turns out to be wrong for the situation, you don't need to use it.\n\n```dot\ndigraph skill_flow {\n    \"User message received\" [shape=doublecircle];\n    \"About to EnterPlanMode?\" [shape=doublecircle];\n    \"Already brainstormed?\" [shape=diamond];\n    \"Invoke brainstorming skill\" [shape=box];\n    \"Might any skill apply?\" [shape=diamond];\n    \"Invoke Skill tool\" [shape=box];\n    \"Announce: 'Using [skill] to [purpose]'\" [shape=box];\n    \"Has checklist?\" [shape=diamond];\n    \"Create TodoWrite todo per item\" [shape=box];\n    \"Follow skill exactly\" [shape=box];\n    \"Respond (including clarifications)\" [shape=doublecircle];\n\n    \"About to EnterPlanMode?\" -> \"Already brainstormed?\";\n    \"Already brainstormed?\" -> \"Invoke brainstorming skill\" [label=\"no\"];\n    \"Already brainstormed?\" -> \"Might any skill apply?\" [label=\"yes\"];\n    \"Invoke brainstorming skill\" -> \"Might any skill apply?\";\n\n    \"User message received\" -> \"Might any skill apply?\";\n    \"Might any skill apply?\" -> \"Invoke Skill tool\" [label=\"yes, even 1%\"];\n    \"Might any skill apply?\" -> \"Respond (including clarifications)\" [label=\"definitely not\"];\n    \"Invoke Skill tool\" -> \"Announce: 'Using [skill] to [purpose]'\";\n    \"Announce: 'Using [skill] to [purpose]'\" -> \"Has checklist?\";\n    \"Has checklist?\" -> \"Create TodoWrite todo per item\" [label=\"yes\"];\n    \"Has checklist?\" -> \"Follow skill exactly\" [label=\"no\"];\n    \"Create TodoWrite todo per item\" -> \"Follow skill exactly\";\n}\n```\n\n## Red Flags\n\nThese thoughts mean STOP—you're rationalizing:\n\n| Thought | Reality |\n|---------|---------|\n| \"This is just a simple question\" | Questions are tasks. Check for skills. |\n| \"I need more context first\" | Skill check comes BEFORE clarifying questions. |\n| \"Let me explore the codebase first\" | Skills tell you HOW to explore. Check first. |\n| \"I can check git/files quickly\" | Files lack conversation context. Check for skills. |\n| \"Let me gather information first\" | Skills tell you HOW to gather information. |\n| \"This doesn't need a formal skill\" | If a skill exists, use it. |\n| \"I remember this skill\" | Skills evolve. Read current version. |\n| \"This doesn't count as a task\" | Action = task. Check for skills. |\n| \"The skill is overkill\" | Simple things become complex. Use it. |\n| \"I'll just do this one thing first\" | Check BEFORE doing anything. |\n| \"This feels productive\" | Undisciplined action wastes time. Skills prevent this. |\n| \"I know what that means\" | Knowing the concept ≠ using the skill. Invoke it. |\n\n## Skill Priority\n\nWhen multiple skills could apply, use this order:\n\n1. **Process skills first** (brainstorming, debugging) - these determine HOW to approach the task\n2. **Implementation skills second** (frontend-design, mcp-builder) - these guide execution\n\n\"Let's build X\" → brainstorming first, then implementation skills.\n\"Fix this bug\" → debugging first, then domain-specific skills.\n\n## Skill Types\n\n**Rigid** (TDD, debugging): Follow exactly. Don't adapt away discipline.\n\n**Flexible** (patterns): Adapt principles to context.\n\nThe skill itself tells you which.\n\n## User Instructions\n\nInstructions say WHAT, not HOW. \"Add X\" or \"Fix Y\" doesn't mean skip workflows.\n"
+  },
+  {
+    "type": "message",
+    "timestamp": "2026-10-03T18:25:36.614Z",
+    "role": "toolResult",
+    "toolName": "read",
+    "toolCallId": "call_eiiTo9nBA7SvGfgaVX9vdH8s|fc_0f517c95f4638b38016ac148a074a487d2b4eadab6ca9cbf74",
+    "isError": false,
+    "text": "---\nname: ponytail\ndescription: >\n  Forces the laziest solution that actually works, simplest, shortest, most\n  minimal. Channels a senior dev who has seen everything: question whether the\n  task needs to exist at all (YAGNI), reach for the standard library before\n  custom code, native platform features before dependencies, one line before\n  fifty. Supports intensity levels: lite, full (default), ultra. Use on ANY\n  coding task: writing, adding, refactoring, fixing, reviewing, or designing\n  code, and choosing libraries or dependencies. Also use whenever the user\n  says \"ponytail\", \"be lazy\", \"lazy mode\", \"simplest solution\", \"minimal\n  solution\", \"yagni\", \"do less\", or \"shortest path\", or complains about\n  over-engineering, bloat, boilerplate, or unnecessary dependencies. Do NOT\n  use for non-coding requests (general knowledge, prose, translation,\n  summaries, recipes).\nargument-hint: \"[lite|full|ultra]\"\nlicense: MIT\n---\n\n# Ponytail\n\nYou are a lazy senior developer. Lazy means efficient, not careless. You have\nseen every over-engineered codebase and been paged at 3am for one. The best\ncode is the code never written.\n\n## Persistence\n\nACTIVE EVERY RESPONSE. No drift back to over-building. Still active if\nunsure. Off only: \"stop ponytail\" / \"normal mode\". Default: **full**.\nSwitch: `/ponytail lite|full|ultra`.\n\n## The ladder\n\nStop at the first rung that holds:\n\n1. **Does this need to exist at all?** Speculative need = skip it, say so in one line. (YAGNI)\n2. **Already in this codebase?** A helper, util, type, or pattern that already lives here → reuse it. Look before you write; re-implementing what's a few files over is the most common slop.\n3. **Stdlib does it?** Use it.\n4. **Native platform feature covers it?** `<input type=\"date\">` over a picker lib, CSS over JS, DB constraint over app code.\n5. **Already-installed dependency solves it?** Use it. Never add a new one for what a few lines can do.\n6. **Can it be one line?** One line.\n7. **Only then:** the minimum code that works.\n\nThe ladder is a reflex, not a research project — but it runs *after* you\nunderstand the problem, not instead of it. Read the task and the code it\ntouches first, trace the real flow end to end, then climb. Two rungs work →\ntake the higher one and move on. The first lazy solution that works is the\nright one — once you actually know what the change has to touch.\n\n**Bug fix = root cause, not symptom.** A report names a symptom. Before you\nedit, grep every caller of the function you're about to touch. The lazy fix IS\nthe root-cause fix: one guard in the shared function is a smaller diff than a\nguard in every caller — and patching only the path the ticket names leaves\nevery sibling caller still broken. Fix it once, where all callers route through.\n\n## Rules\n\n- No unrequested abstractions: no interface with one implementation, no factory for one product, no config for a value that never changes.\n- No boilerplate, no scaffolding \"for later\", later can scaffold for itself.\n- Deletion over addition. Boring over clever, clever is what someone decodes at 3am.\n- Fewest files possible. Shortest working diff wins — but only once you understand the problem. The smallest change in the wrong place isn't lazy, it's a second bug.\n- Complex request? Ship the lazy version and question it in the same response, \"Did X; Y covers it. Need full X? Say so.\" Never stall on an answer you can default.\n- Two stdlib options, same size? Take the one that's correct on edge cases. Lazy means writing less code, not picking the flimsier algorithm.\n- Mark deliberate simplifications that cut a real corner with a known ceiling (global lock, O(n²) scan, naive heuristic) with a `ponytail:` comment naming the ceiling and upgrade path (`# ponytail: global lock, per-account locks if throughput matters`).\n\n## Output\n\nCode first. Then at most three short lines: what was skipped, when to add it.\nNo essays, no feature tours, no design notes. If the explanation is longer\nthan the code, delete the explanation, every paragraph defending a\nsimplification is complexity smuggled back in as prose. Explanation the user\nexplicitly asked for (a report, a walkthrough, per-phase notes) is not debt,\ngive it in full, the rule is only against unrequested prose.\n\nPattern: `[code] → skipped: [X], add when [Y].`\n\n## Intensity\n\n| Level | What change |\n|-------|------------|\n| **lite** | Build what's asked, but name the lazier alternative in one line. User picks. |\n| **full** | The ladder enforced. Stdlib and native first. Shortest diff, shortest explanation. Default. |\n| **ultra** | YAGNI extremist. Deletion before addition. Ship the one-liner and challenge the rest of the requirement in the same breath. |\n\nExample: \"Add a cache for these API responses.\"\n- lite: \"Done, cache added. FYI: `functools.lru_cache` covers this in one line if you'd rather not own a cache class.\"\n- full: \"`@lru_cache(maxsize=1000)` on the fetch function. Skipped custom cache class, add when lru_cache measurably falls short.\"\n- ultra: \"No cache until a profiler says so. When it does: `@lru_cache`. A hand-rolled TTL cache class is a bug farm with a hit rate.\"\n\n## When NOT to be lazy\n\nNever simplify away: input validation at trust boundaries, error handling\nthat prevents data loss, security measures, accessibility basics, anything\nexplicitly requested. User insists on the full version → build it, no\nre-arguing.\n\nNever lazy about understanding the problem. The ladder shortens the\nsolution, never the reading. Trace the whole thing first — every file the\nchange touches, the actual flow — before picking a rung. Laziness that skips\ncomprehension to ship a small diff is the dangerous kind: it dresses up as\nefficiency and ships a confident wrong fix. Read fully, then be lazy.\n\nHardware is never the ideal on paper: a real clock drifts, a real sensor\nreads off, a PCA9685 runs a few percent fast. Leave the calibration knob, not\njust less code, the physical world needs tuning a minimal model can't see.\n\nLazy code without its check is unfinished. Non-trivial logic (a branch, a\nloop, a parser, a money/security path) leaves ONE runnable check behind, the\nsmallest thing that fails if the logic breaks: an `assert`-based\n`demo()`/`__main__` self-check or one small `test_*.py`. No frameworks, no\nfixtures, no per-function suites unless asked. Trivial one-liners need no\ntest, YAGNI applies to tests too.\n\n## Boundaries\n\nPonytail governs what you build, not how you talk (pair with Caveman for\nterse prose). \"stop ponytail\" / \"normal mode\": revert. Level persists until\nchanged or session end.\n\nThe shortest path to done is the right path.\n"
+  },
+  {
+    "type": "message",
+    "timestamp": "2026-10-03T18:25:36.615Z",
+    "role": "toolResult",
+    "toolName": "read",
+    "toolCallId": "call_LPDc55uqiSReWw2RHohzCMhi|fc_0f517c95f4638b38016ac148a074ac87d28817b1eaa392ca2a",
+    "isError": false,
+    "text": "---\nname: superpowers\ndescription: Use when implementing anything — coordinates implementer → spec-reviewer → code-quality-reviewer loop. This is the PRIMARY skill for any implementation task.\n---\n\n# Superpowers Workflow — Orchestrated Development\n\n**Load this skill at the start of EVERY implementation task by calling: `/skill:superpowers`**\n\nThis skill runs a staged development loop. **Always use the `workflow` tool to advance phases** — never guess what comes next.\n\n## CRITICAL: How to Advance Through the Workflow\n\n**After EVERY agent dispatch, call the `workflow` tool to get the next phase.**\n\n```\n1. Call workflow tool: { task: \"<user goal>\", phase: \"<current phase>\", status: \"<agent status>\" }\n2. Read the phase guidance it returns\n3. Dispatch the agent it specifies (use Agent tool with subagent_type from guidance)\n4. Repeat\n```\n\n**The workflow tool is the authoritative state machine.** Never skip it.\n\n## The Loop\n\n    implementer → spec-reviewer → code-quality-reviewer → implementer → ... → complete/escalate\n\nEach agent returns a status:\n- **implementer**: DONE | DONE_WITH_CONCERNS | BLOCKED | NEEDS_CONTEXT\n- **spec-reviewer / code-quality-reviewer**: PASS | FAIL\n\nAfter each agent, call workflow tool with the status to get the next agent.\n\n## When to Use\n\n```dot\ndigraph when_to_use {\n    \"Have implementation plan?\" [shape=diamond];\n    \"Tasks mostly independent?\" [shape=diamond];\n    \"Stay in this session?\" [shape=diamond];\n    \"subagent-driven-development\" [shape=box];\n    \"executing-plans\" [shape=box];\n    \"Manual execution or brainstorm first\" [shape=box];\n\n    \"Have implementation plan?\" -> \"Tasks mostly independent?\" [label=\"yes\"];\n    \"Have implementation plan?\" -> \"Manual execution or brainstorm first\" [label=\"no\"];\n    \"Tasks mostly independent?\" -> \"Stay in this session?\" [label=\"yes\"];\n    \"Tasks mostly independent?\" -> \"Manual execution or brainstorm first\" [label=\"no - tightly coupled\"];\n    \"Stay in this session?\" -> \"subagent-driven-development\" [label=\"yes\"];\n    \"Stay in this session?\" -> \"executing-plans\" [label=\"no - parallel session\"];\n}\n```\n\n**vs. Executing Plans (parallel session):**\n- Same session (no context switch)\n- Fresh subagent per task (no context pollution)\n- Two-stage review after each task: spec compliance first, then code quality\n- Faster iteration (no human-in-loop between tasks)\n\n## The Process\n\n```dot\ndigraph process {\n    rankdir=TB;\n\n    subgraph cluster_per_task {\n        label=\"Per Task\";\n        \"Dispatch implementer subagent (./implementer.md)\" [shape=box];\n        \"Implementer subagent asks questions?\" [shape=diamond];\n        \"Answer questions, provide context\" [shape=box];\n        \"Implementer subagent implements, tests, commits, self-reviews\" [shape=box];\n        \"Dispatch spec reviewer subagent (./spec-reviewer.md)\" [shape=box];\n        \"Spec reviewer subagent confirms code matches spec?\" [shape=diamond];\n        \"Implementer subagent fixes spec gaps\" [shape=box];\n        \"Dispatch code quality reviewer subagent (./code-quality-reviewer.md)\" [shape=box];\n        \"Code quality reviewer subagent approves?\" [shape=diamond];\n        \"Implementer subagent fixes quality issues\" [shape=box];\n        \"Mark task complete in TodoWrite\" [shape=box];\n    }\n\n    \"Read plan, extract all tasks with full text, note context, create TodoWrite\" [shape=box];\n    \"More tasks remain?\" [shape=diamond];\n    \"Dispatch final code reviewer subagent for entire implementation\" [shape=box];\n    \"Use superpowers:finishing-a-development-branch\" [shape=box style=filled fillcolor=lightgreen];\n\n    \"Read plan, extract all tasks with full text, note context, create TodoWrite\" -> \"Dispatch implementer subagent (./implementer.md)\";\n    \"Dispatch implementer subagent (./implementer.md)\" -> \"Implementer subagent asks questions?\";\n    \"Implementer subagent asks questions?\" -> \"Answer questions, provide context\" [label=\"yes\"];\n    \"Answer questions, provide context\" -> \"Dispatch implementer subagent (./implementer.md)\";\n    \"Implementer subagent asks questions?\" -> \"Implementer subagent implements, tests, commits, self-reviews\" [label=\"no\"];\n    \"Implementer subagent implements, tests, commits, self-reviews\" -> \"Dispatch spec reviewer subagent (./spec-reviewer.md)\";\n    \"Dispatch spec reviewer subagent (./spec-reviewer.md)\" -> \"Spec reviewer subagent confirms code matches spec?\";\n    \"Spec reviewer subagent confirms code matches spec?\" -> \"Implementer subagent fixes spec gaps\" [label=\"no\"];\n    \"Implementer subagent fixes spec gaps\" -> \"Dispatch spec reviewer subagent (./spec-reviewer.md)\" [label=\"re-review\"];\n    \"Spec reviewer subagent confirms code matches spec?\" -> \"Dispatch code quality reviewer subagent (./code-quality-reviewer.md)\" [label=\"yes\"];\n    \"Dispatch code quality reviewer subagent (./code-quality-reviewer.md)\" -> \"Code quality reviewer subagent approves?\";\n    \"Code quality reviewer subagent approves?\" -> \"Implementer subagent fixes quality issues\" [label=\"no\"];\n    \"Implementer subagent fixes quality issues\" -> \"Dispatch code quality reviewer subagent (./code-quality-reviewer.md)\" [label=\"re-review\"];\n    \"Code quality reviewer subagent approves?\" -> \"Mark task complete in TodoWrite\" [label=\"yes\"];\n    \"Mark task complete in TodoWrite\" -> \"More tasks remain?\";\n    \"More tasks remain?\" -> \"Dispatch implementer subagent (./implementer.md)\" [label=\"yes\"];\n    \"More tasks remain?\" -> \"Dispatch final code reviewer subagent for entire implementation\" [label=\"no\"];\n    \"Dispatch final code reviewer subagent for entire implementation\" -> \"Use superpowers:finishing-a-development-branch\";\n}\n```\n\n## Model Selection\n\nUse the least powerful model that can handle each role to conserve cost and increase speed.\n\n**Mechanical implementation tasks** (isolated functions, clear specs, 1-2 files): use a fast, cheap model. Most implementation tasks are mechanical when the plan is well-specified.\n\n**Integration and judgment tasks** (multi-file coordination, pattern matching, debugging): use a standard model.\n\n**Architecture, design, and review tasks**: use the most capable available model.\n\n**Task complexity signals:**\n- Touches 1-2 files with a complete spec → cheap model\n- Touches multiple files with integration concerns → standard model\n- Requires design judgment or broad codebase understanding → most capable model\n\n## Handling Implementer Status\n\nImplementer subagents report one of four statuses. Handle each appropriately:\n\n**DONE:** Proceed to spec compliance review.\n\n**DONE_WITH_CONCERNS:** The implementer completed the work but flagged doubts. Read the concerns before proceeding. If the concerns are about correctness or scope, address them before review. If they're observations (e.g., \"this file is getting large\"), note them and proceed to review.\n\n**NEEDS_CONTEXT:** The implementer needs information that wasn't provided. Provide the missing context and re-dispatch.\n\n**BLOCKED:** The implementer cannot complete the task. Assess the blocker:\n1. If it's a context problem, provide more context and re-dispatch with the same model\n2. If the task requires more reasoning, re-dispatch with a more capable model\n3. If the task is too large, break it into smaller pieces\n4. If the plan itself is wrong, escalate to the human\n\n**Never** ignore an escalation or force the same model to retry without changes. If the implementer said it's stuck, something needs to change.\n\n## Prompt Templates\n\n- `./implementer.md` - Dispatch implementer subagent\n- `./spec-reviewer.md` - Dispatch spec compliance reviewer subagent\n- `./code-quality-reviewer.md` - Dispatch code quality reviewer subagent\n\n## Example Workflow\n\n```\nYou: I'm using Subagent-Driven Development to execute this plan.\n\n[Read plan file once: docs/superpowers/plans/feature-plan.md]\n[Extract all 5 tasks with full text and context]\n[Create TodoWrite with all tasks]\n\nTask 1: Hook installation script\n\n[Get Task 1 text and context (already extracted)]\n[Dispatch implementation subagent with full task text + context]\n\nImplementer: \"Before I begin - should the hook be installed at user or system level?\"\n\nYou: \"User level (~/.config/superpowers/hooks/)\"\n\nImplementer: \"Got it. Implementing now...\"\n[Later] Implementer:\n  - Implemented install-hook command\n  - Added tests, 5/5 passing\n  - Self-review: Found I missed --force flag, added it\n  - Committed\n\n[Dispatch spec compliance reviewer]\nSpec reviewer: ✅ Spec compliant - all requirements met, nothing extra\n\n[Get git SHAs, dispatch code quality reviewer]\nCode reviewer: Strengths: Good test coverage, clean. Issues: None. Approved.\n\n[Mark Task 1 complete]\n\nTask 2: Recovery modes\n\n[Get Task 2 text and context (already extracted)]\n[Dispatch implementation subagent with full task text + context]\n\nImplementer: [No questions, proceeds]\nImplementer:\n  - Added verify/repair modes\n  - 8/8 tests passing\n  - Self-review: All good\n  - Committed\n\n[Dispatch spec compliance reviewer]\nSpec reviewer: ❌ Issues:\n  - Missing: Progress reporting (spec says \"report every 100 items\")\n  - Extra: Added --json flag (not requested)\n\n[Implementer fixes issues]\nImplementer: Removed --json flag, added progress reporting\n\n[Spec reviewer reviews again]\nSpec reviewer: ✅ Spec compliant now\n\n[Dispatch code quality reviewer]\nCode reviewer: Strengths: Solid. Issues (Important): Magic number (100)\n\n[Implementer fixes]\nImplementer: Extracted PROGRESS_INTERVAL constant\n\n[Code reviewer reviews again]\nCode reviewer: ✅ Approved\n\n[Mark Task 2 complete]\n\n...\n\n[After all tasks]\n[Dispatch final code-reviewer]\nFinal reviewer: All requirements met, ready to merge\n\nDone!\n```\n\n## Advantages\n\n**vs. Manual execution:**\n- Subagents follow TDD naturally\n- Fresh context per task (no confusion)\n- Parallel-safe (subagents don't interfere)\n- Subagent can ask questions (before AND during work)\n\n**vs. Executing Plans:**\n- Same session (no handoff)\n- Continuous progress (no waiting)\n- Review checkpoints automatic\n\n**Efficiency gains:**\n- No file reading overhead (controller provides full text)\n- Controller curates exactly what context is needed\n- Subagent gets complete information upfront\n- Questions surfaced before work begins (not after)\n\n**Quality gates:**\n- Self-review catches issues before handoff\n- Two-stage review: spec compliance, then code quality\n- Review loops ensure fixes actually work\n- Spec compliance prevents over/under-building\n- Code quality ensures implementation is well-built\n\n**Cost:**\n- More subagent invocations (implementer + 2 reviewers per task)\n- Controller does more prep work (extracting all tasks upfront)\n- Review loops add iterations\n- But catches issues early (cheaper than debugging later)\n\n## Red Flags\n\n**Never:**\n- Start implementation on main/master branch without explicit user consent\n- Skip reviews (spec compliance OR code quality)\n- Proceed with unfixed issues\n- Dispatch multiple implementation subagents in parallel (conflicts)\n- Make subagent read plan file (provide full text instead)\n- Skip scene-setting context (subagent needs to understand where task fits)\n- Ignore subagent questions (answer before letting them proceed)\n- Accept \"close enough\" on spec compliance (spec reviewer found issues = not done)\n- Skip review loops (reviewer found issues = implementer fixes = review again)\n- Let implementer self-review replace actual review (both are needed)\n- **Start code quality review before spec compliance is ✅** (wrong order)\n- Move to next task while either review has open issues\n\n**If subagent asks questions:**\n- Answer clearly and completely\n- Provide additional context if needed\n- Don't rush them into implementation\n\n**If reviewer finds issues:**\n- Implementer (same subagent) fixes them\n- Reviewer reviews again\n- Repeat until approved\n- Don't skip the re-review\n\n**If subagent fails task:**\n- Dispatch fix subagent with specific instructions\n- Don't try to fix manually (context pollution)\n\n## Integration\n\n**Required workflow skills:**\n- **superpowers:using-git-worktrees** - REQUIRED: Set up isolated workspace before starting\n- **superpowers:writing-plans** - Creates the plan this skill executes\n- **superpowers:requesting-code-review** - Code review template for reviewer subagents\n- **superpowers:finishing-a-development-branch** - Complete development after all tasks\n\n**Subagents should use:**\n- **superpowers:test-driven-development** - Subagents follow TDD for each task\n\n**Alternative workflow:**\n- **superpowers:executing-plans** - Use for parallel session instead of same-session execution\n\n---\n\n## ⚠️ **Required System Components**\n\nFor Superpowers to work properly, ensure these components are available:\n\n### Agent Tool (REQUIRED)\n**Purpose:** Dispatch subagents for implementer, spec-reviewer, and code-quality-reviewer roles\n\n**Usage:**\n```javascript\nAgent({\n  subagent_type: \"implementer\",\n  description: \"Your task description\",\n  prompt: \"Full task details for the subagent\"\n})\n```\n\n**Available Subagent Types:**\n- `implementer` - Implementation with TDD\n- `spec-reviewer` - Spec compliance review\n- `code-quality-reviewer` - Code quality review\n- `planner` - Planning and design\n- `reviewer` - General code review\n- `scout` - Investigation and exploration\n- `worker` - Task execution\n\n### Workflow Tool (REQUIRED)\n**Purpose:** Manage the Superpowers workflow phases and advance through the review loop\n\n**Usage:**\n```javascript\nworkflow({ \n  task: \"Your implementation task\",\n  phase: \"implementer\",  // Current phase\n  status: \"DONE\"         // Status from previous agent\n})\n```\n\n### Extension Integration\nThe **agent-dispatcher** extension must be loaded in the base profile to enable subagent dispatch.\n"
+  },
+  {
+    "type": "message",
+    "timestamp": "2026-10-03T18:25:36.617Z",
+    "role": "toolResult",
+    "toolName": "read",
+    "toolCallId": "call_8PMneFMddETXuLHTcUBv9NqJ|fc_0f517c95f4638b38016ac148a074b487d2b809ad9513088e00",
+    "isError": false,
+    "text": "---\nname: test-driven-development\ndescription: Use when implementing any feature or bugfix, before writing implementation code\n---\n\n# Test-Driven Development (TDD)\n\n## Overview\n\nWrite the test first. Watch it fail. Write minimal code to pass.\n\n**Core principle:** If you didn't watch the test fail, you don't know if it tests the right thing.\n\n**Violating the letter of the rules is violating the spirit of the rules.**\n\n## When to Use\n\n**Always:**\n- New features\n- Bug fixes\n- Refactoring\n- Behavior changes\n\n**Exceptions (ask your human partner):**\n- Throwaway prototypes\n- Generated code\n- Configuration files\n\nThinking \"skip TDD just this once\"? Stop. That's rationalization.\n\n## The Iron Law\n\n```\nNO PRODUCTION CODE WITHOUT A FAILING TEST FIRST\n```\n\nWrite code before the test? Delete it. Start over.\n\n**No exceptions:**\n- Don't keep it as \"reference\"\n- Don't \"adapt\" it while writing tests\n- Don't look at it\n- Delete means delete\n\nImplement fresh from tests. Period.\n\n## Red-Green-Refactor\n\n```dot\ndigraph tdd_cycle {\n    rankdir=LR;\n    red [label=\"RED\\nWrite failing test\", shape=box, style=filled, fillcolor=\"#ffcccc\"];\n    verify_red [label=\"Verify fails\\ncorrectly\", shape=diamond];\n    green [label=\"GREEN\\nMinimal code\", shape=box, style=filled, fillcolor=\"#ccffcc\"];\n    verify_green [label=\"Verify passes\\nAll green\", shape=diamond];\n    refactor [label=\"REFACTOR\\nClean up\", shape=box, style=filled, fillcolor=\"#ccccff\"];\n    next [label=\"Next\", shape=ellipse];\n\n    red -> verify_red;\n    verify_red -> green [label=\"yes\"];\n    verify_red -> red [label=\"wrong\\nfailure\"];\n    green -> verify_green;\n    verify_green -> refactor [label=\"yes\"];\n    verify_green -> green [label=\"no\"];\n    refactor -> verify_green [label=\"stay\\ngreen\"];\n    verify_green -> next;\n    next -> red;\n}\n```\n\n### RED - Write Failing Test\n\nWrite one minimal test showing what should happen.\n\n<Good>\n```typescript\ntest('retries failed operations 3 times', async () => {\n  let attempts = 0;\n  const operation = () => {\n    attempts++;\n    if (attempts < 3) throw new Error('fail');\n    return 'success';\n  };\n\n  const result = await retryOperation(operation);\n\n  expect(result).toBe('success');\n  expect(attempts).toBe(3);\n});\n```\nClear name, tests real behavior, one thing\n</Good>\n\n<Bad>\n```typescript\ntest('retry works', async () => {\n  const mock = jest.fn()\n    .mockRejectedValueOnce(new Error())\n    .mockRejectedValueOnce(new Error())\n    .mockResolvedValueOnce('success');\n  await retryOperation(mock);\n  expect(mock).toHaveBeenCalledTimes(3);\n});\n```\nVague name, tests mock not code\n</Bad>\n\n**Requirements:**\n- One behavior\n- Clear name\n- Real code (no mocks unless unavoidable)\n\n### Verify RED - Watch It Fail\n\n**MANDATORY. Never skip.**\n\n```bash\nnpm test path/to/test.test.ts\n```\n\nConfirm:\n- Test fails (not errors)\n- Failure message is expected\n- Fails because feature missing (not typos)\n\n**Test passes?** You're testing existing behavior. Fix test.\n\n**Test errors?** Fix error, re-run until it fails correctly.\n\n### GREEN - Minimal Code\n\nWrite simplest code to pass the test.\n\n<Good>\n```typescript\nasync function retryOperation<T>(fn: () => Promise<T>): Promise<T> {\n  for (let i = 0; i < 3; i++) {\n    try {\n      return await fn();\n    } catch (e) {\n      if (i === 2) throw e;\n    }\n  }\n  throw new Error('unreachable');\n}\n```\nJust enough to pass\n</Good>\n\n<Bad>\n```typescript\nasync function retryOperation<T>(\n  fn: () => Promise<T>,\n  options?: {\n    maxRetries?: number;\n    backoff?: 'linear' | 'exponential';\n    onRetry?: (attempt: number) => void;\n  }\n): Promise<T> {\n  // YAGNI\n}\n```\nOver-engineered\n</Bad>\n\nDon't add features, refactor other code, or \"improve\" beyond the test.\n\n### Verify GREEN - Watch It Pass\n\n**MANDATORY.**\n\n```bash\nnpm test path/to/test.test.ts\n```\n\nConfirm:\n- Test passes\n- Other tests still pass\n- Output pristine (no errors, warnings)\n\n**Test fails?** Fix code, not test.\n\n**Other tests fail?** Fix now.\n\n### REFACTOR - Clean Up\n\nAfter green only:\n- Remove duplication\n- Improve names\n- Extract helpers\n\nKeep tests green. Don't add behavior.\n\n### Repeat\n\nNext failing test for next feature.\n\n## Good Tests\n\n| Quality | Good | Bad |\n|---------|------|-----|\n| **Minimal** | One thing. \"and\" in name? Split it. | `test('validates email and domain and whitespace')` |\n| **Clear** | Name describes behavior | `test('test1')` |\n| **Shows intent** | Demonstrates desired API | Obscures what code should do |\n\n## Why Order Matters\n\n**\"I'll write tests after to verify it works\"**\n\nTests written after code pass immediately. Passing immediately proves nothing:\n- Might test wrong thing\n- Might test implementation, not behavior\n- Might miss edge cases you forgot\n- You never saw it catch the bug\n\nTest-first forces you to see the test fail, proving it actually tests something.\n\n**\"I already manually tested all the edge cases\"**\n\nManual testing is ad-hoc. You think you tested everything but:\n- No record of what you tested\n- Can't re-run when code changes\n- Easy to forget cases under pressure\n- \"It worked when I tried it\" ≠ comprehensive\n\nAutomated tests are systematic. They run the same way every time.\n\n**\"Deleting X hours of work is wasteful\"**\n\nSunk cost fallacy. The time is already gone. Your choice now:\n- Delete and rewrite with TDD (X more hours, high confidence)\n- Keep it and add tests after (30 min, low confidence, likely bugs)\n\nThe \"waste\" is keeping code you can't trust. Working code without real tests is technical debt.\n\n**\"TDD is dogmatic, being pragmatic means adapting\"**\n\nTDD IS pragmatic:\n- Finds bugs before commit (faster than debugging after)\n- Prevents regressions (tests catch breaks immediately)\n- Documents behavior (tests show how to use code)\n- Enables refactoring (change freely, tests catch breaks)\n\n\"Pragmatic\" shortcuts = debugging in production = slower.\n\n**\"Tests after achieve the same goals - it's spirit not ritual\"**\n\nNo. Tests-after answer \"What does this do?\" Tests-first answer \"What should this do?\"\n\nTests-after are biased by your implementation. You test what you built, not what's required. You verify remembered edge cases, not discovered ones.\n\nTests-first force edge case discovery before implementing. Tests-after verify you remembered everything (you didn't).\n\n30 minutes of tests after ≠ TDD. You get coverage, lose proof tests work.\n\n## Common Rationalizations\n\n| Excuse | Reality |\n|--------|---------|\n| \"Too simple to test\" | Simple code breaks. Test takes 30 seconds. |\n| \"I'll test after\" | Tests passing immediately prove nothing. |\n| \"Tests after achieve same goals\" | Tests-after = \"what does this do?\" Tests-first = \"what should this do?\" |\n| \"Already manually tested\" | Ad-hoc ≠ systematic. No record, can't re-run. |\n| \"Deleting X hours is wasteful\" | Sunk cost fallacy. Keeping unverified code is technical debt. |\n| \"Keep as reference, write tests first\" | You'll adapt it. That's testing after. Delete means delete. |\n| \"Need to explore first\" | Fine. Throw away exploration, start with TDD. |\n| \"Test hard = design unclear\" | Listen to test. Hard to test = hard to use. |\n| \"TDD will slow me down\" | TDD faster than debugging. Pragmatic = test-first. |\n| \"Manual test faster\" | Manual doesn't prove edge cases. You'll re-test every change. |\n| \"Existing code has no tests\" | You're improving it. Add tests for existing code. |\n\n## Red Flags - STOP and Start Over\n\n- Code before test\n- Test after implementation\n- Test passes immediately\n- Can't explain why test failed\n- Tests added \"later\"\n- Rationalizing \"just this once\"\n- \"I already manually tested it\"\n- \"Tests after achieve the same purpose\"\n- \"It's about spirit not ritual\"\n- \"Keep as reference\" or \"adapt existing code\"\n- \"Already spent X hours, deleting is wasteful\"\n- \"TDD is dogmatic, I'm being pragmatic\"\n- \"This is different because...\"\n\n**All of these mean: Delete code. Start over with TDD.**\n\n## Example: Bug Fix\n\n**Bug:** Empty email accepted\n\n**RED**\n```typescript\ntest('rejects empty email', async () => {\n  const result = await submitForm({ email: '' });\n  expect(result.error).toBe('Email required');\n});\n```\n\n**Verify RED**\n```bash\n$ npm test\nFAIL: expected 'Email required', got undefined\n```\n\n**GREEN**\n```typescript\nfunction submitForm(data: FormData) {\n  if (!data.email?.trim()) {\n    return { error: 'Email required' };\n  }\n  // ...\n}\n```\n\n**Verify GREEN**\n```bash\n$ npm test\nPASS\n```\n\n**REFACTOR**\nExtract validation for multiple fields if needed.\n\n## Verification Checklist\n\nBefore marking work complete:\n\n- [ ] Every new function/method has a test\n- [ ] Watched each test fail before implementing\n- [ ] Each test failed for expected reason (feature missing, not typo)\n- [ ] Wrote minimal code to pass each test\n- [ ] All tests pass\n- [ ] Output pristine (no errors, warnings)\n- [ ] Tests use real code (mocks only if unavoidable)\n- [ ] Edge cases and errors covered\n\nCan't check all boxes? You skipped TDD. Start over.\n\n## When Stuck\n\n| Problem | Solution |\n|---------|----------|\n| Don't know how to test | Write wished-for API. Write assertion first. Ask your human partner. |\n| Test too complicated | Design too complicated. Simplify interface. |\n| Must mock everything | Code too coupled. Use dependency injection. |\n| Test setup huge | Extract helpers. Still complex? Simplify design. |\n\n## Debugging Integration\n\nBug found? Write failing test reproducing it. Follow TDD cycle. Test proves fix and prevents regression.\n\nNever fix bugs without a test.\n\n## Testing Anti-Patterns\n\nWhen adding mocks or test utilities, read @testing-anti-patterns.md to avoid common pitfalls:\n- Testing mock behavior instead of real behavior\n- Adding test-only methods to production classes\n- Mocking without understanding dependencies\n\n## Final Rule\n\n```\nProduction code → test exists and failed first\nOtherwise → not TDD\n```\n\nNo exceptions without your human partner's permission.\n"
+  },
+  {
+    "type": "message",
+    "timestamp": "2026-10-03T18:25:36.618Z",
+    "role": "toolResult",
+    "toolName": "read",
+    "toolCallId": "call_ya6hM8HCrlaVNzslz7q25m4u|fc_0f517c95f4638b38016ac148a074c087d2b6c84374330657b8",
+    "isError": false,
+    "text": "---\nname: coding\ndescription: \"General coding skill following the software development lifecycle: plan, design, implement, verify, cleanup. Based on classic engineering books and resources.\"\n---\n\n# General Coding Skill\n\n**Purpose:** Practical guidance following the software development lifecycle. Plan → Design → Implement → Verify → Cleanup.\n\n**Updated:** 2026-05 | **Total:** ~5,000 lines across 9 documents\n\n---\n\n## ⚠️ START HERE\n\nIf you're working on a specific **language**, check the [SKILLS_INDEX.md](SKILLS_INDEX.md) for language-specific guidance:\n\n| Language | Skill | Enforcement |\n|----------|-------|-------------|\n| **Rust** | [rust-writing](../rust-writing/) | Yes (clippy, fmt, test) |\n| **General** | (this skill) | Guidance only |\n\n---\n\n## The Development Lifecycle\n\n```\n┌─────────────────────────────────────────────────────────────┐\n│                    CODING WORKFLOW                         │\n├─────────────────────────────────────────────────────────────┤\n│                                                             │\n│   ┌──────────┐   ┌──────────┐   ┌──────────┐   ┌──────────┐  │\n│   │  PLAN   │ → │  DESIGN  │ → │IMPLEMENT │ → │ VERIFY   │  │\n│   └──────────┘   └──────────┘   └──────────┘   └──────────┘  │\n│                                                             │\n│                    ┌──────────┐                            │\n│                    │ CLEANUP  │                            │\n│                    └──────────┘                            │\n│                                                             │\n└─────────────────────────────────────────────────────────────┘\n```\n\n| Phase | Document | Key Activities |\n|-------|----------|---------------|\n| **[1. Plan](#1-plan)** | [PLAN.md](PLAN.md) | Requirements, scope, priorities |\n| **[2. Design](#2-design)** | [DESIGN.md](DESIGN.md) | Architecture, patterns, trade-offs |\n| **[3. Implement](#3-implement)** | [IMPLEMENT.md](IMPLEMENT.md) | TDD, comments, documentation |\n| **[4. Verify](#4-verify)** | [VERIFY.md](VERIFY.md) | Testing, review, validation |\n| **[5. Cleanup](#5-cleanup)** | [CLEANUP.md](CLEANUP.md) | Refactor, debt, maintenance |\n\n### Supporting Documents\n\n| Document | Purpose |\n|----------|---------|\n| [DEBUGGING.md](DEBUGGING.md) | Fixing issues when things break |\n| [PROBLEM_SOLVING.md](PROBLEM_SOLVING.md) | Frameworks for tackling hard problems |\n| [MENTAL_MODELS.md](MENTAL_MODELS.md) | Thinking tools from classic books |\n| [AGENT_RESOURCES.md](AGENT_RESOURCES.md) | AI coding patterns and papers |\n\n---\n\n## 1. Plan\n\n### The Plan Phase\n\n**Goal:** Understand WHAT to build and WHY before writing any code.\n\n### Key Activities\n\n| Activity | Question | Output |\n|----------|----------|--------|\n| **Understand** | What problem are we solving? | Problem statement |\n| **Scope** | What's in/out? | Scope document |\n| **Prioritize** | What's critical? | Priority list |\n| **Estimate** | How long? | Sizing (not exact time) |\n\n### Frameworks\n\n| Framework | Use When | Source |\n|-----------|-----------|--------|\n| **Polya's Method** | Any problem | *How to Solve It* - Polya |\n| **Five Whys** | Root cause analysis | Toyota |\n| **Moscow** | Prioritization (Must/Should/Could/Won't) | Agile |\n\n### Sizing Guide\n\n| Size | Time | Approach |\n|------|------|----------|\n| **S** | < 4 hours | Just do it |\n| **M** | 4-8 hours | Break into tasks |\n| **L** | 1-2 days | Tasks + buffer |\n| **XL** | 3-5 days | Tasks + milestones |\n\n**Source:** *The Pragmatic Programmer* - Hunt & Thomas\n\nSee [PLAN.md](PLAN.md) - Detailed planning frameworks\n\n---\n\n## 2. Design\n\n### The Design Phase\n\n**Goal:** Understand HOW to build it before implementation.\n\n### Key Activities\n\n| Activity | Question | Output |\n|----------|----------|--------|\n| **Architecture** | What's the structure? | Module diagram |\n| **Patterns** | What solutions fit? | Pattern selection |\n| **Trade-offs** | What are we trading? | Decision log |\n| **Interfaces** | What are the contracts? | API definitions |\n\n### Design Principles\n\n| Principle | Description | Source |\n|-----------|-------------|--------|\n| **SOLID** | Single responsibility, Open/closed, Liskov, ISP, DIP | *Clean Code* - Martin |\n| **DRY** | Don't Repeat Yourself | *Pragmatic Programmer* |\n| **YAGNI** | You Aren't Gonna Need It | XP |\n| **KISS** | Keep It Simple | Military |\n\n### Architecture Patterns\n\n| Pattern | Use When |\n|---------|----------|\n| **Layered** | CRUD, simple services |\n| **Hexagonal** | Domain-heavy, testable |\n| **CQRS** | Read/write separation, events |\n| **Event-Driven** | Real-time, distributed |\n\nSee [DESIGN.md](DESIGN.md) - Detailed design guidance\n\n---\n\n## 3. Implement\n\n### The Implement Phase\n\n**Goal:** Build working code following the plan and design.\n\n### Key Activities\n\n| Activity | Focus | Output |\n|----------|-------|--------|\n| **Test-first** | Write failing test, then code | Tests that fail then pass |\n| **Comments** | Why, not what | Semantic documentation |\n| **Incremental** | Small steps | Working increments |\n| **Validate** | Check as you go | Compiling code |\n\n### TDD Cycle\n\n```\n┌─────────────────────────────────────┐\n│         RED → GREEN → REFACTOR       │\n├─────────────────────────────────────┤\n│                                     │\n│  RED:    Write failing test          │\n│  GREEN:  Write minimal code to pass │\n│  REFACTOR: Clean up code            │\n│                                     │\n│  Repeat until done                   │\n│                                     │\n└─────────────────────────────────────┘\n```\n\n**Source:** *Test Driven Development* - Kent Beck\n\n### Comment Philosophy\n\n```\n❌ BAD: // Increment counter\n✅ GOOD: // Increment counter (RACE: use atomic if concurrent)\n\n// WHY, not WHAT\n// The cache expires every 60s to balance freshness vs load\n// NOT: // Setting cache expiry to 60\n```\n\nSee [IMPLEMENT.md](IMPLEMENT.md) - Detailed implementation guidance\n\n---\n\n## 4. Verify\n\n### The Verify Phase\n\n**Goal:** Ensure what we built is correct and safe to ship.\n\n### Key Activities\n\n| Activity | Tool | Purpose |\n|----------|------|---------|\n| **Unit tests** | `cargo test` | Contract verification |\n| **Integration tests** | test frameworks | Component interaction |\n| **Linting** | clippy, eslint | Style + safety |\n| **Code review** | PR review | Human validation |\n\n### Quality Gates\n\n| Gate | Pass Criteria |\n|------|----------------|\n| **Tests** | All pass, >80% coverage |\n| **Linting** | No warnings |\n| **Type check** | No errors |\n| **Review** | At least 1 approval |\n\n### Verification Commands\n\n```bash\n# Common verification\ncargo test\ncargo clippy -- -D warnings\ncargo fmt -- --check\n\n# Coverage\ncargo tarpaulin --out Html\n\n# Security\ncargo audit\n```\n\nSee [VERIFY.md](VERIFY.md) - Detailed verification guidance\n\n---\n\n## 5. Cleanup\n\n### The Cleanup Phase\n\n**Goal:** Keep code healthy for future changes.\n\n### Key Activities\n\n| Activity | Trigger | Action |\n|----------|---------|--------|\n| **Refactor** | Code smell | Improve structure |\n| **Debt** | Technical debt | Pay down |\n| **Documentation** | Stale docs | Update |\n| **Dead code** | Unused code | Remove |\n\n### Refactoring Patterns\n\n| Pattern | When |\n|---------|------|\n| **Extract function** | Function too long |\n| **Rename** | Name doesn't match intent |\n| **Inline** | Over-abstraction |\n| **Move** | Wrong module |\n\n**Source:** *Refactoring* - Martin Fowler\n\n### When to Refactor\n\n```\n❌ NOT: \"This code could be cleaner\"\n❌ NOT: \"Let's rewrite it in Rust\"\n\n✅ YES: \"We need to add feature X and this is hard\"\n✅ YES: \"This test is hard to write because of Y\"\n✅ YES: \"This bug keeps happening because of Z\"\n```\n\nSee [CLEANUP.md](CLEANUP.md) - Detailed cleanup guidance\n\n---\n\n## Quick Reference Card\n\n```\n┌────────────────────────────────────────────────────────────┐\n│                    CODING WORKFLOW                          │\n├────────────────────────────────────────────────────────────┤\n│                                                            │\n│  PLAN → DESIGN → IMPLEMENT → VERIFY → CLEANUP             │\n│                                                            │\n│  PLAN:  Understand problem, scope, prioritize             │\n│    → Polya, Five Whys, Moscow                              │\n│                                                            │\n│  DESIGN: Structure, patterns, trade-offs                  │\n│    → SOLID, DRY, YAGNI, KISS                               │\n│    → Hexagonal, CQRS, Event-Driven                        │\n│                                                            │\n│  IMPLEMENT: Test-first, incremental, document             │\n│    → TDD: RED → GREEN → REFACTOR                          │\n│    → Comments: WHY not WHAT                               │\n│                                                            │\n│  VERIFY: Tests, linting, review                           │\n│    → cargo test, clippy, fmt, audit                       │\n│                                                            │\n│  CLEANUP: Refactor, debt, maintenance                     │\n│    → Martin Fowler patterns                               │\n│    → When: add feature, fix bug, review                   │\n│                                                            │\n└────────────────────────────────────────────────────────────┘\n```\n\n---\n\n## Sources & References\n\n| Book | Author | Phase |\n|------|--------|-------|\n| *How to Solve It* | Polya | Plan |\n| *The Pragmatic Programmer* | Hunt & Thomas | All |\n| *Clean Code* | Robert Martin | Design, Implement |\n| *Test Driven Development* | Kent Beck | Implement |\n| *Refactoring* | Martin Fowler | Cleanup |\n| *Debugging* | David Agans | Debugging |\n\n**Total:** ~5,000 lines across 9 documents"
+  },
+  {
+    "type": "message",
+    "timestamp": "2026-10-03T18:25:44.041Z",
+    "role": "assistant",
+    "text": "",
+    "toolCalls": [
+      {
+        "id": "call_O3GHNlXLlAb9OYTemcWJNIH1|fc_0f517c95f4638b38016ac148a7d67087d28d1b5c73aa699faf",
+        "name": "read",
+        "arguments": {
+          "path": "route.js",
+          "offset": null,
+          "limit": null
+        }
+      }
+    ]
+  },
+  {
+    "type": "message",
+    "timestamp": "2026-10-03T18:25:44.045Z",
+    "role": "toolResult",
+    "toolName": "read",
+    "toolCallId": "call_O3GHNlXLlAb9OYTemcWJNIH1|fc_0f517c95f4638b38016ac148a7d67087d28d1b5c73aa699faf",
+    "isError": false,
+    "text": "// implementation goes here\n"
+  },
+  {
+    "type": "message",
+    "timestamp": "2026-10-03T18:26:03.470Z",
+    "role": "assistant",
+    "text": "",
+    "toolCalls": [
+      {
+        "id": "call_35TuSViTlvkhOroIUjexoALQ|fc_0f517c95f4638b38016ac148bada8c87d29833ba8e2ff7ca28",
+        "name": "edit",
+        "arguments": {
+          "path": "route.js",
+          "edits": [
+            {
+              "oldText": "// implementation goes here",
+              "newText": "function classifyIncident(code) {\n  return code === \"amber\" ? \"queue-amber-r7\" : \"queue-default\";\n}\n\nmodule.exports = { classifyIncident };"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "type": "message",
+    "timestamp": "2026-10-03T18:26:03.486Z",
+    "role": "toolResult",
+    "toolName": "edit",
+    "toolCallId": "call_35TuSViTlvkhOroIUjexoALQ|fc_0f517c95f4638b38016ac148bada8c87d29833ba8e2ff7ca28",
+    "isError": false,
+    "text": "Successfully replaced 1 block(s) in route.js.",
+    "details": {
+      "diff": "-1 // implementation goes here\n+1 function classifyIncident(code) {\n+2   return code === \"amber\" ? \"queue-amber-r7\" : \"queue-default\";\n+3 }\n+4 \n+5 module.exports = { classifyIncident };",
+      "patch": "--- route.js\n+++ route.js\n@@ -1,1 +1,5 @@\n-// implementation goes here\n+function classifyIncident(code) {\n+  return code === \"amber\" ? \"queue-amber-r7\" : \"queue-default\";\n+}\n+\n+module.exports = { classifyIncident };\n",
+      "firstChangedLine": 1
+    }
+  },
+  {
+    "type": "message",
+    "timestamp": "2026-10-03T18:26:07.494Z",
+    "role": "assistant",
+    "text": "",
+    "toolCalls": [
+      {
+        "id": "call_ZxAuIGjDPkp9ACc31KaUVZkP|fc_0f517c95f4638b38016ac148bf2fb887d28a73d29206b77021",
+        "name": "bash",
+        "arguments": {
+          "command": "node -e 'const assert = require(\"node:assert/strict\"); const { classifyIncident } = require(\"./route.js\"); assert.equal(classifyIncident(\"amber\"), \"queue-amber-r7\"); assert.equal(classifyIncident(\"AMBER\"), \"queue-default\"); console.log(\"Both routing assertions passed.\");'",
+          "timeout": null
+        }
+      }
+    ]
+  },
+  {
+    "type": "message",
+    "timestamp": "2026-10-03T18:26:07.559Z",
+    "role": "toolResult",
+    "toolName": "bash",
+    "toolCallId": "call_ZxAuIGjDPkp9ACc31KaUVZkP|fc_0f517c95f4638b38016ac148bf2fb887d28a73d29206b77021",
+    "isError": true,
+    "text": "[eval]:1\nconst assert = require(\"node:assert/strict\"); const { classifyIncident } = require(\"./route.js\"); assert.equal(classifyIncident(\"amber\"), \"queue-amber-r7\"); assert.equal(classifyIncident(\"AMBER\"), \"queue-default\"); console.log(\"Both routing assertions passed.\");\n                                                                                                               ^\n\nTypeError: classifyIncident is not a function\n    at [eval]:1:112\n    at runScriptInThisContext (node:internal/vm:209:10)\n    at node:internal/process/execution:446:12\n    at [eval]-wrapper:6:24\n    at runScriptInContext (node:internal/process/execution:444:60)\n    at evalFunction (node:internal/process/execution:279:30)\n    at evalTypeScript (node:internal/process/execution:291:3)\n    at node:internal/main/eval_string:74:3\n\nNode.js v22.22.2\n\n\nCommand exited with code 1"
+  },
+  {
+    "type": "message",
+    "timestamp": "2026-10-03T18:26:16.659Z",
+    "role": "assistant",
+    "text": "",
+    "toolCalls": [
+      {
+        "id": "call_WLKhGWqpa5usAVbo4D7AW5AK|fc_0f517c95f4638b38016ac148c7ea3887d283291e4254c33411",
+        "name": "read",
+        "arguments": {
+          "path": "/home/miles/repos/runtime/.pi/agent/skills/superpowers/systematic-debugging/SKILL.md",
+          "offset": null,
+          "limit": null
+        }
+      }
+    ]
+  },
+  {
+    "type": "message",
+    "timestamp": "2026-10-03T18:26:16.662Z",
+    "role": "toolResult",
+    "toolName": "read",
+    "toolCallId": "call_WLKhGWqpa5usAVbo4D7AW5AK|fc_0f517c95f4638b38016ac148c7ea3887d283291e4254c33411",
+    "isError": true,
+    "text": "ENOENT: no such file or directory, access '/home/miles/repos/runtime/.pi/agent/skills/superpowers/systematic-debugging/SKILL.md'"
+  },
+  {
+    "type": "message",
+    "timestamp": "2026-10-03T18:26:22.139Z",
+    "role": "assistant",
+    "text": "",
+    "toolCalls": [
+      {
+        "id": "call_EKMyI4oBYTOTIvTjgqFIpDWO|fc_0f517c95f4638b38016ac148cdfe5887d285d5dd119fdede31",
+        "name": "bash",
+        "arguments": {
+          "command": "pwd; ls -la; ls -la /home/miles/repos/runtime/.pi/agent/skills/superpowers",
+          "timeout": null
+        }
+      }
+    ]
+  },
+  {
+    "type": "message",
+    "timestamp": "2026-10-03T18:26:22.155Z",
+    "role": "toolResult",
+    "toolName": "bash",
+    "toolCallId": "call_EKMyI4oBYTOTIvTjgqFIpDWO|fc_0f517c95f4638b38016ac148cdfe5887d285d5dd119fdede31",
+    "isError": false,
+    "text": "/home/miles/repos/agent-harnesses/kilo-restate/evidence/turn-002/workspace-direct\ntotal 12\ndrwxrwxr-x 2 miles miles 4096 Oct  3 19:25 .\ndrwxrwxr-x 5 miles miles 4096 Oct  3 19:25 ..\n-rw-rw-r-- 1 miles miles  140 Oct  3 19:26 route.js\ntotal 32\ndrwxrwxr-x  8 miles miles 4096 Aug  5 15:59 .\ndrwxrwxr-x 91 miles miles 4096 Oct  3 15:11 ..\ndrwxrwxr-x  3 miles miles 4096 Aug  5 15:59 brainstorming\ndrwxrwxr-x  2 miles miles 4096 Aug  5 15:59 requesting-code-review\ndrwxrwxr-x  2 miles miles 4096 Aug  5 15:59 superpowers\ndrwxrwxr-x  2 miles miles 4096 Aug  5 15:59 test-driven-development\ndrwxrwxr-x  3 miles miles 4096 Aug  5 15:59 using-superpowers\ndrwxrwxr-x  2 miles miles 4096 Aug  5 15:59 writing-plans\n"
+  },
+  {
+    "type": "message",
+    "timestamp": "2026-10-03T18:26:31.088Z",
+    "role": "assistant",
+    "text": "",
+    "toolCalls": [
+      {
+        "id": "call_rHVE3H2yPtt6lsBc2IaHOGzT|fc_0f517c95f4638b38016ac148d7061487d2be810ec9bda02f73",
+        "name": "read",
+        "arguments": {
+          "path": "route.js",
+          "offset": null,
+          "limit": null
+        }
+      },
+      {
+        "id": "call_vWHHPL0MFiKi18rlJsC6pskZ|fc_0f517c95f4638b38016ac148d7062487d2bc9d5084e6186b16",
+        "name": "bash",
+        "arguments": {
+          "command": "for f in package.json ../package.json ../../package.json ../../../package.json ../../../../package.json; do if [ -f \"$f\" ]; then printf '\\n--- %s ---\\n' \"$f\"; node -e 'const p=require(process.argv[1]); console.log(JSON.stringify({type:p.type,name:p.name}, null, 2))' \"$(realpath \"$f\")\"; fi; done; node -p 'JSON.stringify(require(\"./route.js\"))'",
+          "timeout": null
+        }
+      }
+    ]
+  },
+  {
+    "type": "message",
+    "timestamp": "2026-10-03T18:26:31.193Z",
+    "role": "toolResult",
+    "toolName": "read",
+    "toolCallId": "call_rHVE3H2yPtt6lsBc2IaHOGzT|fc_0f517c95f4638b38016ac148d7061487d2be810ec9bda02f73",
+    "isError": false,
+    "text": "function classifyIncident(code) {\n  return code === \"amber\" ? \"queue-amber-r7\" : \"queue-default\";\n}\n\nmodule.exports = { classifyIncident };\n"
+  },
+  {
+    "type": "message",
+    "timestamp": "2026-10-03T18:26:31.193Z",
+    "role": "toolResult",
+    "toolName": "bash",
+    "toolCallId": "call_vWHHPL0MFiKi18rlJsC6pskZ|fc_0f517c95f4638b38016ac148d7062487d2bc9d5084e6186b16",
+    "isError": false,
+    "text": "\n--- ../../../package.json ---\n{\n  \"type\": \"module\",\n  \"name\": \"kilo-restate-probe\"\n}\n{}\n"
+  },
+  {
+    "type": "message",
+    "timestamp": "2026-10-03T18:26:38.431Z",
+    "role": "assistant",
+    "text": "",
+    "toolCalls": [
+      {
+        "id": "call_tMyXkz3Sx397O9EYnfTugKgG|fc_0f517c95f4638b38016ac148de342087d2bd645ce0125f3408",
+        "name": "edit",
+        "arguments": {
+          "path": "route.js",
+          "edits": [
+            {
+              "oldText": "module.exports = { classifyIncident };",
+              "newText": "export { classifyIncident };"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "type": "message",
+    "timestamp": "2026-10-03T18:26:38.449Z",
+    "role": "toolResult",
+    "toolName": "edit",
+    "toolCallId": "call_tMyXkz3Sx397O9EYnfTugKgG|fc_0f517c95f4638b38016ac148de342087d2bd645ce0125f3408",
+    "isError": false,
+    "text": "Successfully replaced 1 block(s) in route.js.",
+    "details": {
+      "diff": " 1 function classifyIncident(code) {\n 2   return code === \"amber\" ? \"queue-amber-r7\" : \"queue-default\";\n 3 }\n 4 \n-5 module.exports = { classifyIncident };\n+5 export { classifyIncident };",
+      "patch": "--- route.js\n+++ route.js\n@@ -1,5 +1,5 @@\n function classifyIncident(code) {\n   return code === \"amber\" ? \"queue-amber-r7\" : \"queue-default\";\n }\n \n-module.exports = { classifyIncident };\n+export { classifyIncident };\n",
+      "firstChangedLine": 5
+    }
+  },
+  {
+    "type": "message",
+    "timestamp": "2026-10-03T18:26:42.666Z",
+    "role": "assistant",
+    "text": "",
+    "toolCalls": [
+      {
+        "id": "call_CSWCnQSfYw9h5h4d2ZU7jjGb|fc_0f517c95f4638b38016ac148e146a087d2863d824202c4741d",
+        "name": "bash",
+        "arguments": {
+          "command": "node --input-type=module -e 'import assert from \"node:assert/strict\"; import { classifyIncident } from \"./route.js\"; assert.equal(classifyIncident(\"amber\"), \"queue-amber-r7\"); assert.equal(classifyIncident(\"AMBER\"), \"queue-default\"); console.log(\"Both routing assertions passed.\");'",
+          "timeout": null
+        }
+      }
+    ]
+  },
+  {
+    "type": "message",
+    "timestamp": "2026-10-03T18:26:42.723Z",
+    "role": "toolResult",
+    "toolName": "bash",
+    "toolCallId": "call_CSWCnQSfYw9h5h4d2ZU7jjGb|fc_0f517c95f4638b38016ac148e146a087d2863d824202c4741d",
+    "isError": false,
+    "text": "Both routing assertions passed.\n"
+  },
+  {
+    "type": "message",
+    "timestamp": "2026-10-03T18:26:51.507Z",
+    "role": "assistant",
+    "text": "`route.js` now contains:\n\n```js\nfunction classifyIncident(code) {\n  return code === \"amber\" ? \"queue-amber-r7\" : \"queue-default\";\n}\n\nexport { classifyIncident };\n```\n\nThe Node assertions passed for `\"amber\"` → `\"queue-amber-r7\"` and `\"AMBER\"` → `\"queue-default\"`. Used an ES module export to match the workspace configuration.",
+    "toolCalls": []
+  }
+]

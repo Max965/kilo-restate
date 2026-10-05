@@ -1,0 +1,266 @@
+{
+  "restate": {
+    "version": "1.7.13",
+    "deploymentId": "dp_16QZTEX6fyawrCnrAe5vqTL",
+    "containerId": "852ff01afb2f6b8adfa5dd5259e47992a1b8c37a7bdd53f710fe69eedee1ebe2",
+    "servicePid": 3023825,
+    "adminIngress": "http://localhost:9170",
+    "uiRoute": "http://localhost:9170/ui/",
+    "sqlBefore": "sql-before-restart-invocations.json",
+    "sqlAfter": "sql-after-restart-invocations.json",
+    "invocationsBefore": 2,
+    "invocationsAfter": 5,
+    "newInvocationsAfterResume": 3,
+    "preexistingInvocationIdsPreserved": [
+      "inv_1bbg1VRGO2EF3a1c47E5yX2MLpdupFqcLm",
+      "inv_1bbg1VRGO2EF5vXa7dTUYdO7qIJxyI1C5j"
+    ],
+    "taskBriefReadCountAcrossBothSnapshots": 1,
+    "allInvocationStatusesCompleted": true,
+    "invocations": [
+      {
+        "id": "inv_1bbg1VRGO2EF3a1c47E5yX2MLpdupFqcLm",
+        "createdAt": "2026-10-03T17:23:39.788Z",
+        "target": "KiloNode/actor-actor-01/run",
+        "serviceKey": "actor-actor-01",
+        "status": "completed",
+        "request": {
+          "nodeId": "pi-lifecycle-node:call_NIml4PtihM3N2yjFP2quIF7A|fc_0e601417ca62da6e016ac13a1bac6887d28890112386f012b1",
+          "actorId": "actor-01",
+          "sessionId": "50782890-f2b9-4de9-80f8-8a8a16fc11a6",
+          "actorAttempt": "1",
+          "toolCallId": "call_NIml4PtihM3N2yjFP2quIF7A|fc_0e601417ca62da6e016ac13a1bac6887d28890112386f012b1",
+          "operation": "read",
+          "args": {
+            "path": "/home/miles/repos/agent-harnesses/kilo-restate/evidence/turn-002/workspace-restated/TASK.md"
+          }
+        },
+        "output": {
+          "nodeId": "pi-lifecycle-node:call_NIml4PtihM3N2yjFP2quIF7A|fc_0e601417ca62da6e016ac13a1bac6887d28890112386f012b1",
+          "parentNodeId": null,
+          "actorId": "actor-01",
+          "sessionId": "50782890-f2b9-4de9-80f8-8a8a16fc11a6",
+          "actorAttempt": "1",
+          "toolCallId": "call_NIml4PtihM3N2yjFP2quIF7A|fc_0e601417ca62da6e016ac13a1bac6887d28890112386f012b1",
+          "invocationId": "inv_1bbg1VRGO2EF3a1c47E5yX2MLpdupFqcLm",
+          "operation": "read",
+          "args": {
+            "path": "/home/miles/repos/agent-harnesses/kilo-restate/evidence/turn-002/workspace-restated/TASK.md"
+          },
+          "admission": "probe-allow",
+          "result": {
+            "text": "Implement `classifyIncident(code)` in `route.js`.\n\nRules:\n- Exact input `amber` maps to `queue-amber-r7`.\n- Every other string maps to `queue-default`.\n- Matching is case-sensitive.\n\nThis is stage one: learn and report the exact mapping and case rule. Do not edit the source yet.\n",
+            "target": "/home/miles/repos/agent-harnesses/kilo-restate/evidence/turn-002/workspace-restated/TASK.md"
+          },
+          "failure": null,
+          "startedAt": "2026-10-03T17:23:40.103Z",
+          "settledAt": "2026-10-03T17:23:40.220Z"
+        }
+      },
+      {
+        "id": "inv_1bbg1VRGO2EF5vXa7dTUYdO7qIJxyI1C5j",
+        "createdAt": "2026-10-03T17:23:39.788Z",
+        "target": "KiloNode/actor-actor-01/run",
+        "serviceKey": "actor-actor-01",
+        "status": "completed",
+        "request": {
+          "nodeId": "pi-lifecycle-node:call_nB5Orl5z9kekhnAocdiE2B6X|fc_0e601417ca62da6e016ac13a1bac5087d2872126e3f62e411a",
+          "actorId": "actor-01",
+          "sessionId": "50782890-f2b9-4de9-80f8-8a8a16fc11a6",
+          "actorAttempt": "1",
+          "toolCallId": "call_nB5Orl5z9kekhnAocdiE2B6X|fc_0e601417ca62da6e016ac13a1bac5087d2872126e3f62e411a",
+          "operation": "read",
+          "args": {
+            "path": "/home/miles/repos/runtime/.pi/agent/skills/superpowers/using-superpowers/SKILL.md"
+          }
+        },
+        "output": {
+          "failure": {
+            "code": 500,
+            "message": "path outside workspace"
+          }
+        }
+      },
+      {
+        "id": "inv_1bbg1VRGO2EF221GS8Pwk3MaSplCnyePgP",
+        "createdAt": "2026-10-03T18:19:23.512Z",
+        "target": "KiloNode/actor-actor-01/run",
+        "serviceKey": "actor-actor-01",
+        "status": "completed",
+        "request": {
+          "nodeId": "pi-lifecycle-node:call_8XPG26znktPShGZfYrc2bxpB|fc_0e601417ca62da6e016ac1472b694487d284962f990c06b457",
+          "actorId": "actor-01",
+          "sessionId": "50782890-f2b9-4de9-80f8-8a8a16fc11a6",
+          "actorAttempt": "2",
+          "toolCallId": "call_8XPG26znktPShGZfYrc2bxpB|fc_0e601417ca62da6e016ac1472b694487d284962f990c06b457",
+          "operation": "read",
+          "args": {
+            "path": "route.js"
+          }
+        },
+        "output": {
+          "nodeId": "pi-lifecycle-node:call_8XPG26znktPShGZfYrc2bxpB|fc_0e601417ca62da6e016ac1472b694487d284962f990c06b457",
+          "parentNodeId": null,
+          "actorId": "actor-01",
+          "sessionId": "50782890-f2b9-4de9-80f8-8a8a16fc11a6",
+          "actorAttempt": "2",
+          "toolCallId": "call_8XPG26znktPShGZfYrc2bxpB|fc_0e601417ca62da6e016ac1472b694487d284962f990c06b457",
+          "invocationId": "inv_1bbg1VRGO2EF221GS8Pwk3MaSplCnyePgP",
+          "operation": "read",
+          "args": {
+            "path": "route.js"
+          },
+          "admission": "probe-allow",
+          "result": {
+            "text": "// implementation goes here\n",
+            "target": "/home/miles/repos/agent-harnesses/kilo-restate/evidence/turn-002/workspace-restated/route.js"
+          },
+          "failure": null,
+          "startedAt": "2026-10-03T18:19:23.534Z",
+          "settledAt": "2026-10-03T18:19:23.593Z"
+        }
+      },
+      {
+        "id": "inv_1bbg1VRGO2EF5XeF65X8i1xXd6TU8BHG2p",
+        "createdAt": "2026-10-03T18:19:27.802Z",
+        "target": "KiloNode/actor-actor-01/run",
+        "serviceKey": "actor-actor-01",
+        "status": "completed",
+        "request": {
+          "nodeId": "pi-lifecycle-node:call_N4lwIQJu1X4qvjY7tiwXfVeP|fc_0e601417ca62da6e016ac1472f9f1887d2838979d347adc0c6",
+          "actorId": "actor-01",
+          "sessionId": "50782890-f2b9-4de9-80f8-8a8a16fc11a6",
+          "actorAttempt": "2",
+          "toolCallId": "call_N4lwIQJu1X4qvjY7tiwXfVeP|fc_0e601417ca62da6e016ac1472f9f1887d2838979d347adc0c6",
+          "operation": "edit",
+          "args": {
+            "path": "route.js",
+            "oldText": "// implementation goes here",
+            "newText": "function classifyIncident(code) {\n  return code === \"amber\" ? \"queue-amber-r7\" : \"queue-default\";\n}"
+          }
+        },
+        "output": {
+          "nodeId": "pi-lifecycle-node:call_N4lwIQJu1X4qvjY7tiwXfVeP|fc_0e601417ca62da6e016ac1472f9f1887d2838979d347adc0c6",
+          "parentNodeId": null,
+          "actorId": "actor-01",
+          "sessionId": "50782890-f2b9-4de9-80f8-8a8a16fc11a6",
+          "actorAttempt": "2",
+          "toolCallId": "call_N4lwIQJu1X4qvjY7tiwXfVeP|fc_0e601417ca62da6e016ac1472f9f1887d2838979d347adc0c6",
+          "invocationId": "inv_1bbg1VRGO2EF5XeF65X8i1xXd6TU8BHG2p",
+          "operation": "edit",
+          "args": {
+            "path": "route.js",
+            "oldText": "// implementation goes here",
+            "newText": "function classifyIncident(code) {\n  return code === \"amber\" ? \"queue-amber-r7\" : \"queue-default\";\n}"
+          },
+          "admission": "probe-allow",
+          "result": {
+            "target": "/home/miles/repos/agent-harnesses/kilo-restate/evidence/turn-002/workspace-restated/route.js",
+            "changed": true
+          },
+          "failure": null,
+          "startedAt": "2026-10-03T18:19:27.840Z",
+          "settledAt": "2026-10-03T18:19:27.912Z"
+        }
+      },
+      {
+        "id": "inv_1bbg1VRGO2EF4od42mjHVjhmr5bCUtkJ6Q",
+        "createdAt": "2026-10-03T18:19:39.591Z",
+        "target": "KiloNode/actor-actor-01/run",
+        "serviceKey": "actor-actor-01",
+        "status": "completed",
+        "request": {
+          "nodeId": "pi-lifecycle-node:call_maIYGHkyIA0rxIpQNugdubOB|fc_0e601417ca62da6e016ac1473a209487d28278a53358db54ec",
+          "actorId": "actor-01",
+          "sessionId": "50782890-f2b9-4de9-80f8-8a8a16fc11a6",
+          "actorAttempt": "2",
+          "toolCallId": "call_maIYGHkyIA0rxIpQNugdubOB|fc_0e601417ca62da6e016ac1473a209487d28278a53358db54ec",
+          "operation": "bash",
+          "args": {
+            "command": "node -e 'const assert = require(\"node:assert/strict\"); const fs = require(\"node:fs\"); const vm = require(\"node:vm\"); const context = {}; vm.runInNewContext(`${fs.readFileSync(\"route.js\", \"utf8\")}\\nglobalThis.classifyIncident = classifyIncident;`, context); assert.equal(context.classifyIncident(\"amber\"), \"queue-amber-r7\"); assert.equal(context.classifyIncident(\"AMBER\"), \"queue-default\"); console.log(\"PASS: amber -> queue-amber-r7; AMBER -> queue-default\");'"
+          }
+        },
+        "output": {
+          "nodeId": "pi-lifecycle-node:call_maIYGHkyIA0rxIpQNugdubOB|fc_0e601417ca62da6e016ac1473a209487d28278a53358db54ec",
+          "parentNodeId": null,
+          "actorId": "actor-01",
+          "sessionId": "50782890-f2b9-4de9-80f8-8a8a16fc11a6",
+          "actorAttempt": "2",
+          "toolCallId": "call_maIYGHkyIA0rxIpQNugdubOB|fc_0e601417ca62da6e016ac1473a209487d28278a53358db54ec",
+          "invocationId": "inv_1bbg1VRGO2EF4od42mjHVjhmr5bCUtkJ6Q",
+          "operation": "bash",
+          "args": {
+            "command": "node -e 'const assert = require(\"node:assert/strict\"); const fs = require(\"node:fs\"); const vm = require(\"node:vm\"); const context = {}; vm.runInNewContext(`${fs.readFileSync(\"route.js\", \"utf8\")}\\nglobalThis.classifyIncident = classifyIncident;`, context); assert.equal(context.classifyIncident(\"amber\"), \"queue-amber-r7\"); assert.equal(context.classifyIncident(\"AMBER\"), \"queue-default\"); console.log(\"PASS: amber -> queue-amber-r7; AMBER -> queue-default\");'"
+          },
+          "admission": "probe-allow",
+          "result": {
+            "stdout": "PASS: amber -> queue-amber-r7; AMBER -> queue-default\n",
+            "stderr": "",
+            "code": 0,
+            "cwd": "/home/miles/repos/agent-harnesses/kilo-restate/evidence/turn-002/workspace-restated"
+          },
+          "failure": null,
+          "startedAt": "2026-10-03T18:19:39.622Z",
+          "settledAt": "2026-10-03T18:19:39.732Z"
+        }
+      }
+    ],
+    "sqlAcceptHeader": "application/json",
+    "uiInspection": "Captured /ui/ SPA shell before and after; live execution state was inspected through admin SQL, not browser automation."
+  },
+  "pi": {
+    "provider": "openai-codex",
+    "model": "gpt-6-luna",
+    "thinkingLevel": "max",
+    "sessionId": "50782890-f2b9-4de9-80f8-8a8a16fc11a6",
+    "workspace": "/home/miles/repos/agent-harnesses/kilo-restate/evidence/turn-002/workspace-restated",
+    "sessionFile": "/home/miles/repos/runtime/.pi/agent/sessions/--home-miles-repos-agent-harnesses-kilo-restate-evidence-turn-002-workspace-restated--/2026-10-03T17-22-11-007Z_50782890-f2b9-4de9-80f8-8a8a16fc11a6.jsonl",
+    "sessionHashBeforeRestart": "a7ea894188ac8cdbbb66f2e2efd4d4bf5c7a7fa56731d81894f4fa948274ab50",
+    "sessionHashAfterResume": "0f6d8f9ee8d7d0f265efd353f895ab2e4b71c7a21ae2647718d41796c7fec1d8",
+    "statsBeforeRestart": {
+      "userMessages": 1,
+      "assistantMessages": 2,
+      "toolCalls": 2,
+      "toolResults": 2,
+      "totalMessages": 6,
+      "costUsd": 0.00064416
+    },
+    "statsAfterStageTwo": {
+      "userMessages": 2,
+      "assistantMessages": 6,
+      "toolCalls": 5,
+      "toolResults": 5,
+      "totalMessages": 14,
+      "costUsd": 0.00223108
+    },
+    "firstProcessPid": 3035867,
+    "firstProcessObservedDeadAfterInteractiveSessionTransfer": true,
+    "exitSignalCaptured": false,
+    "restartAttempt": 2,
+    "sameSessionFileAndIdRecovered": true,
+    "lastAssistantTextRecoveredBeforeStageTwo": "Exact `amber` maps to `queue-amber-r7`. Every other string maps to `queue-default`. Matching is case-sensitive. I did not edit `route.js`."
+  },
+  "task": {
+    "briefSha256BeforeRemoval": "c00f0d03d953d325f52dfc5e306c6c0e427b135d39228b7b9b0994affcd21cd1",
+    "briefAbsentForStageTwoInBothWorkspaces": true,
+    "restatedOutput": "function classifyIncident(code) { return code === \"amber\" ? \"queue-amber-r7\" : \"queue-default\"; }",
+    "directOutput": "same function with `export { classifyIncident };` for the module-typed workspace",
+    "independentAssertions": "PASS for amber -> queue-amber-r7 and AMBER -> queue-default in both workspaces",
+    "directSessionId": "42c9cab2-2e71-4bd8-ae1f-c3f5d56a3da6",
+    "directSessionHash": "29c76e56707630c9b3af3b15a8e1988ae24bcf1dd7dd02be321e6715e95c977d",
+    "directStats": {
+      "userMessages": 2,
+      "assistantMessages": 12,
+      "toolCalls": 15,
+      "toolResults": 15,
+      "totalMessages": 30,
+      "costUsd": 0.0079693
+    },
+    "directInitialBriefHashMatchesRestated": "c00f0d03d953d325f52dfc5e306c6c0e427b135d39228b7b9b0994affcd21cd1"
+  },
+  "limits": [
+    "The Restate-Pi process was confirmed dead before relaunch, but its exit signal/cause was not captured because the interactive shell was user-takeover then output-transferred.",
+    "This is one local same-host session-file resume, not a controlled power-loss, cross-host session restore, or Restate-owned Pi supervisor test.",
+    "No crash was injected during edit/bash side effects; exact-once claims do not extend to arbitrary external effects."
+  ]
+}

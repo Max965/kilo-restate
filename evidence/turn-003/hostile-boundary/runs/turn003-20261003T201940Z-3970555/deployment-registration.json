@@ -1,0 +1,26 @@
+{
+  "restateContainer": {
+    "name": "kilo-restate-pi-lifecycle",
+    "id": "852ff01afb2f6b8adfa5dd5259e47992a1b8c37a7bdd53f710fe69eedee1ebe2",
+    "image": "docker.restate.dev/restatedev/restate:1.7",
+    "observedServerVersion": "1.7.13"
+  },
+  "existingKiloNodeDeployment": {
+    "id": "dp_16QZTEX6fyawrCnrAe5vqTL",
+    "uri": "http://host.containers.internal:9080/",
+    "services": ["Approval", "KiloNode"],
+    "sdkVersion": "restate-sdk-typescript/1.17.2"
+  },
+  "newDurableAgentDeployment": {
+    "id": "dp_14PqsFrcNJa0ySKeDgRKnBf",
+    "uri": "http://host.containers.internal:9081",
+    "createdAt": "2026-10-03T20:20:05.049Z",
+    "services": ["DurableAgent"],
+    "sdkVersion": "restate-sdk-typescript/1.17.2"
+  },
+  "restateIngress": "http://127.0.0.1:8180",
+  "adminSql": "http://127.0.0.1:9170/query",
+  "pi": "1.0.0",
+  "node": "v22.22.2",
+  "model": "openai-codex/gpt-5.6-luna"
+}

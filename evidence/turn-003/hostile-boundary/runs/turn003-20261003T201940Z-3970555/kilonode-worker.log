@@ -1,0 +1,6 @@
+[restate][2026-10-03T20:19:40.786Z] INFO: Restate SDK started listening on 9080...
+[restate][2026-10-03T20:19:40.788Z] WARN: Accepting requests without validating request signatures; handler access must be restricted
+[restate][2026-10-03T20:21:00.821Z][KiloNode/actor-turn003-20261003T201940Z-3970555/run][inv_18w9UfEEUiXp6xP6QZaoNopSjfsvbGB2hq] INFO: Starting invocation.
+[restate][2026-10-03T20:21:00.924Z][KiloNode/actor-turn003-20261003T201940Z-3970555/run][inv_18w9UfEEUiXp6xP6QZaoNopSjfsvbGB2hq] INFO: Invocation completed successfully.
+[restate][2026-10-03T20:21:04.756Z][KiloNode/actor-turn003-20261003T201940Z-3970555/run][inv_18w9UfEEUiXp7qGEYrJtRcOoGAp7nOdyRm] INFO: Starting invocation.
+[restate][2026-10-03T20:21:04.855Z][KiloNode/actor-turn003-20261003T201940Z-3970555/run][inv_18w9UfEEUiXp7qGEYrJtRcOoGAp7nOdyRm] INFO: Invocation completed successfully.
