@@ -12,7 +12,7 @@ import {
 } from "../../contract.ts";
 import { OperationEvents } from "../../restate/events.ts";
 import { ChildRelay, OperationGate, ToolEffect } from "../../restate/service.ts";
-import { pathToFileURL } from "node:url";
+import { pathToFileURL, fileURLToPath } from "node:url";
 
 interface ToolCallEvent {
   toolCallId: string;
@@ -26,6 +26,7 @@ interface PiApi {
   on(event: "turn_start", handler: (event: { turnIndex: number; timestamp: number }) => unknown): unknown;
   on(event: "agent_start" | "agent_settled", handler: (event: { type: string }) => unknown): unknown;
   registerTool(tool: unknown): void;
+  getAllTools(): Array<{ name: string; sourceInfo: { path: string } }>;
 }
 
 interface NativeTool {
@@ -228,7 +229,15 @@ function installNativeTool(pi: PiApi, name: "read" | "write" | "edit" | "bash", 
 }
 
 export default function (pi: PiApi): void {
-  pi.on("tool_call", gate);
+  pi.on("tool_call", async (event) => {
+    if (['read','write','edit','bash'].includes(event.toolName)) {
+      const owner = pi.getAllTools().find(tool => tool.name === event.toolName)?.sourceInfo.path;
+      if (!owner || resolve(owner) !== resolve(fileURLToPath(import.meta.url))) {
+        return { block: true, reason: 'native tool interception was overridden; blocked fail-closed' };
+      }
+    }
+    return gate(event);
+  });
   pi.on("turn_start", (event) => { void append({ type: "turn_start", turnIndex: event.turnIndex, timestamp: event.timestamp }); });
   pi.on("agent_start", () => { void append({ type: "agent_start" }); });
   pi.on("agent_settled", () => { void append({ type: "agent_settled" }); });

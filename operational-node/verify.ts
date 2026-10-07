@@ -13,7 +13,7 @@ import { makeEffectId } from "./contract.ts";
 import { OperationWorkflow } from "./restate/service.ts";
 
 const repo = resolve(dirname(fileURLToPath(import.meta.url)), "..");
-const goalEvidence = join(repo, ".agent/goals/2026-10-05-004-kilo-restate-operational-node/iterations/01/evidence/operational-node");
+const goalEvidence = process.env.KILO_EVIDENCE_HOME ?? join(repo, ".agent/goals/2026-10-05-004-kilo-restate-operational-node/iterations/01/evidence/operational-node");
 const runTag = `${new Date().toISOString().replace(/[^A-Za-z0-9.-]/g, "-")}-${process.pid}`;
 const runRoot = join(goalEvidence, "runs", runTag);
 const workspaces = join(runRoot, "workspaces");

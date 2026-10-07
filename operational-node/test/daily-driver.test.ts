@@ -1,0 +1,11 @@
+import assert from 'node:assert/strict';
+import { parseWorkReport, validatePiConfiguration } from '../daily-driver.ts';
+assert.deepEqual(validatePiConfiguration({ agentDir: '/tmp/pi', skills: ['/tmp/skill.md'], extensions: ['/tmp/extension.ts'], thinking: 'low' }), { agentDir: '/tmp/pi', skills: ['/tmp/skill.md'], extensions: ['/tmp/extension.ts'], thinking: 'low' });
+assert.throws(() => validatePiConfiguration({ thinking: '--no-tools' }));
+assert.throws(() => validatePiConfiguration({ extensions: ['relative.ts'] }));
+assert.throws(() => validatePiConfiguration({ agentDir: '/tmp/pi', apiKey: 'forbidden' }));
+const report = { GOAL: 'test', RESULT: 'ACHIEVED', GAP: '', 'AGENT WORK': 'done', 'ROOT CAUSE': '', 'NEXT PROMPT': '' };
+assert.deepEqual(parseWorkReport(JSON.stringify(report)), report);
+assert.equal(parseWorkReport('settled but no report'), undefined);
+assert.equal(parseWorkReport(JSON.stringify({ ...report, RESULT: 'PASS' })), undefined);
+console.log('daily driver contract: PASS');

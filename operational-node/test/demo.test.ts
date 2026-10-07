@@ -1,0 +1,37 @@
+import assert from 'node:assert/strict';
+import { mkdtemp, writeFile, symlink, rm } from 'node:fs/promises';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
+const module = await import('../demo-contract.ts').catch(() => undefined);
+assert(module, 'bounded demo contract must exist');
+const { validateGoal, goalIdentity, demoReadonly, formatEvent, projectResult, verifyResult } = module;
+const { makeGateId, makeEffectId } = await import('../contract.ts');
+const dir = await mkdtemp(join(tmpdir(),'kilo-demo-test-'));
+try {
+  const workspace=join(dir,'workspace');
+  await (await import('node:fs/promises')).mkdir(workspace);
+  await writeFile(join(workspace,'probe.txt'),'unique marker\n');await writeFile(join(dir,'outside.txt'),'outside');
+  await symlink(join(dir,'outside.txt'),join(workspace,'escape'));
+  const goal={schema:'kilo-demo/v1',goal:'Read probe.txt',workspace,realization:'DEV',pi:{provider:'openai-codex',model:'gpt-6.1-sol',thinking:'low'},policy:'demo-readonly'};
+  validateGoal(goal); assert.equal(goalIdentity(goal),goalIdentity({...goal,pi:{model:'gpt-6.1-sol',thinking:'low',provider:'openai-codex'}}));
+  for(const bad of [{...goal,operationId:'authored'}, {...goal,realization:'RELEASE'}, {...goal,workspace:'relative'}, {...goal,pi:{...goal.pi,apiKey:'no'}}]) assert.throws(()=>validateGoal(bad));
+  assert.equal(await demoReadonly(workspace,'read',{path:'probe.txt'}),'ALLOW');
+  for(const [tool,input] of [['write',{path:'new.txt'}],['edit',{path:'probe.txt'}],['bash',{command:'true'}],['read',{path:'../outside.txt'}],['read',{path:'escape'}],['read',{path:'missing'}]]) assert.equal(await demoReadonly(workspace,tool,input),'DENY');
+  assert.match(formatEvent({type:'tool_effect_result',payload:{operation:'read'},eventId:'e',operationId:'op',at:'t'})!,/EFFECT_RESULT/);
+  assert.equal(formatEvent({type:'tool_execution_end',eventId:'e',operationId:'op',at:'t'}),null);
+  const identity={operationId:'demo-test',invocationId:'inv-parent',sessionId:'session',sessionFile:'session.jsonl',driverId:'pi'};
+  const e=(type:string,at:string,payload:any={},extra:any={})=>({eventId:type,operationId:identity.operationId,type,at,payload,...extra});
+  const gateId=makeGateId({operationId:identity.operationId,sessionId:'session',toolCallId:'call'});
+  const effectId=makeEffectId({operationId:identity.operationId,sessionId:'session',toolCallId:'call',operation:'read',stage:0});
+  const events=[e('pi_process_started','1',{sessionId:'session'}),e('tool_requested','2',{toolName:'read',input:{path:'probe.txt'}},{toolCallId:'call'}),e('gate_allowed','3',{gateId,decision:'ALLOW'},{toolCallId:'call',sessionId:'session'}),e('effect_started','4',{effectId,operation:'read',stage:0},{toolCallId:'call',invocationId:'inv-effect',sessionId:'session'}),e('effect_completed','5',{effectId,operation:'read',stage:0,result:{base64:Buffer.from('unique marker\n').toString('base64')}},{toolCallId:'call',invocationId:'inv-effect',sessionId:'session'}),e('agent_settled','6'),e('operation_settled','7')];
+  const status={operationId:identity.operationId,status:'completed',identity,result:{status:'completed',identity,piSettlement:'agent_settled',output:'model prose is NOT evidence'},events};
+  const context={goal,goalId:goalIdentity(goal),operationId:identity.operationId,invocationId:identity.invocationId,fixturePath:join(workspace,'probe.txt'),expectedObservation:'unique marker\n'};
+  const result=projectResult(context as any,status as any);assert.equal(result.observation,'unique marker\n');
+  const journals=[{invocationId:'inv-effect',rows:[{entry_type:'Command: Run',name:'effect:read'}]}];
+  assert.equal(verifyResult(context as any,status as any,result,journals).pass,true);
+  assert.equal(verifyResult(context as any,status as any,result,[]).pass,false);
+  assert.equal(verifyResult(context as any,{...status,events:events.map(e=>e.type==='effect_completed'?{...e,sessionId:'wrong'}:e)} as any,result,journals).pass,false);
+  assert.equal(verifyResult(context as any,status as any,{...result,observation:'invented'},journals).pass,false);
+  const absent=projectResult(context as any,{operationId:identity.operationId,status:'failed',events:[]} as any);assert.equal(absent.sessionId,null);assert.equal(absent.gate,null);assert.equal(absent.observation,null);
+  console.log('demo contract/policy/projection: PASS');
+} finally { await rm(dir,{recursive:true,force:true}); }

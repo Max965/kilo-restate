@@ -1,13 +1,18 @@
 import { randomUUID } from "node:crypto";
 import { mkdir } from "node:fs/promises";
+import { homedir } from 'node:os';
+import { reportInstruction, validatePiConfiguration } from '../../daily-driver.ts';
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
-import type { OperationEvent, OperationRequest } from "../../contract.ts";
+import type { ActorOutcome, OperationEvent, OperationRequest } from "../../contract.ts";
 import { createOperationEventSink } from "../../restate/events.ts";
+import { publishLive, liveOwners } from '../../control-live.ts';
 
 interface RpcState {
   sessionId: string;
   sessionFile?: string;
+  model?: { provider: string; id: string };
+  thinkingLevel?: string;
 }
 
 interface RpcEvent {
@@ -19,9 +24,12 @@ interface RpcClient {
   start(): Promise<void>;
   stop(): Promise<void>;
   abort(): Promise<void>;
+  steer(message: string): Promise<unknown>;
   onEvent(listener: (event: RpcEvent) => void): () => void;
   getState(): Promise<RpcState>;
+  getCommands(): Promise<Array<{ name: string; source: string }>>;
   setModel(provider: string, modelId: string): Promise<unknown>;
+  setThinkingLevel(level: string): Promise<void>;
   getLastAssistantText(): Promise<string | null>;
   promptAndWait(message: string, images?: unknown[], timeout?: number): Promise<RpcEvent[]>;
   getStderr(): string;
@@ -48,9 +56,25 @@ export interface PiDriverResult {
   lastAssistantText: string | null;
   eventTypes: string[];
   settlement: "agent_settled" | "aborted";
+  actorOutcome: ActorOutcome;
 }
 
 const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), "../../..");
+// Same-host live RPC control only; Restate remains operation/terminal-state owner.
+const active = new Map<string, RpcClient>();
+export async function steerPi(operationId: string, message: string): Promise<unknown> {
+  const rpc = active.get(operationId);
+  if (!rpc) return { status: 'not_active', reason: 'no active Pi RPC process on this service host' };
+  const disposition = await rpc.steer(message);
+  return { status: 'queued', disposition };
+}
+
+export function translateActorOutcome(events:RpcEvent[]):ActorOutcome {
+  const message=events.filter(e=>e.type==='message_end'&& (e.message as any)?.role==='assistant').at(-1)?.message as Record<string,unknown>|undefined;
+  const reason=typeof message?.stopReason==='string'?message.stopReason.slice(0,80):undefined;
+  const kind=reason==='stop'?'normal':reason==='error'?'error':reason==='length'?'truncated':reason==='aborted'?'aborted':'unknown';
+  return {kind,...(reason?{reason}:{}),...(typeof message?.errorMessage==='string'?{detail:message.errorMessage.slice(0,1000)}:{})};
+}
 
 function eventPayload(event: RpcEvent): Record<string, unknown> | undefined {
   const payload: Record<string, unknown> = {};
@@ -72,7 +96,8 @@ export async function runPi(input: PiDriverInput, signal: AbortSignal): Promise<
   const cliPath = join(piRoot, "packages/coding-agent/src/cli.ts");
   const extensionPath = join(repoRoot, "operational-node/drivers/pi/extension.ts");
   const tsxLoader = join(repoRoot, "node_modules/tsx/dist/esm/index.mjs");
-  const home = resolve(process.env.KILO_PI_HOME ?? join(dirname(input.sessionDir), "home"));
+  const nativeConfig = input.pi ? validatePiConfiguration(input.pi) : undefined;
+  const home = resolve(nativeConfig ? homedir() : process.env.KILO_PI_HOME ?? join(dirname(input.sessionDir), "home"));
   await Promise.all([mkdir(input.sessionDir, { recursive: true }), mkdir(home, { recursive: true })]);
 
   const testExtensionAllowed = process.env.KILO_ALLOW_TEST_EXTENSION === "1";
@@ -87,6 +112,7 @@ export async function runPi(input: PiDriverInput, signal: AbortSignal): Promise<
     TSX_TSCONFIG_PATH: join(piRoot, "tsconfig.json"),
     NODE_OPTIONS: [process.env.NODE_OPTIONS, `--import ${tsxLoader}`].filter(Boolean).join(" "),
   };
+  if (nativeConfig?.agentDir) env.PI_CODING_AGENT_DIR = nativeConfig.agentDir;
   env.KILO_PI_PROVIDER = input.provider;
   env.KILO_PI_MODEL = input.model;
   env.KILO_EVENT_INGRESS = process.env.RESTATE_INGRESS ?? "http://127.0.0.1:8180";
@@ -102,6 +128,14 @@ export async function runPi(input: PiDriverInput, signal: AbortSignal): Promise<
     "--no-extensions", "--extension", extensionPath, "--no-skills", "--no-builtin-tools",
     "--session-id", input.sessionId, "--session-dir", input.sessionDir,
   ];
+  if (nativeConfig) {
+    // Native resource discovery is retained; Kilo interception is loaded last.
+    args.splice(0, args.length, '--no-builtin-tools', '--tools', 'read,write,edit,bash', '--session-id', input.sessionId, '--session-dir', input.sessionDir);
+    for (const skill of nativeConfig.skills ?? []) args.push('--skill', skill);
+    for (const extension of nativeConfig.extensions ?? []) args.push('--extension', extension);
+    if (nativeConfig.thinking) args.push('--thinking', nativeConfig.thinking);
+    args.push('--extension', extensionPath);
+  }
   if (testExtensionAllowed) args.push("--extension", join(repoRoot, "operational-node/test/faux-extension.ts"));
 
   const rpc = new RpcClient({ cliPath, cwd: input.workspace, env, args });
@@ -123,7 +157,23 @@ export async function runPi(input: PiDriverInput, signal: AbortSignal): Promise<
     await eventSink(event);
   };
   const events: RpcEvent[] = [];
-  const unsubscribe = rpc.onEvent((event) => events.push(event));
+  const unsubscribe = rpc.onEvent((event) => {
+    events.push(event);
+    const debug = event.type === 'extension_ui_request' && typeof event.message === 'string' && event.message.startsWith('KILO_DEBUG_V0:');
+    if (event.type === 'extension_ui_request' && !debug) return;
+    let data: Record<string, unknown> = event;
+    if (debug) {
+      try {
+        const d = JSON.parse(String(event.message).slice('KILO_DEBUG_V0:'.length));
+        if (!['context','provider-request'].includes(d.layer) || !/^[a-f0-9]{64}$/.test(d.sha256)) return;
+        data = { layer: d.layer, sha256: d.sha256 };
+        if (Number.isSafeInteger(d.messages)) data.messages = d.messages;
+        if (Number.isSafeInteger(d.request)) data.request = d.request;
+        if (Array.isArray(d.fields) && d.fields.length < 64 && d.fields.every((s:unknown) => typeof s === 'string' && /^[A-Za-z0-9_]{1,80}$/.test(s))) data.fields = d.fields;
+      } catch { return; }
+    }
+    publishLive({ operationId: input.operationId, sessionId: input.sessionId, attemptId: driverAttemptId, ownerPid: process.pid, at: Date.now(), kind: debug ? 'debug' : 'pi', event: data });
+  });
   let abortRequest: Promise<void> | undefined;
   const onAbort = (): void => { abortRequest = rpc.abort().catch(() => undefined); };
   signal.addEventListener("abort", onAbort, { once: true });
@@ -133,13 +183,23 @@ export async function runPi(input: PiDriverInput, signal: AbortSignal): Promise<
     await emit("pi_process_starting", { sessionId: input.sessionId, driverAttemptId });
     await rpc.start();
     await rpc.setModel(input.provider, input.model);
+    // Pi model switching restores saved thinking preferences; explicit launch override wins.
+    if (nativeConfig?.thinking) await rpc.setThinkingLevel(nativeConfig.thinking);
+    active.set(input.operationId, rpc);
+    liveOwners.set(input.operationId, { sessionId: input.sessionId, attemptId: driverAttemptId, ownerPid: process.pid });
     const initialState = await rpc.getState();
     if (initialState.sessionId !== input.sessionId) throw new Error("Pi opened a different session ID");
     await emit("pi_process_started", { sessionId: initialState.sessionId, sessionFile: initialState.sessionFile ?? null, driverAttemptId });
+    if (nativeConfig) await emit('pi_configuration', {
+      model: initialState.model, thinkingLevel: initialState.thinkingLevel,
+      agentDir: nativeConfig.agentDir ?? process.env.PI_CODING_AGENT_DIR ?? null,
+      commands: (await rpc.getCommands()).map(({ name, source }) => ({ name, source })),
+      skills: nativeConfig.skills ?? [], extensions: nativeConfig.extensions ?? [],
+    });
 
     let runEvents: RpcEvent[];
     try {
-      runEvents = await rpc.promptAndWait(input.prompt, undefined, timeout);
+      runEvents = await rpc.promptAndWait(input.workContract ? JSON.stringify(input.workContract) + reportInstruction : input.prompt, undefined, timeout);
     } catch (error) {
       if (!signal.aborted) throw error;
       runEvents = events;
@@ -161,8 +221,10 @@ export async function runPi(input: PiDriverInput, signal: AbortSignal): Promise<
       lastAssistantText: await rpc.getLastAssistantText(),
       eventTypes: runEvents.map((event) => event.type),
       settlement: signal.aborted ? "aborted" : "agent_settled",
+      actorOutcome: translateActorOutcome(runEvents),
     };
   } finally {
+    if (active.get(input.operationId) === rpc) { active.delete(input.operationId); liveOwners.delete(input.operationId); }
     signal.removeEventListener("abort", onAbort);
     unsubscribe();
     await abortRequest;

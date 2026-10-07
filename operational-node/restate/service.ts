@@ -1,5 +1,5 @@
 import * as restate from "@restatedev/restate-sdk";
-import { access as fsAccess, mkdir as fsMkdir, readFile as fsReadFile, realpath, writeFile as fsWriteFile } from "node:fs/promises";
+import { access as fsAccess, mkdir as fsMkdir, readFile as fsReadFile, realpath, stat as fsStat, lstat as fsLstat, writeFile as fsWriteFile } from "node:fs/promises";
 import { spawn } from "node:child_process";
 import { constants as fsConstants } from "node:fs";
 import { isAbsolute, join, relative, resolve, sep } from "node:path";
@@ -21,8 +21,11 @@ import type {
   ToolEffectRequest,
   ToolEffectResult,
 } from "../contract.ts";
-import { runPi } from "../drivers/pi/driver.ts";
+import { runPi, steerPi } from "../drivers/pi/driver.ts";
+import { verifyWorkResult, validatePiConfiguration } from '../daily-driver.ts';
 import { OperationEvents } from "./events.ts";
+import {factoryAdmissionHash} from '../factory.ts';
+import { validateAddress, type Address } from '../control-policy.ts';
 
 const CANCEL_SIGNAL = "kilo-cancel";
 const CHILD_SIGNAL = "kilo-child";
@@ -35,6 +38,9 @@ interface StoredOperation {
   invocationId: string;
   result?: OperationResult;
   childIds: string[];
+  address?: Address;
+  factoryWorkspace?: string;
+  factoryAdmissionHash?: string;
 }
 
 async function newEvent(ctx: restate.Context, operationId: string, invocationId: string, type: string, payload?: Record<string, unknown>): Promise<OperationEvent> {
@@ -69,6 +75,9 @@ function validateInput(input: OperationRequest, key: string): OperationRequest {
   if (input.parentOperationId) assertOperationId(input.parentOperationId);
   if (input.depth !== undefined && (!Number.isInteger(input.depth) || input.depth < 0 || input.depth > 1)) throw new restate.TerminalError("operation depth must be 0 or 1");
   if (input.testScenario && (process.env.KILO_ALLOW_TEST_EXTENSION !== "1" || !["plain", "core-tools", "deny", "gate-error", "recovery", "cancel", "child"].includes(input.testScenario))) throw new restate.TerminalError("test scenarios are disabled or unknown");
+  if (input.pi) validatePiConfiguration(input.pi);
+  if (input.controlAddress) { validateAddress(input.controlAddress); if (input.controlAddress.workspace !== input.workspace) throw new restate.TerminalError('control address/workspace mismatch'); }
+  if (input.workContract && (typeof input.workContract !== 'object' || Array.isArray(input.workContract) || JSON.stringify(input.workContract).length > 16000)) throw new restate.TerminalError('workContract must be an object no larger than 16000 characters');
   return { ...input, driverId: "pi" };
 }
 
@@ -100,6 +109,20 @@ async function safePath(workspace: string, requested: unknown): Promise<string> 
     }
   }
   return target;
+}
+
+export async function factoryDevPolicy(workspace:string,tool:string,input:Record<string,unknown>):Promise<'ALLOW'|'DENY'> {
+  try{
+    if(tool==='bash'){
+      if(typeof input.command!=='string'||!input.command.trim()||input.command.length>32000||input.timeout!==undefined&&(typeof input.timeout!=='number'||input.timeout<=0||input.timeout>120))return 'DENY';
+      const cwd=await safePath(workspace,input.cwd??workspace);return (await fsStat(await realpath(cwd))).isDirectory()?'ALLOW':'DENY';
+    }
+    if(!['read','write','edit'].includes(tool))return 'DENY';
+    const target=await safePath(workspace,input.path);
+    if(tool!=='write'){if(!(await fsStat(await realpath(target))).isFile())return 'DENY';}
+    else {await realpath(resolve(target,'..'));try{const info=await fsLstat(target);if(!info.isFile()||info.isSymbolicLink())return 'DENY';}catch(e){if((e as NodeJS.ErrnoException).code!=='ENOENT')throw e;}}
+    return 'ALLOW';
+  }catch{return 'DENY';}
 }
 
 async function runBash(command: string, cwd: string, timeoutSeconds?: number): Promise<{ stdout: string; stderr: string; exitCode: number | null; timedOut: boolean }> {
@@ -186,6 +209,11 @@ export const OperationGate = restate.workflow({
         sessionId: request.sessionId, parentInvocationId: request.parentInvocationId,
         parentToolCallId: request.parentToolCallId, toolName: request.toolName, input: request.input,
       }));
+      const parent=await ctx.workflowClient(OperationWorkflow,request.operationId).status();
+      if(parent.factoryWorkspace&&parent.identity?.invocationId===request.parentInvocationId&&parent.identity?.sessionId===request.sessionId){
+        const decision=await ctx.run('factory-dev-policy',()=>factoryDevPolicy(parent.factoryWorkspace!,request.toolName,request.input),{maxRetryAttempts:1});
+        ctx.resolveAwakeable(awakeable.id,decision);
+      }
       const decision = await awakeable.promise;
       const result: GateResult = { decision, gateId, invocationId: ctx.request().id, ...(decision === "DENY" ? { reason: "controller denied tool call" } : {}) };
       ctx.set("result", result);
@@ -269,7 +297,11 @@ export const OperationWorkflow = restate.workflow({
       const sessionRoot = resolve(process.env.KILO_PI_SESSION_ROOT ?? join(tmpdir(), "kilo-pi-operational-node"));
       const sessionDir = join(sessionRoot, request.operationId);
       const canonicalWorkspace = await ctx.run("validate-workspace", () => workspacePath(request.workspace));
-      const running: StoredOperation = { status: "running", identity, invocationId, childIds: existing?.childIds ?? [] };
+      const running: StoredOperation = { status: "running", identity, invocationId, childIds: existing?.childIds ?? [], ...(request.controlAddress ? { address: { ...request.controlAddress, workspace: canonicalWorkspace } } : {}) };
+      if(request.workContract?.FACTORY_DEV_POLICY==='factory-dev-v0'){
+        if(process.env.KILO_FACTORY_DEV_POLICY!=='1'||!request.workContract.FACTORY_IDENTITY)throw new restate.TerminalError('Factory DEV policy not admitted');
+        running.factoryWorkspace=canonicalWorkspace;running.factoryAdmissionHash=factoryAdmissionHash(request);
+      }
       ctx.set("state", running);
       await appendEvent(ctx, newEvent(ctx, request.operationId, invocationId, "operation_started", {
         sessionId, sessionFile: identity.sessionFile, parentOperationId: request.parentOperationId,
@@ -329,7 +361,7 @@ export const OperationWorkflow = restate.workflow({
           abortController.abort();
           try {
             const driverResult = await driverRun;
-            const result: OperationResult = { status: "cancelled", identity: { ...identity, sessionFile: driverResult.sessionFile }, piSettlement: driverResult.settlement, output: driverResult.lastAssistantText };
+            const result: OperationResult = { status: "cancelled", identity: { ...identity, sessionFile: driverResult.sessionFile }, piSettlement: driverResult.settlement, output: driverResult.lastAssistantText, actorOutcome: driverResult.actorOutcome };
             ctx.set("state", { ...running, status: "cancelled", identity: result.identity, childIds: [...new Set([...running.childIds, childId])], result });
             await appendEvent(ctx, newEvent(ctx, request.operationId, invocationId, "operation_cancelled", { sessionId, sessionFile: result.identity.sessionFile, piSettlement: result.piSettlement }));
             return result;
@@ -351,11 +383,12 @@ export const OperationWorkflow = restate.workflow({
           status: driverResult.settlement === "aborted" ? "cancelled" : "completed",
           identity: { ...identity, sessionFile: driverResult.sessionFile },
           piSettlement: driverResult.settlement,
-          output: driverResult.lastAssistantText,
+          output: driverResult.lastAssistantText, actorOutcome: driverResult.actorOutcome,
         };
+        verifyWorkResult(result,request.workContract);
         const terminal: StoredOperation = { ...running, status: result.status, identity: result.identity, childIds: [...new Set([...running.childIds, childId])], result };
         ctx.set("state", terminal);
-        await appendEvent(ctx, newEvent(ctx, request.operationId, invocationId, "operation_settled", {
+        await appendEvent(ctx, newEvent(ctx, request.operationId, invocationId, result.status==='failed'?'operation_failed':result.status==='cancelled'?'operation_cancelled':"operation_settled", {
           sessionId, sessionFile: result.identity.sessionFile, status: result.status, piSettlement: result.piSettlement,
         }));
         return result;
@@ -368,7 +401,7 @@ export const OperationWorkflow = restate.workflow({
           const driverResult = await driverRun;
           const result: OperationResult = {
             status: "cancelled", identity: { ...identity, sessionFile: driverResult.sessionFile },
-            piSettlement: driverResult.settlement, output: driverResult.lastAssistantText,
+            piSettlement: driverResult.settlement, output: driverResult.lastAssistantText, actorOutcome: driverResult.actorOutcome,
           };
           ctx.set("state", { ...running, status: "cancelled", identity: result.identity, result });
           await appendEvent(ctx, newEvent(ctx, request.operationId, invocationId, "operation_cancelled", {
@@ -395,12 +428,21 @@ export const OperationWorkflow = restate.workflow({
         status: driverResult.settlement === "aborted" ? "cancelled" : "completed",
         identity: { ...identity, sessionFile: driverResult.sessionFile },
         piSettlement: driverResult.settlement,
-        output: driverResult.lastAssistantText,
+        output: driverResult.lastAssistantText, actorOutcome: driverResult.actorOutcome,
       };
+      verifyWorkResult(result,request.workContract);
       ctx.set("state", { ...running, status: result.status, identity: result.identity, result });
-      await appendEvent(ctx, newEvent(ctx, request.operationId, invocationId, result.status === "cancelled" ? "operation_cancelled" : "operation_settled", {
+      await appendEvent(ctx, newEvent(ctx, request.operationId, invocationId, result.status === "cancelled" ? "operation_cancelled" : result.status === 'failed' ? 'operation_failed' : "operation_settled", {
         sessionId, sessionFile: result.identity.sessionFile, status: result.status, piSettlement: result.piSettlement,
       }));
+      return result;
+    },
+    steer: async (ctx: restate.WorkflowSharedContext, request: { message: string }): Promise<unknown> => {
+      if (!request || typeof request.message !== 'string' || request.message.length < 1 || request.message.length > 16000) throw new restate.TerminalError('steer message must be 1-16000 characters');
+      const state = await ctx.get<StoredOperation>('state');
+      if (!state || state.status !== 'running') return { status: 'not_active' };
+      const result = await ctx.run('pi-steer', () => steerPi(ctx.key, request.message), { maxRetryAttempts: 1 });
+      await appendEvent(ctx, newEvent(ctx, ctx.key, ctx.request().id, 'steer_response', { response: result }));
       return result;
     },
     cancel: async (ctx: restate.WorkflowSharedContext): Promise<{ status: string; invocationId?: string }> => {
@@ -419,6 +461,9 @@ export const OperationWorkflow = restate.workflow({
       result?: OperationResult;
       childIds: string[];
       events: OperationEvent[];
+      address?: Address;
+      factoryWorkspace?: string;
+      factoryAdmissionHash?: string;
     }> => {
       const state = await ctx.get<StoredOperation>("state");
       const events = await ctx.objectClient(OperationEvents, ctx.key).events();
@@ -426,6 +471,8 @@ export const OperationWorkflow = restate.workflow({
         operationId: ctx.key,
         status: state?.status ?? "not_found",
         ...(state ? { identity: state.identity } : {}),
+        ...(state?.address ? { address: state.address } : {}),
+        ...(state?.factoryWorkspace?{factoryWorkspace:state.factoryWorkspace,factoryAdmissionHash:state.factoryAdmissionHash}:{}),
         ...(state?.result ? { result: state.result } : {}),
         childIds: state?.childIds ?? [],
         events,
@@ -441,5 +488,6 @@ if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.ur
   if (!Number.isInteger(port) || port < 1 || port > 65_535) throw new Error("PORT must be a valid TCP port");
   void restate.serve({ services: [...operationalNodeServices], port }).then((boundPort) => {
     console.log(JSON.stringify({ event: "operational_node_listening", port: boundPort, services: operationalNodeServices.map((service) => service.name) }));
+    if (process.env.KILO_CONTROL_SOCKET) void import('../control.ts').then(({ startControl }) => startControl()).catch(error => { console.error(String(error)); process.exitCode = 1; });
   });
 }

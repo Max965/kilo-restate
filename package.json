@@ -9,7 +9,14 @@
     "operational-node": "tsx operational-node/restate/service.ts",
     "test:operational-node": "tsx operational-node/test/contract.test.ts",
     "typecheck:operational-node": "tsc --noEmit --target ES2022 --module NodeNext --moduleResolution NodeNext --types node --allowImportingTsExtensions operational-node/contract.ts operational-node/restate/events.ts operational-node/restate/service.ts operational-node/drivers/pi/driver.ts operational-node/drivers/pi/extension.ts operational-node/test/contract.test.ts operational-node/test/faux-extension.ts operational-node/verify.ts",
-    "verify:operational-node": "tsx operational-node/verify.ts"
+    "verify:operational-node": "tsx operational-node/verify.ts",
+    "node:daily": "tsx operational-node/cli.ts",
+    "test:daily": "tsx operational-node/test/daily-driver.test.ts",
+    "verify:daily": "tsx operational-node/test/verify-daily-driver.ts",
+    "node:demo": "tsx operational-node/demo.ts",
+    "test:demo": "tsx operational-node/test/demo.test.ts",
+    "node:control": "tsx operational-node/control-cli.ts",
+    "test:control": "tsx operational-node/test/control.test.ts && tsx operational-node/test/control-ergonomics.test.ts"
   },
   "dependencies": {
     "@restatedev/restate-sdk": "1.17.2",

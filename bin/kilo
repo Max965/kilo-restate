@@ -1,0 +1,5 @@
+#!/bin/sh
+set -eu
+script=$(realpath -- "$0")
+root=$(CDPATH= cd -- "$(dirname -- "$script")/.." && pwd -P)
+exec node --import "$root/node_modules/tsx/dist/loader.mjs" "$root/operational-node/control-cli.ts" "$@"

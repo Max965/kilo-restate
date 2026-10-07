@@ -1,4 +1,5 @@
 import { createHash } from "node:crypto";
+import type { PiConfiguration, WorkReport } from './daily-driver.ts';
 
 export type DriverId = "pi" | (string & {});
 export type OperationStatus = "accepted" | "running" | "completed" | "failed" | "cancelled";
@@ -26,6 +27,17 @@ export interface OperationRequest {
   parentToolCallId?: string;
   depth?: number;
   testScenario?: string;
+  /** Presence enables ordinary native Pi configuration instead of the isolated test profile. */
+  pi?: PiConfiguration;
+  workContract?: Record<string, unknown>;
+  /** Optional semantic address, persisted in existing workflow state (no registry store). */
+  controlAddress?: import('./control-policy.ts').Address;
+}
+
+export interface ActorOutcome {
+  kind: 'normal' | 'error' | 'truncated' | 'aborted' | 'unknown';
+  reason?: string; // bounded native terminal label; not a universal provider classification
+  detail?: string;
 }
 
 export interface OperationResult {
@@ -33,7 +45,10 @@ export interface OperationResult {
   identity: OperationIdentity;
   piSettlement: "agent_settled" | "aborted" | "failed";
   output?: string | null;
+  actorOutcome?: ActorOutcome;
   failure?: string;
+  workReport?: WorkReport;
+  reportError?: string;
 }
 
 export interface EffectIdentity {
