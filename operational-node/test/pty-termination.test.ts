@@ -1,0 +1,10 @@
+import assert from 'node:assert/strict';
+import {spawn} from 'node:child_process';
+import {terminateInteractive} from '../drivers/pi/driver.ts';
+const child=spawn('python3',['-B','operational-node/drivers/pi/pty-bridge.py',process.execPath,'-e',`process.on('SIGTERM',()=>{});console.log('READY');setInterval(()=>{},1000)`],{stdio:['pipe','pipe','pipe']});
+let pid:number|undefined;let started=false;const begin=Date.now();
+child.stderr!.on('data',b=>{for(const line of b.toString().split('\n'))try{const e=JSON.parse(line);if(e.type==='pty_ready')pid=e.piPid;}catch{}});
+child.stdout!.on('data',b=>{if(!started&&b.toString().includes('READY')){assert.ok(pid);started=true;process.kill(pid!,'SIGSTOP');terminateInteractive(child,()=>pid);}});
+const guard=setTimeout(()=>{if(pid)try{process.kill(-pid,'SIGKILL')}catch{}child.kill('SIGKILL');},6000);
+await new Promise<void>(r=>child.once('close',()=>r()));clearTimeout(guard);
+assert.ok(started);assert.ok(Date.now()-begin<5000);assert.throws(()=>process.kill(pid!,0),(e:any)=>e.code==='ESRCH');console.log('stopped/TERM-resistant PTY actor bounded cleanup, no orphan: PASS');

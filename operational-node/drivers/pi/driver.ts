@@ -81,6 +81,12 @@ export function translateActorOutcome(events:RpcEvent[]):ActorOutcome {
   return {kind,...(reason?{reason}:{}),...(typeof message?.errorMessage==='string'?{detail:message.errorMessage.slice(0,1000)}:{})};
 }
 
+export function terminateInteractive(child:import('node:child_process').ChildProcess,piPid:()=>number|undefined):void{
+ child.kill('SIGTERM');
+ const killActor=setTimeout(()=>{const pid=piPid();if(pid)try{process.kill(-pid,'SIGKILL');}catch(error){if((error as NodeJS.ErrnoException).code!=='ESRCH')child.kill('SIGKILL');}},1000);
+ const killBridge=setTimeout(()=>child.kill('SIGKILL'),2000);
+ child.once('close',()=>{clearTimeout(killActor);clearTimeout(killBridge);});
+}
 async function runInteractivePi(input:PiDriverInput,signal:AbortSignal,launch:{cliPath:string;args:string[];env:Record<string,string>;driverAttemptId:string;emit:(type:string,payload?:Record<string,unknown>,processId?:number)=>Promise<void>}):Promise<PiDriverResult>{
   const helper=join(repoRoot,'operational-node/drivers/pi/pty-bridge.py'),child=spawn('python3',['-B',helper,process.execPath,launch.cliPath,...launch.args],{cwd:input.workspace,env:launch.env,stdio:['pipe','pipe','pipe','pipe']});
   const resizePipe=child.stdio[3] as import('node:stream').Writable;
@@ -96,7 +102,8 @@ async function runInteractivePi(input:PiDriverInput,signal:AbortSignal,launch:{c
   child.stdin?.on('error',()=>{});
   child.stdout.on('data',(chunk:Buffer)=>publishLive({operationId:input.operationId,sessionId:input.sessionId,attemptId:launch.driverAttemptId,ownerPid:process.pid,at:Date.now(),kind:'terminal',event:{data:chunk.toString('base64')}}));
   active.set(input.operationId,control);
-  const onAbort=()=>{if(!closed)child.kill('SIGTERM');};
+  let terminating=false;
+  const onAbort=()=>{if(!closed&&!terminating){terminating=true;terminateInteractive(child,()=>piPid);}};
   signal.addEventListener('abort',onAbort,{once:true});if(signal.aborted)onAbort();
   try{
     await launch.emit('pi_process_starting',{sessionId:input.sessionId,driverAttemptId:launch.driverAttemptId,realization:'INTERACTIVE_DEBUG'});
@@ -122,7 +129,7 @@ async function runInteractivePi(input:PiDriverInput,signal:AbortSignal,launch:{c
     return {sessionId:input.sessionId,sessionFile:file,lastAssistantText:typeof text==='string'?text:null,eventTypes:message?['agent_settled']:[],settlement:signal.aborted?'aborted':'agent_settled',actorOutcome:signal.aborted?{kind:'aborted',reason:'Kilo cancellation'}:translateActorOutcome(message?[{type:'message_end',message}]:[])};
   }finally{
     signal.removeEventListener('abort',onAbort);
-    if(!closed){child.kill('SIGTERM');await exited;}
+    if(!closed){onAbort();await exited;}
     if(active.get(input.operationId)===control)active.delete(input.operationId);
     if(liveOwners.get(input.operationId)?.attemptId===launch.driverAttemptId)liveOwners.delete(input.operationId);
     await launch.emit('pi_process_stopped',{sessionId:input.sessionId,aborted:signal.aborted,driverAttemptId:launch.driverAttemptId,piPid},piPid);

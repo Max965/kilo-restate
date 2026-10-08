@@ -1,5 +1,6 @@
 import {createServer} from 'node:http';
-import {readFile,stat,realpath,chmod} from 'node:fs/promises';
+import {readFile,stat,realpath,chmod,lstat,unlink} from 'node:fs/promises';
+import {createConnection} from 'node:net';
 import {createHash,randomUUID,timingSafeEqual} from 'node:crypto';
 import {dirname,join,resolve} from 'node:path';
 import {fileURLToPath} from 'node:url';
@@ -12,6 +13,14 @@ import {writeInteractiveInput,resizeInteractive} from './drivers/pi/driver.ts';
 import {capabilities,recentMessages,projectTranscriptMessage,authorize,validateAddress,selectNode,ControlError,type Address,type Grant,type Selector,type Capability} from './control-policy.ts';
 import {subscribeLive,liveOwners} from './control-live.ts';
 
+export async function prepareControlSocket(socket:string){
+ let before;try{before=await lstat(socket);}catch(error){if((error as NodeJS.ErrnoException).code==='ENOENT')return;throw error;}
+ if(!before.isSocket()||before.uid!==process.getuid?.())throw Error('refusing to replace non-owned control socket');
+ const stale=await new Promise<boolean>((yes,no)=>{const connection=createConnection(socket);connection.once('connect',()=>{connection.destroy();yes(false);});connection.once('error',error=>{connection.destroy();if(['ECONNREFUSED','ENOENT'].includes((error as NodeJS.ErrnoException).code??''))yes(true);else no(error);});connection.setTimeout(1000,()=>{connection.destroy();no(Error('control socket owner probe timed out'));});});
+ if(!stale)throw Error('control socket already has a live owner');
+ const after=await lstat(socket).catch(error=>{if(error.code==='ENOENT')return null;throw error;});
+ if(after){if(after.ino!==before.ino||after.dev!==before.dev)throw Error('control socket changed during owner probe');await unlink(socket);}
+}
 export async function startControl(){
  const socket=process.env.KILO_CONTROL_SOCKET!,grantFile=process.env.KILO_CONTROL_GRANTS!;
  const terminalViews=new Map<string,{operationId:string;workspace:string;address:Address;identity:string}>();
@@ -97,5 +106,6 @@ export async function startControl(){
    res.writeHead(200,{'content-type':'application/json'});res.end(JSON.stringify({identity:grant.identity,result}));
   }catch(e){stop?.();if(res.headersSent){res.destroy();return;}res.writeHead(e instanceof ControlError?e.status:500,{'content-type':'application/json'});res.end(JSON.stringify({error:e instanceof Error?e.message:String(e)}));}
  });
+ await prepareControlSocket(socket);
  await new Promise<void>((yes,no)=>server.once('error',no).listen(socket,yes));await chmod(socket,0o600);console.log(JSON.stringify({event:'kilo_control_listening',socket}));return server;
 }
