@@ -2,4 +2,10 @@
 set -eu
 script=$(realpath -- "$0")
 root=$(CDPATH= cd -- "$(dirname -- "$script")/.." && pwd -P)
-exec node --import "$root/node_modules/tsx/dist/loader.mjs" "$root/operational-node/control-cli.ts" "$@"
+config=${KILO_DEV_CONFIG:-${XDG_CONFIG_HOME:-$HOME/.config}/kilo/operational-node.env}
+if [ -r "$config" ]; then . "$config"; fi
+case "${1:-}" in
+  factory) entry="$root/operational-node/cli.ts" ;;
+  *) entry="$root/operational-node/control-cli.ts" ;;
+esac
+exec node --import "$root/node_modules/tsx/dist/loader.mjs" "$entry" "$@"

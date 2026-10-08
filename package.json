@@ -16,7 +16,9 @@
     "node:demo": "tsx operational-node/demo.ts",
     "test:demo": "tsx operational-node/test/demo.test.ts",
     "node:control": "tsx operational-node/control-cli.ts",
-    "test:control": "tsx operational-node/test/control.test.ts && tsx operational-node/test/control-ergonomics.test.ts"
+    "test:control": "tsx operational-node/test/control.test.ts && tsx operational-node/test/control-ergonomics.test.ts",
+    "test:completion": "tsx operational-node/test/completion.test.ts",
+    "test:interactive-debug": "tsx operational-node/test/factory.test.ts && tsx operational-node/test/interactive-debug.test.ts && tsx operational-node/test/pty-resize.test.ts"
   },
   "dependencies": {
     "@restatedev/restate-sdk": "1.17.2",

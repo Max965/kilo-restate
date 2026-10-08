@@ -7,14 +7,19 @@ import { OperationWorkflow } from './restate/service.ts';
 import { assertOperationId, type OperationRequest } from './contract.ts';
 import { validatePiConfiguration } from './daily-driver.ts';
 import {factorySpec,factoryAdmissionHash} from './factory.ts';
+import {factoryInteractive} from './control-cli.ts';
 
 export async function command(args: string[]): Promise<unknown> {
-  const [action, identity, ...rest] = args;
+  const [action,...values] = args;
+  const flagCount=values.filter(value=>value==='--interactive').length,interactive=action==='factory'&&flagCount===1;
+  const [identity,...rest]=values.filter(value=>value!=='--interactive');
   const ingress = connect({ url: process.env.RESTATE_INGRESS ?? 'http://127.0.0.1:8180' });
   if (action === 'start' || action === 'factory') {
-    if (!identity || rest.length) throw new Error('usage: start contract.json');
+    if (!identity || rest.length || flagCount>1 || (flagCount===1&&!interactive)) throw new Error('usage: factory [--interactive] work-package.json | start contract.json');
     const raw = JSON.parse(await readFile(identity, 'utf8'));
+    if(interactive){if(raw.REALIZATION&&raw.REALIZATION!=='INTERACTIVE_DEBUG')throw new Error('work-package REALIZATION conflicts with --interactive');raw.REALIZATION='INTERACTIVE_DEBUG';await factoryInteractive(raw);return;}
     const spec = action==='factory'?await factorySpec(raw):raw;
+    if(spec.workContract?.REALIZATION==='INTERACTIVE_DEBUG')throw new Error('INTERACTIVE_DEBUG requires: factory --interactive work-package.json');
     if (!spec || typeof spec !== 'object' || !spec.workContract || typeof spec.workspace !== 'string') throw new Error('contract requires workContract and workspace');
     const operationId = spec.operationId ? assertOperationId(spec.operationId) : `daily-${randomUUID()}`;
     const request: OperationRequest = {
@@ -56,6 +61,6 @@ export async function command(args: string[]): Promise<unknown> {
   throw new Error(`unknown command ${action}`);
 }
 if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
-  try { console.log(JSON.stringify(await command(process.argv.slice(2)), null, 2)); }
+  try { const result=await command(process.argv.slice(2));if(result!==undefined)console.log(JSON.stringify(result,null,2)); }
   catch (error) { console.error(JSON.stringify({ error: error instanceof Error ? error.message : String(error) })); process.exitCode = 1; }
 }

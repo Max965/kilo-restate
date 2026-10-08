@@ -32,6 +32,7 @@ export interface OperationRequest {
   workContract?: Record<string, unknown>;
   /** Optional semantic address, persisted in existing workflow state (no registry store). */
   controlAddress?: import('./control-policy.ts').Address;
+  terminalSize?: { rows: number; columns: number };
 }
 
 export interface ActorOutcome {
@@ -49,6 +50,7 @@ export interface OperationResult {
   failure?: string;
   workReport?: WorkReport;
   reportError?: string;
+  completion?: import('./operational-profile.ts').CompletionReply;
 }
 
 export interface EffectIdentity {

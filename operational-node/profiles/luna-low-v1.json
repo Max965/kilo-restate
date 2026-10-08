@@ -1,0 +1,24 @@
+{
+  "name": "luna-low-v1",
+  "version": 1,
+  "ingress": {
+    "maxGoalCharacters": 6000,
+    "maxWorkCharacters": 6000,
+    "tools": ["read", "bash"]
+  },
+  "pi": {
+    "provider": "openai-codex",
+    "model": "gpt-6-luna",
+    "settings": {
+      "agentDir": "/home/miles/.local/state/kilo-control/profiles/commissioning-luna-low",
+      "extensions": ["/home/miles/repos/agent-harnesses/kilo-restate/operational-node/control-debug.ts"],
+      "thinking": "low"
+    }
+  },
+  "egress": {
+    "maxSubmissions": 3,
+    "timeoutMs": 900000,
+    "checks": [{"path": "operational-node/control-policy.ts", "contains": "authorize"}]
+  },
+  "return": "cli-and-control"
+}

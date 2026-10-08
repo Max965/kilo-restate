@@ -11,7 +11,7 @@ import {
   type ToolEffectRequest,
 } from "../../contract.ts";
 import { OperationEvents } from "../../restate/events.ts";
-import { ChildRelay, OperationGate, ToolEffect } from "../../restate/service.ts";
+import { ChildRelay, OperationGate, ToolEffect, Completion } from "../../restate/service.ts";
 import { pathToFileURL, fileURLToPath } from "node:url";
 
 interface ToolCallEvent {
@@ -229,7 +229,11 @@ function installNativeTool(pi: PiApi, name: "read" | "write" | "edit" | "bash", 
 }
 
 export default function (pi: PiApi): void {
+  const completionToken=process.env.KILO_COMPLETION_TOKEN;
+  const allowed=completionToken?JSON.parse(process.env.KILO_ALLOWED_TOOLS??'[]') as string[]:['read','write','edit','bash'];
+  if(completionToken)pi.registerTool({name:'submit_completion',label:'Submit completion',description:'Submit the six-field WorkReport to Kilo. Validation errors and remaining attempts return to this session. Terminal acceptance stops the actor; do not merely print a report.',parameters:Type.Object({report:Type.Any()}),async execute(toolCallId:string,input:{report:unknown},signal?:AbortSignal){const reply=await ingress.objectClient(Completion,operationId).submit({sessionId,token:completionToken,submissionId:toolCallId,report:input.report},rpc.opts({signal}));return {content:[{type:'text',text:JSON.stringify(reply)}],details:reply};}});
   pi.on("tool_call", async (event) => {
+    if(completionToken){if(event.toolName==='submit_completion')return;if(!allowed.includes(event.toolName))return {block:true,reason:'tool excluded by operational profile'};}
     if (['read','write','edit','bash'].includes(event.toolName)) {
       const owner = pi.getAllTools().find(tool => tool.name === event.toolName)?.sourceInfo.path;
       if (!owner || resolve(owner) !== resolve(fileURLToPath(import.meta.url))) {
@@ -242,12 +246,12 @@ export default function (pi: PiApi): void {
   pi.on("agent_start", () => { void append({ type: "agent_start" }); });
   pi.on("agent_settled", () => { void append({ type: "agent_settled" }); });
 
-  installNativeTool(pi, "read", factories.createReadToolDefinition(cwd));
-  installNativeTool(pi, "write", factories.createWriteToolDefinition(cwd));
-  installNativeTool(pi, "edit", factories.createEditToolDefinition(cwd));
-  installNativeTool(pi, "bash", factories.createBashToolDefinition(cwd));
+  if(allowed.includes('read'))installNativeTool(pi, "read", factories.createReadToolDefinition(cwd));
+  if(allowed.includes('write'))installNativeTool(pi, "write", factories.createWriteToolDefinition(cwd));
+  if(allowed.includes('edit'))installNativeTool(pi, "edit", factories.createEditToolDefinition(cwd));
+  if(allowed.includes('bash'))installNativeTool(pi, "bash", factories.createBashToolDefinition(cwd));
 
-  pi.registerTool({
+  if(!completionToken)pi.registerTool({
     name: "spawn_child",
     label: "spawn child operation",
     description: "Start one bounded child operational-node request through Restate.",

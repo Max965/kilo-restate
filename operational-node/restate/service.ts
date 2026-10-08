@@ -26,6 +26,7 @@ import { verifyWorkResult, validatePiConfiguration } from '../daily-driver.ts';
 import { OperationEvents } from "./events.ts";
 import {factoryAdmissionHash} from '../factory.ts';
 import { validateAddress, type Address } from '../control-policy.ts';
+import {validateOperationalProfile,submitReport,reportErrors,machineReport,type OperationalProfile,type CompletionState,type CompletionReply} from '../operational-profile.ts';
 
 const CANCEL_SIGNAL = "kilo-cancel";
 const CHILD_SIGNAL = "kilo-child";
@@ -41,6 +42,8 @@ interface StoredOperation {
   address?: Address;
   factoryWorkspace?: string;
   factoryAdmissionHash?: string;
+  effectiveProfile?: OperationalProfile;
+  completionToken?: string;
 }
 
 async function newEvent(ctx: restate.Context, operationId: string, invocationId: string, type: string, payload?: Record<string, unknown>): Promise<OperationEvent> {
@@ -78,6 +81,7 @@ function validateInput(input: OperationRequest, key: string): OperationRequest {
   if (input.pi) validatePiConfiguration(input.pi);
   if (input.controlAddress) { validateAddress(input.controlAddress); if (input.controlAddress.workspace !== input.workspace) throw new restate.TerminalError('control address/workspace mismatch'); }
   if (input.workContract && (typeof input.workContract !== 'object' || Array.isArray(input.workContract) || JSON.stringify(input.workContract).length > 16000)) throw new restate.TerminalError('workContract must be an object no larger than 16000 characters');
+  const realization=input.workContract?.REALIZATION;if(realization!==undefined&&!['HEADLESS','INTERACTIVE_DEBUG'].includes(String(realization)))throw new restate.TerminalError('unsupported Pi realization');if(realization==='INTERACTIVE_DEBUG'&&(input.workContract?.FACTORY_DEV_POLICY!=='factory-dev-v0'||!input.controlAddress))throw new restate.TerminalError('INTERACTIVE_DEBUG requires the existing Factory DEV route and semantic address');
   return { ...input, driverId: "pi" };
 }
 
@@ -277,8 +281,35 @@ export const ChildRelay = restate.service({
   },
 });
 
+export const Completion = restate.object({name:'KiloCompletion',handlers:{
+ terminal:async(ctx:restate.ObjectContext):Promise<CompletionReply|null> => (await ctx.get<CompletionState>('completion'))?.terminal??null,
+ close:async(ctx:restate.ObjectContext,request:{sessionId:string;token:string;failure:string}):Promise<CompletionReply>=>{
+  if(!request||typeof request.failure!=='string'||!request.failure||request.failure.length>16000)throw new restate.TerminalError('bounded machine failure required');
+  const scope=await ctx.workflowClient(OperationWorkflow,ctx.key).completionScope(request);
+  const state=await ctx.get<CompletionState>('completion')??{sessionId:request.sessionId,token:request.token,maximum:scope.profile.egress.maxSubmissions,count:0,submissions:{}};
+  if(!state.terminal){state.terminal={report:machineReport('Operation completion',request.failure),errors:[request.failure],remaining:state.maximum-state.count,terminal:true,status:'failed',failure:request.failure};ctx.set('completion',state);}return state.terminal;
+ },
+ submit:async(ctx:restate.ObjectContext,request:{sessionId:string;token:string;submissionId:string;report:unknown}):Promise<CompletionReply>=>{
+  if(!request||typeof request.sessionId!=='string'||typeof request.token!=='string'||typeof request.submissionId!=='string')throw new restate.TerminalError('completion session/token/submissionId required');
+  const scope=await ctx.workflowClient(OperationWorkflow,ctx.key).completionScope({sessionId:request.sessionId,token:request.token});
+  let state=await ctx.get<CompletionState>('completion');
+  if(!state)state={sessionId:request.sessionId,token:request.token,maximum:scope.profile.egress.maxSubmissions,count:0,submissions:{}};
+  const duplicate=Object.hasOwn(state.submissions,request.submissionId);
+  if(!duplicate&&!scope.active)throw new restate.TerminalError('operation not active');
+  let errors:string[]=[];
+  if(!duplicate&&!reportErrors(request.report).length&&(request.report as any).RESULT==='ACHIEVED')errors=await ctx.run('acceptance-checks',async()=>{
+   const failures:string[]=[];for(const check of scope.profile.egress.checks){try{const file=await safePath(scope.workspace,check.path);const stat=await fsStat(file);if(!stat.isFile()||stat.size>1048576)throw Error('regular file <=1MiB required');if(check.contains!==undefined&&!(await fsReadFile(file,'utf8')).includes(check.contains))throw Error('required content not found');}catch(error){failures.push('acceptance '+check.path+': '+String(error));}}return failures;
+  });
+  const alreadyTerminal=!!state.terminal;
+  let reply:CompletionReply;try{reply=submitReport(state,request,errors);}catch(error){throw new restate.TerminalError(String(error));}if(!duplicate)reply.acceptance={configured:scope.profile.egress.checks.length,evaluated:!reportErrors(request.report).length&&(request.report as any).RESULT==='ACHIEVED',errors};ctx.set('completion',state);
+  if(reply.terminal&&!alreadyTerminal)ctx.invocation(restate.InvocationIdParser.fromString(scope.invocationId)).signal('kilo-completion').resolve(reply);
+  return reply;
+ }
+}});
+
 export const OperationWorkflow = restate.workflow({
   name: "KiloPiOperation",
+  options: { inactivityTimeout: 86_400_000, abortTimeout: 60_000 },
   handlers: {
     run: async (ctx: restate.WorkflowContext, rawRequest: OperationRequest): Promise<OperationResult> => {
       const request = validateInput(rawRequest, ctx.key);
@@ -297,7 +328,10 @@ export const OperationWorkflow = restate.workflow({
       const sessionRoot = resolve(process.env.KILO_PI_SESSION_ROOT ?? join(tmpdir(), "kilo-pi-operational-node"));
       const sessionDir = join(sessionRoot, request.operationId);
       const canonicalWorkspace = await ctx.run("validate-workspace", () => workspacePath(request.workspace));
-      const running: StoredOperation = { status: "running", identity, invocationId, childIds: existing?.childIds ?? [], ...(request.controlAddress ? { address: { ...request.controlAddress, workspace: canonicalWorkspace } } : {}) };
+      const profile=request.workContract?.OPERATIONAL_PROFILE?validateOperationalProfile(request.workContract.OPERATIONAL_PROFILE):undefined;
+      if(profile&&request.workContract?.FACTORY_DEV_POLICY!=='factory-dev-v0')throw new restate.TerminalError('operational profiles require Factory admission');
+      const completionToken=profile?ctx.rand.uuidv4():undefined;
+      const running: StoredOperation = { ...(profile?{effectiveProfile:profile,completionToken}:{}),status: "running", identity, invocationId, childIds: existing?.childIds ?? [], ...(request.controlAddress ? { address: { ...request.controlAddress, workspace: canonicalWorkspace } } : {}) };
       if(request.workContract?.FACTORY_DEV_POLICY==='factory-dev-v0'){
         if(process.env.KILO_FACTORY_DEV_POLICY!=='1'||!request.workContract.FACTORY_IDENTITY)throw new restate.TerminalError('Factory DEV policy not admitted');
         running.factoryWorkspace=canonicalWorkspace;running.factoryAdmissionHash=factoryAdmissionHash(request);
@@ -311,10 +345,11 @@ export const OperationWorkflow = restate.workflow({
       const abortController = new AbortController();
       const cancellation = ctx.signal<{ requestedBy: string }>(CANCEL_SIGNAL);
       const childRequest = ctx.signal<ChildRelayMessage>(CHILD_SIGNAL);
-      const driverInput = { ...request, workspace: canonicalWorkspace, invocationId, sessionId, sessionDir };
+      const interactive=request.workContract?.REALIZATION==='INTERACTIVE_DEBUG';
+      const driverInput = { ...request, workspace: canonicalWorkspace, invocationId, sessionId, sessionDir, completionToken };
       const driverRun = ctx.run("ordinary-pi-rpc-turn", () => runPi(driverInput, abortController.signal), {
-        maxRetryAttempts: OPERATION_RETRIES,
-        maxRetryDuration: 120_000,
+        maxRetryAttempts: profile?1:OPERATION_RETRIES,
+        ...(interactive?{}:{maxRetryDuration:120_000}),
         initialRetryInterval: 250,
       });
       const driverOutcome = driverRun.map((result, failure) => failure
@@ -322,7 +357,21 @@ export const OperationWorkflow = restate.workflow({
         : { type: "settled" as const, result: result! });
       const cancellationOutcome = cancellation.map((value) => ({ type: "cancel" as const, value }));
       const childOutcome = childRequest.map((value) => ({ type: "child" as const, value }));
-      const outcome = await restate.RestatePromise.race([driverOutcome, cancellationOutcome, childOutcome]);
+      if(profile){
+       const completionOutcome=ctx.signal<CompletionReply>('kilo-completion').map(value=>({type:'completion' as const,value}));
+       const timeout=ctx.sleep(profile.egress.timeoutMs).map(()=>({type:'timeout' as const}));
+       const done=await restate.RestatePromise.race([driverOutcome,cancellationOutcome,completionOutcome,timeout]);
+       abortController.abort();const actor=await driverOutcome;
+       let reply=done.type==='completion'?done.value:undefined;
+       // A committed submission wins even if the native actor exits before its signal is observed.
+       if(!reply)reply=await ctx.objectClient(Completion,ctx.key).close({sessionId,token:completionToken!,failure:done.type==='timeout'?'Completion timeout':done.type==='cancel'?'Operation cancelled':'Actor disappeared without submit_completion'});
+       const failure=reply?.failure??(!reply?(done.type==='timeout'?'Completion timeout':done.type==='cancel'?'Operation cancelled':'Actor disappeared without submit_completion'):undefined);
+       const report=reply&&!reply.errors.length?reply.report:machineReport(String(request.workContract?.GOAL??''),failure??'Completion failed');
+       const result:OperationResult={status:reply?.status??'failed',identity:{...identity,...(actor.type==='settled'?{sessionFile:actor.result.sessionFile}:{})},piSettlement:actor.type==='settled'?actor.result.settlement:'failed',output:JSON.stringify(report),workReport:report as any,...(reply?{completion:reply}:{}),...(failure?{failure}:{}),actorOutcome:actor.type==='settled'?actor.result.actorOutcome:{kind:'error',reason:actor.error}};
+       ctx.set('state',{...running,status:result.status,identity:result.identity,result});
+       await appendEvent(ctx,newEvent(ctx,request.operationId,invocationId,result.status==='completed'?'operation_settled':'operation_failed',{sessionId,status:result.status,failure:result.failure,effectiveProfile:profile}));return result;
+      }
+      const outcome=await restate.RestatePromise.race([driverOutcome,cancellationOutcome,childOutcome]);
 
       if (outcome.type === "child") {
         const childId = makeChildOperationId(request.operationId, outcome.value.toolCallId);
@@ -356,7 +405,7 @@ export const OperationWorkflow = restate.workflow({
           ctx.rejectAwakeable(outcome.value.replyAwakeableId, String(error));
           throw error;
         }
-        const afterChild = await restate.RestatePromise.race([driverOutcome, cancellationOutcome]);
+        const afterChild=await restate.RestatePromise.race([driverOutcome,cancellationOutcome]);
         if (afterChild.type === "cancel") {
           abortController.abort();
           try {
@@ -437,6 +486,9 @@ export const OperationWorkflow = restate.workflow({
       }));
       return result;
     },
+    completionScope:async(ctx:restate.WorkflowSharedContext,request:{sessionId:string;token:string}):Promise<{active:boolean;profile:OperationalProfile;workspace:string;invocationId:string}>=>{
+     const state=await ctx.get<StoredOperation>('state');if(!state?.effectiveProfile||!request?.token||request.token!==state.completionToken||request.sessionId!==state.identity.sessionId)throw new restate.TerminalError('completion capability denied');return {active:state.status==='running',profile:state.effectiveProfile,workspace:state.factoryWorkspace!,invocationId:state.invocationId};
+    },
     steer: async (ctx: restate.WorkflowSharedContext, request: { message: string }): Promise<unknown> => {
       if (!request || typeof request.message !== 'string' || request.message.length < 1 || request.message.length > 16000) throw new restate.TerminalError('steer message must be 1-16000 characters');
       const state = await ctx.get<StoredOperation>('state');
@@ -464,6 +516,7 @@ export const OperationWorkflow = restate.workflow({
       address?: Address;
       factoryWorkspace?: string;
       factoryAdmissionHash?: string;
+      effectiveProfile?: OperationalProfile;
     }> => {
       const state = await ctx.get<StoredOperation>("state");
       const events = await ctx.objectClient(OperationEvents, ctx.key).events();
@@ -474,6 +527,7 @@ export const OperationWorkflow = restate.workflow({
         ...(state?.address ? { address: state.address } : {}),
         ...(state?.factoryWorkspace?{factoryWorkspace:state.factoryWorkspace,factoryAdmissionHash:state.factoryAdmissionHash}:{}),
         ...(state?.result ? { result: state.result } : {}),
+        ...(state?.effectiveProfile?{effectiveProfile:state.effectiveProfile}:{}),
         childIds: state?.childIds ?? [],
         events,
       };
@@ -481,7 +535,7 @@ export const OperationWorkflow = restate.workflow({
   },
 });
 
-export const operationalNodeServices = [OperationWorkflow, OperationGate, ToolEffect, ChildRelay, OperationEvents] as const;
+export const operationalNodeServices = [OperationWorkflow, OperationGate, ToolEffect, ChildRelay, OperationEvents, Completion] as const;
 
 if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
   const port = Number(process.env.PORT ?? 19083);
